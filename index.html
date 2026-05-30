@@ -623,6 +623,8 @@ select.field-input{cursor:pointer}
 </div>
 
 
+</div>
+
 <!-- TAB: LICENSING -->
 <div id="tab-licensing" class="tab-panel">
   <div class="section">
@@ -709,7 +711,7 @@ select.field-input{cursor:pointer}
     </div>
     <div class="callout c-amber">
       <strong>&#128231; SUBMIT PASSING RESULTS HERE</strong>
-      Once you pass your exam, immediately submit your results to <strong>LNAgentConcierge@Globe.Life</strong> or call/text <strong>469-317-0281</strong> to trigger your scholarship reimbursement.
+      Once you pass your exam, immediately submit your results to your manager and <strong>LNAgentConcierge@Globe.Life</strong> or call/text <strong>469-317-0281</strong> to trigger your scholarship reimbursement.
     </div>
   </div>
 </div>
@@ -753,7 +755,7 @@ select.field-input{cursor:pointer}
       <li><input type="checkbox" id="t1"><label for="t1">Take 10&ndash;15 minutes each morning to study rebuttals, policies, and enrollment procedures</label></li>
       <li><input type="checkbox" id="t2"><label for="t2">Keep a notes log: agent #, agency #, office #, email prompts, and training references</label></li>
       <li><input type="checkbox" id="t3"><label for="t3">Record all practice presentations and upload with screenshots to Presentation Recording Turn-In in TNT</label></li>
-      <li><input type="checkbox" id="t4"><label for="t4">Never sign applications during practice &mdash; always use "Start Presentation No Lead"</label></li>
+      <li><input type="checkbox" id="t4"><label for="t4">Never sign applications during practice &mdash; during practice, always use "Start Presentation No Lead"</label></li>
       <li><input type="checkbox" id="t5"><label for="t5">Complete 1&ndash;2 TNT chapters per day to stay on track</label></li>
       <li><input type="checkbox" id="t6"><label for="t6">Aim for 200+ activity actions per week in your first 3 months</label></li>
       <li><input type="checkbox" id="t7"><label for="t7">Use Horne's Call Clinic on Discord for call clinic practice sessions</label></li>
@@ -1254,15 +1256,21 @@ function syncEpic(){
   if(ceu)ceu.value=eu;
 }
 function showTab(name,btn){
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  const panel=document.getElementById('tab-'+name);
-  if(panel){panel.classList.add('active');}
-  if(btn){btn.classList.add('active');}
-}
-  if(btn){btn.classList.add('active');}
-}
-  if(btn){btn.classList.add('active');}
+  document.querySelectorAll('.tab-panel').forEach(function(panel){
+    panel.classList.remove('active');
+  });
+  document.querySelectorAll('.tab').forEach(function(tab){
+    tab.classList.remove('active');
+  });
+  var target = document.getElementById('tab-' + name);
+  if (target) {
+    target.classList.add('active');
+  } else {
+    console.error('Missing tab panel:', 'tab-' + name);
+  }
+  if (btn) {
+    btn.classList.add('active');
+  }
 }
 function updateState(){
   const state=document.getElementById('agentState').value;
