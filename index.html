@@ -1409,7 +1409,7 @@ async function saveAgent() {
       workEmail: document.getElementById('workEmail')?.value || '',
       discordUser: document.getElementById('discordUser')?.value || '',
       agentPhone: document.getElementById('agentPhone')?.value || ''
-    }
+    }, 
   };
 
   const { error } = await supabaseClient
