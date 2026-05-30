@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Globe Life – New Agent Operating Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d2b4e;--blue:#1a5fa0;--blue-lt:#deeaf8;--green:#1e7a4a;--green-lt:#e4f5ec;--green-mid:#0f6e3e;--amber:#92460a;--amber-lt:#fef3e2;--purple:#5b1a8a;--purple-lt:#f3e8fd;--teal:#0a5c47;--teal-lt:#e0f5ee;--coral:#c0392b;--coral-lt:#fdecea;--gold:#c8961a;--gold-lt:#fef9ec;--border:#dde2ea;--text:#1a1f2e;--muted:#64748b;--bg:#f7f8fa;--white:#ffffff;--shadow:0 1px 4px rgba(0,0,0,0.07)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
+a{color:var(--blue)}
+@media print{body{background:#fff;font-size:11px}.no-print{display:none!important}.tab-panel{display:block!important;page-break-inside:avoid}.tab-panel+.tab-panel{page-break-before:always}.section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+.wrapper{max-width:820px;margin:0 auto;padding:1.5rem 1rem 4rem}
+.hero{background:var(--navy);border-radius:12px;padding:1.75rem 2rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:1.25rem;color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.hero-logo{width:50px;height:50px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#fff;flex-shrink:0;font-family:'DM Mono',monospace}
+.hero-text h1{font-family:'DM Serif Display',serif;font-size:20px;color:#fff;margin-bottom:2px}
+.hero-text p{font-size:12px;color:#8aa4c8}
+.hero-agent{margin-left:auto;text-align:right;flex-shrink:0}
+.hero-agent-name{font-size:17px;font-weight:600;color:#fff;min-width:140px}
+.hero-agent-num{font-size:11px;color:var(--gold);font-family:'DM Mono',monospace;margin-top:2px}
+.hero-agent-start{font-size:11px;color:#8aa4c8;margin-top:2px}
+.manager-banner{background:var(--amber-lt);border:1.5px solid var(--amber);border-radius:10px;padding:10px 16px;margin-bottom:1.25rem;font-size:12.5px;color:var(--amber);display:flex;align-items:center;gap:8px}
+.manager-banner strong{font-weight:600}
+.tab-bar{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap}
+.tab{padding:7px 14px;border-radius:20px;font-size:12.5px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:500;transition:all .15s;white-space:nowrap}
+.tab:hover{border-color:var(--blue);color:var(--blue)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.section{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1.5rem;margin-bottom:1rem;box-shadow:var(--shadow)}
+.section-header{display:flex;align-items:center;gap:9px;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.section-icon{width:28px;height:28px;border-radius:7px;background:var(--green-lt);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.section-header h2{font-size:15px;font-weight:600;color:var(--navy)}
+.section-sub{font-size:11px;color:var(--muted);margin-left:auto}
+.field-grid{display:grid;gap:10px;margin-bottom:10px}
+.field-grid.g2{grid-template-columns:1fr 1fr}.field-grid.g3{grid-template-columns:1fr 1fr 1fr}.field-grid.g1{grid-template-columns:1fr}
+.field-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.field-input{width:100%;padding:8px 11px;font-size:13px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;transition:border-color .15s}
+.field-input:focus{outline:none;border-color:var(--green);background:var(--white)}
+select.field-input{cursor:pointer}
+.checklist{list-style:none}
+.checklist li{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.5}
+.checklist li:last-child{border-bottom:none}
+.checklist input[type=checkbox]{width:16px;height:16px;flex-shrink:0;margin-top:2px;accent-color:var(--green);cursor:pointer}
+.checklist label{cursor:pointer;flex:1;color:var(--text)}
+.checklist input[type=checkbox]:checked+label{color:var(--muted);text-decoration:line-through}
+.cl-sub{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;margin-left:6px;vertical-align:middle;text-transform:uppercase;letter-spacing:.03em}
+.pill-green{background:var(--green-lt);color:var(--green-mid)}.pill-blue{background:var(--blue-lt);color:#1a4a9e}.pill-amber{background:var(--amber-lt);color:var(--amber)}.pill-coral{background:var(--coral-lt);color:var(--coral)}.pill-purple{background:var(--purple-lt);color:var(--purple)}.pill-gold{background:var(--gold-lt);color:var(--gold)}
+.note{background:var(--green-lt);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:9px 13px;font-size:12.5px;color:var(--green-mid);margin-bottom:.75rem}
+.note strong{font-weight:600}
+.callout{border-radius:8px;padding:11px 14px;font-size:12.5px;margin-bottom:.75rem}
+.callout strong{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;margin-bottom:2px}
+.c-amber{background:var(--amber-lt);border-left:3px solid var(--amber);color:var(--amber)}.c-blue{background:var(--blue-lt);border-left:3px solid var(--blue);color:#1a3e6a}.c-green{background:var(--green-lt);border-left:3px solid var(--green);color:var(--green-mid)}
+.schol-header{border-radius:10px 10px 0 0;padding:16px 20px}
+.schol-header h3{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;margin-bottom:2px}
+.schol-header p{font-size:12px;color:rgba(255,255,255,0.7)}
+.schol-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;overflow:hidden;margin-bottom:1rem}
+.schol-col{padding:16px 18px}.schol-col:first-child{border-right:1px solid var(--border);background:var(--bg)}
+.schol-col h4{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.reimb-row{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:6px;margin-bottom:7px}
+.reimb-100{background:var(--green-lt);color:var(--green)}.reimb-50{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+.reimb-tl{font-size:14px;font-weight:600}.reimb-am{font-size:12px;font-weight:500}
+.fine{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5}
+.concierge-card{background:var(--navy);border-radius:12px;padding:24px 28px;margin-bottom:1rem;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.concierge-card h3{font-family:'DM Serif Display',serif;font-size:20px;color:#fff;margin-bottom:6px}
+.concierge-services{display:flex;flex-direction:column;gap:5px;margin-top:10px}
+.concierge-service{font-size:12px;color:rgba(255,255,255,0.75)}.concierge-service::before{content:"\2192 ";color:var(--gold);font-weight:700}
+.concierge-contact-box{background:rgba(255,255,255,0.08);border-radius:10px;padding:16px 20px;text-align:center;min-width:180px}
+.concierge-contact-box .lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:4px}
+.concierge-contact-box .val{font-size:14px;font-weight:600;color:#fff;display:block;margin-bottom:2px}
+.cal-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.cal-btn{background:var(--white);border:1.5px solid var(--border);border-radius:8px;padding:5px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text)}
+.cal-btn:hover{border-color:var(--green);color:var(--green)}
+.cal-month{font-size:15px;font-weight:600;color:var(--navy)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-dow{text-align:center;font-size:11px;font-weight:600;color:var(--muted);padding:4px 0;text-transform:uppercase;letter-spacing:.04em}
+.cal-cell{min-height:62px;border-radius:7px;border:1px solid var(--border);padding:4px;background:var(--white);font-size:11px}
+.cal-cell.dim{opacity:.3;background:var(--bg)}.cal-cell.today{border:2px solid var(--green)}
+.cal-num{font-size:11px;color:var(--muted);margin-bottom:2px;font-weight:500}
+.ev{border-radius:3px;padding:1px 4px;font-size:10px;line-height:1.4;margin-bottom:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ev-start{background:var(--navy);color:#fff}.ev-meet{background:#dbeafe;color:#1e40af}.ev-train{background:var(--green-lt);color:var(--green-mid)}.ev-tnt{background:var(--amber-lt);color:var(--amber)}.ev-exam{background:var(--coral-lt);color:var(--coral)}.ev-schol{background:var(--gold-lt);color:var(--gold)}.ev-field{background:var(--purple-lt);color:var(--purple)}.ev-custom{background:var(--blue-lt);color:var(--blue)}
+.cal-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:.75rem}
+.leg{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--muted)}
+.leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.event-add-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:1rem}
+.event-add-row .field-group{flex:1;min-width:120px}
+.study-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.study-row:last-child{border-bottom:none}
+.study-day{width:72px;flex-shrink:0;font-size:12px;font-weight:600;color:var(--navy)}
+.study-topic{flex:1;font-size:13px;color:var(--muted)}
+.study-check{flex-shrink:0;margin-top:2px;width:16px;height:16px;accent-color:var(--green);cursor:pointer}
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:.5rem}
+.course-card{border:1px solid var(--border);border-radius:8px;padding:.75rem;background:var(--bg)}
+.course-card h4{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:3px}.course-card p{font-size:11px;color:var(--muted)}.course-card .lessons{font-size:11px;font-weight:600;color:var(--green);margin-top:4px}
+.rebuttal{border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:.75rem}
+.rebuttal-q{font-weight:600;font-size:13px;color:var(--green-mid);margin-bottom:6px}.rebuttal-a{font-size:13px;line-height:1.65;color:var(--muted)}
+.cert-section-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:1.25rem 0 .5rem;padding-bottom:4px;border-bottom:2px solid var(--border)}
+.cert-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
+.cert-row:last-child{border-bottom:none}
+.cert-check{width:16px;height:16px;flex-shrink:0;margin-top:2px;accent-color:var(--green);cursor:pointer}
+.cert-label{flex:1}.cert-sub{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.cert-answer{width:100%;margin-top:6px;padding:6px 10px;font-size:13px;border:1.5px solid var(--border);border-radius:7px;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);resize:vertical;min-height:40px}
+.cert-answer:focus{outline:none;border-color:var(--green)}
+.cert-number{width:100%;padding:6px 10px;font-size:13px;border:1.5px solid var(--border);border-radius:7px;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text)}
+.cert-number:focus{outline:none;border-color:var(--green)}
+.sig-area{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem}
+.sig-block{padding-top:.5rem}.sig-line{border-top:2px solid var(--text);padding-top:5px;font-size:11px;color:var(--muted);margin-top:2rem}
+.progress-wrap{background:var(--border);border-radius:20px;height:6px;margin:8px 0 4px;overflow:hidden}
+.progress-bar{height:100%;background:var(--green);border-radius:20px;transition:width .3s}
+.progress-label{font-size:11px;color:var(--muted)}
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:1.25rem}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;transition:all .15s}
+.btn-primary{background:var(--navy);color:#fff}.btn-primary:hover{background:var(--blue)}
+.btn-outline{background:var(--white);color:var(--navy);border:1.5px solid var(--border)}.btn-outline:hover{border-color:var(--navy)}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green-mid)}
+
+.script-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+.script-card{border:1px solid var(--border);border-radius:10px;background:var(--white);margin-bottom:.7rem;overflow:hidden}
+.script-card summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;font-weight:600;color:var(--navy);background:var(--bg)}
+.script-card summary::-webkit-details-marker{display:none}
+.script-card[open] summary{border-bottom:1px solid var(--border);background:var(--green-lt)}
+.script-chip{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--green-mid);background:var(--white);border:1px solid var(--border);border-radius:999px;padding:2px 7px;white-space:nowrap}
+.script-body{padding:14px 16px;font-size:13px;line-height:1.75;color:var(--text)}
+.script-body strong{color:var(--navy)}
+.schol-content{display:none}.schol-content.active{display:block}
+
+.quick-hero{background:linear-gradient(135deg,var(--navy),#143b66);border-radius:12px;padding:22px 24px;color:#fff;margin-bottom:1rem;position:relative;overflow:hidden}
+.quick-hero::after{content:'';position:absolute;right:-45px;top:-45px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.06)}
+.quick-hero h2{font-family:'DM Serif Display',serif;font-size:23px;margin-bottom:6px;color:#fff}
+.quick-hero p{font-size:13px;color:rgba(255,255,255,.78);max-width:620px}
+.resource-list{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.resource-pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 10px;font-size:12px;font-weight:600;text-align:center;color:#fff}
+.qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.qr-card{border:1px solid var(--border);border-radius:11px;background:var(--white);padding:14px 15px;box-shadow:var(--shadow)}
+.qr-card h3{font-size:14px;color:var(--navy);margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.qr-card p,.qr-card li{font-size:12.5px;color:var(--muted);line-height:1.55}
+.qr-card ul{margin-left:17px;margin-top:5px}
+.qr-big{grid-column:1/-1;background:var(--green-lt);border-color:#b8e5cc}
+.qr-big h3{color:var(--green-mid)}
+.qr-contact-line{display:grid;grid-template-columns:90px 1fr;gap:8px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:12.5px}
+.qr-contact-line:last-child{border-bottom:none}
+.qr-contact-line .lbl{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.qr-contact-line .val{color:var(--text);font-weight:600}
+.qr-task{border-left:4px solid var(--blue);background:var(--bg)}
+.qr-task.refund{border-left-color:var(--amber)}
+.qr-task.signature{border-left-color:var(--purple)}
+.qr-task.bank{border-left-color:var(--green)}
+.qr-task.cod{border-left-color:var(--coral)}
+.qr-faq details{border:1px solid var(--border);border-radius:9px;background:var(--white);margin-bottom:8px;overflow:hidden}
+.qr-faq summary{cursor:pointer;padding:11px 13px;font-weight:700;color:var(--navy);background:var(--bg)}
+.qr-faq details[open] summary{background:var(--blue-lt)}
+.qr-faq div{padding:11px 13px;font-size:12.5px;color:var(--muted);line-height:1.6;border-top:1px solid var(--border)}
+
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.75rem}
+.info-card{border:1px solid var(--border);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.info-card h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.info-card p,.info-card li{font-size:12.5px;color:var(--muted);line-height:1.55}
+.info-card ul{margin-left:16px}
+.timeline{display:grid;gap:8px;margin-top:.75rem}
+.timeline-item{border:1px solid var(--border);border-radius:9px;padding:10px 12px;background:var(--bg)}
+.timeline-item strong{color:var(--navy);font-size:13px}.timeline-item span{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.contact-card{border:1px solid var(--border);border-radius:9px;padding:10px 12px;background:var(--bg)}.contact-card .lbl{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}.contact-card .val{font-size:13px;color:var(--text);font-weight:600}
+@media(max-width:700px){.wrapper{padding:1rem .75rem 3rem}.hero{flex-direction:column;align-items:flex-start}.hero-agent{margin-left:0;text-align:left}.field-grid.g2,.field-grid.g3,.schol-body,.course-grid,.sig-area,.info-grid,.contact-grid,.qr-grid,.resource-list{grid-template-columns:1fr}.concierge-card{grid-template-columns:1fr}.tab{font-size:12px;padding:7px 11px}.cal-cell{min-height:54px}.section-sub{display:none}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<div class="hero">
+  <div class="hero-logo">GL</div>
+  <div class="hero-text">
+    <h1>New Agent Operating Manual</h1>
+    <p>Globe Life &middot; Liberty National Division &middot; Nuckolls Agencies</p>
+    <p style="font-size:11px;color:#5a7fa8;margin-top:1px">Office: (417) 731-4006 &nbsp;&middot;&nbsp; 5008 N 22nd St, Ozark MO 65721</p>
+  </div>
+  <div class="hero-agent">
+    <div class="hero-agent-name" id="display-name">Agent Name</div>
+    <div class="hero-agent-num" id="display-num">Agent #&mdash;&mdash;</div>
+    <div class="hero-agent-start" id="display-start">Start date: &mdash;</div>
+    <div style="font-size:11px;color:#8aa4c8;margin-top:2px" id="display-state"></div>
+  </div>
+</div>
+
+<div class="manager-banner no-print">
+  &#9881;&#65039; <strong>Manager Setup Mode:</strong> Fill in the Start Here tab first &mdash; the packet auto-populates throughout. Then send this file to the agent to complete their checklist and track progress.
+</div>
+
+<div class="tab-bar no-print">
+  <button class="tab active" onclick="showTab('info',this)">&#128640; Start Here</button>
+  <button class="tab" onclick="showTab('quickref',this)">&#129517; Quick Reference</button>
+  <button class="tab" onclick="showTab('licensing',this)">&#128203; Licensing</button>
+  <button class="tab" onclick="showTab('setup',this)">&#9989; Setup Checklist</button>
+  <button class="tab" onclick="showTab('schedule',this)">&#128218; Training Plan</button>
+  <button class="tab" onclick="showTab('calendar',this)">&#128197; Calendar</button>
+  <button class="tab" onclick="showTab('rebuttals',this)">&#128222; Scripts</button>
+  <button class="tab" onclick="showTab('cert',this)">&#127942; Field Ready Cert</button>
+</div>
+
+<!-- TAB: START HERE -->
+<div id="tab-info" class="tab-panel active">
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128640;</div><h2>Start here: your training roadmap</h2><span class="section-sub">Manager fills in details below</span></div>
+    <div class="callout c-green">
+      <strong>&#127919; YOUR GOAL</strong>
+      This portal replaces the long onboarding email and multiple attachments. Start at the top, complete each checklist, and use the Scripts tab as your foundational playbook.
+    </div>
+    <ul class="checklist">
+      <li><input type="checkbox" id="road1"><label for="road1"><strong>1. Complete setup checklist</strong><span class="cl-sub">Create email, join Discord, verify TNT login, install required tools.</span></label></li>
+      <li><input type="checkbox" id="road2"><label for="road2"><strong>2. Complete TNT within 5 business days</strong><span class="cl-sub">Monday through Friday: one major course block per day.</span></label></li>
+      <li><input type="checkbox" id="road3"><label for="road3"><strong>3. Learn the foundational scripts</strong><span class="cl-sub">Do not improvise early. Learn the structure first, then build skill with repetition.</span></label></li>
+      <li><input type="checkbox" id="road4"><label for="road4"><strong>4. Attend call clinics and set appointments</strong><span class="cl-sub">Use the phone scripts, post appointments, and build your calendar.</span></label></li>
+      <li><input type="checkbox" id="road5"><label for="road5"><strong>5. Run presentations and complete field certification</strong><span class="cl-sub">Record practice, demonstrate readiness, and submit certification.</span></label></li>
+      <li><input type="checkbox" id="road6"><label for="road6"><strong>6. Begin independent production and leadership development</strong><span class="cl-sub">Leadership conversations come after the initial training foundation is in place.</span></label></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128467;</div><h2>Your first 30 days</h2><span class="section-sub">What happens next</span></div>
+    <div class="timeline">
+      <div class="timeline-item"><strong>Days 1&ndash;5: Get set up and complete TNT</strong><span>Complete the setup checklist, join Discord, verify TNT access, and work through the five TNT courses Monday through Friday.</span></div>
+      <div class="timeline-item"><strong>Week 2: Start call clinics</strong><span>Use the foundational phone scripts, practice out loud, begin setting appointments, and post activity in the correct Discord channels.</span></div>
+      <div class="timeline-item"><strong>Week 3: Run presentations with support</strong><span>Practice rapport, needs analysis, product flow, referrals, and closing with manager guidance.</span></div>
+      <div class="timeline-item"><strong>Week 4+: Complete field certification</strong><span>Demonstrate the required field skills, submit certification, and move toward independent production.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#9989;</div><h2>What success looks like</h2><span class="section-sub">Milestones first</span></div>
+    <div class="info-grid">
+      <div class="info-card"><h3>By the end of Week 1</h3><p>TNT completed, setup checklist completed, Discord joined, and foundational scripts reviewed.</p></div>
+      <div class="info-card"><h3>By the end of Week 2</h3><p>Attending call clinics, practicing scripts, and beginning to book appointments.</p></div>
+      <div class="info-card"><h3>By the end of Week 3</h3><p>Running presentations with support and learning how to collect referrals.</p></div>
+      <div class="info-card"><h3>By Month 1</h3><p>Field Ready Certification submitted or in progress, with consistent activity habits forming.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128222;</div><h2>Important contacts</h2><span class="section-sub">Where to go for help</span></div>
+    <div class="contact-grid">
+      <div class="contact-card"><div class="lbl">Manager</div><div class="val">Use the manager information below</div></div>
+      <div class="contact-card"><div class="lbl">Office</div><div class="val">(417) 731-4006</div></div>
+      <div class="contact-card"><div class="lbl">Agent Concierge</div><div class="val">469-317-0281<br>LNAgentConcierge@Globe.Life</div></div>
+      <div class="contact-card"><div class="lbl">Completed forms / certifications</div><div class="val">mowens@globe.life</div></div>
+      <div class="contact-card"><div class="lbl">TNT Support</div><div class="val">support@topnotchtraining.net<br>(504) 784-0333</div></div>
+      <div class="contact-card"><div class="lbl">Globe Life Help Desk</div><div class="val">askit@globe.life<br>1-888-801-3347</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128154;</div><h2>Why families buy insurance</h2><span class="section-sub">The purpose behind the script</span></div>
+    <div class="callout c-green"><strong>REMEMBER THE WHY</strong>Families do not buy insurance because they love insurance. They buy because they want protection, peace of mind, and a plan for the people they love.</div>
+    <div class="info-grid">
+      <div class="info-card"><h3>Final expense protection</h3><p>Helps prevent loved ones from being left with funeral and end-of-life costs.</p></div>
+      <div class="info-card"><h3>Income protection</h3><p>Helps a surviving spouse or family maintain their lifestyle when income stops.</p></div>
+      <div class="info-card"><h3>Mortgage protection</h3><p>Helps a family stay in their home during one of the hardest seasons of life.</p></div>
+      <div class="info-card"><h3>Children&rsquo;s future</h3><p>Helps protect children, education goals, and long-term family stability.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128161;</div><h2>What every new agent experiences</h2><span class="section-sub">This is normal</span></div>
+    <ul class="checklist">
+      <li><input type="checkbox" id="normal1"><label for="normal1">Feeling overwhelmed at first is normal.<span class="cl-sub">There is a lot to learn, but you are not expected to master everything on Day 1.</span></label></li>
+      <li><input type="checkbox" id="normal2"><label for="normal2">Nobody memorizes the scripts immediately.<span class="cl-sub">Confidence comes from repetition, roleplay, and real conversations.</span></label></li>
+      <li><input type="checkbox" id="normal3"><label for="normal3">Hearing "no" is part of the job.<span class="cl-sub">Do not take it personally. Learn, reset, and keep moving.</span></label></li>
+      <li><input type="checkbox" id="normal4"><label for="normal4">The team is here to help.<span class="cl-sub">Ask questions, attend trainings, and stay plugged into Discord.</span></label></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128100;</div><h2>Agent details</h2><span class="section-sub">Manager fills in before sending</span></div>
+    <div class="field-grid g2">
+      <div><div class="field-label">Agent first &amp; last name</div><input class="field-input" id="agentName" placeholder="First Last" oninput="syncHero()"></div>
+      <div><div class="field-label">Agent number</div><input class="field-input" id="agentNum" placeholder="e.g. 12345678" oninput="syncHero()"></div>
+    </div>
+    <div class="field-grid g2">
+      <div><div class="field-label">Start date</div><input class="field-input" type="date" id="startDate" oninput="syncHero();renderCal()"></div>
+      <div><div class="field-label">Manager name</div><input class="field-input" id="managerName" placeholder="Manager's full name" oninput="syncManagerContact()"></div>
+    </div>
+    <div class="field-grid g2">
+      <div><div class="field-label">Manager phone</div><input class="field-input" id="managerPhone" placeholder="(xxx) xxx-xxxx" oninput="syncManagerContact()"></div>
+      <div><div class="field-label">Manager email</div><input class="field-input" id="managerEmail" placeholder="manager@globe.life" oninput="syncManagerContact()"></div>
+    </div>
+    <div class="field-grid g1">
+      <div><div class="field-label">Preferred contact method</div><input class="field-input" id="managerContactMethod" placeholder="Text, Call, Email, Discord" oninput="syncManagerContact()"></div>
+    </div>
+    <div class="field-grid g2">
+      <div><div class="field-label">Agent personal email (used until work email is set up)</div><input class="field-input" id="personalEmail" placeholder="e.g. jsmith@gmail.com"></div>
+      <div><div class="field-label">Work email / libnat (once created)</div><input class="field-input" id="workEmail" placeholder="jsmith.libnat@gmail.com"></div>
+    </div>
+    <div class="field-grid g2">
+      <div><div class="field-label">Discord username</div><input class="field-input" id="discordUser" placeholder="First Last (full name)"></div>
+      <div><div class="field-label">Phone number</div><input class="field-input" id="agentPhone" placeholder="(xxx) xxx-xxxx"></div>
+    </div>
+    <div class="callout c-amber" style="margin-top:.5rem">
+      <strong>&#128231; EMAIL IMPORTANT</strong>
+      The agent should use their <strong>personal email</strong> for all communication until their work email (.libnat@gmail.com) is created. All completed forms and certifications should be emailed to <strong>mowens@globe.life</strong>.
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128272;</div><h2>EPIC credentials</h2></div>
+    <div class="note"><strong>EPIC URL:</strong> <a href="https://libertynational.my.site.com" target="_blank">libertynational.my.site.com</a> &mdash; passwords expire every 90 days.</div>
+    <div class="field-grid g2">
+      <div><div class="field-label">EPIC username (personal email from contract)</div><input class="field-input" id="epicUser" placeholder="e.g. jsmith@gmail.com" oninput="syncEpic()"></div>
+      <div><div class="field-label">Password note</div><input class="field-input" id="epicPass" placeholder="Set via Forgot Password flow"></div>
+    </div>
+    <div class="callout c-amber">
+      <strong>&#9888;&#65039; IMPORTANT</strong>
+      Your EPIC username is the <strong>personal email used when you filled out your contract/application</strong> &mdash; not your work email. Once your work email (libnat) is set up, a case must be filed inside EPIC to switch the username over. Your manager will help with this.
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128218;</div><h2>Top Notch Training (TNT)</h2></div>
+    <div class="note"><strong>TNT URL:</strong> <a href="https://topnotchtraining.lightspeedvt.com" target="_blank">topnotchtraining.lightspeedvt.com</a></div>
+    <div class="field-grid g2">
+      <div><div class="field-label">TNT username (manager assigns)</div><input class="field-input" id="tntUser" placeholder="Agent's TNT username"></div>
+      <div><div class="field-label">TNT password</div><input class="field-input" id="tntPass" value="Agency11!"></div>
+    </div>
+    <div style="margin-top:.75rem">
+      <div class="field-label" style="margin-bottom:8px">TNT completion week &mdash; goal: complete within 5 business days</div>
+      <div class="course-grid">
+        <div class="course-card"><h4>Monday &mdash; Course 1</h4><p>Introduction</p><div class="lessons">14 lessons</div></div>
+        <div class="course-card"><h4>Tuesday &mdash; Course 2</h4><p>Compensation</p><div class="lessons">10 lessons</div></div>
+        <div class="course-card"><h4>Wednesday &mdash; Course 3</h4><p>Presentation Part 1</p><div class="lessons">14 lessons</div></div>
+        <div class="course-card"><h4>Thursday &mdash; Course 4</h4><p>Presentation Part 2</p><div class="lessons">18 lessons</div></div>
+        <div class="course-card"><h4>Friday &mdash; Course 5</h4><p>Accident &amp; Health Plans</p><div class="lessons">12 lessons</div></div>
+        <div class="course-card"><h4>Practice Recording</h4><p>Manager assigned</p><div class="lessons">5 uploads min</div></div>
+      </div>
+    </div>
+    <div class="field-grid g1" style="margin-top:.75rem">
+      <div><div class="field-label">Manager notes for TNT</div><input class="field-input" id="tntNotes" placeholder="Any specific instructions or login help..."></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#127919;</div><h2>MRO weekly goals</h2><span class="section-sub">Set by manager</span></div>
+    <div class="field-grid g3">
+      <div><div class="field-label">Income / week</div><input class="field-input" id="mroIncome" placeholder="$___"></div>
+      <div><div class="field-label">Closes / week</div><input class="field-input" id="mroCloses" placeholder="___"></div>
+      <div><div class="field-label">Presentations / week</div><input class="field-input" id="mroPresos" placeholder="___"></div>
+    </div>
+    <div class="field-grid g2">
+      <div><div class="field-label">Referrals / week</div><input class="field-input" id="mroRefs" placeholder="___"></div>
+      <div><div class="field-label">Calls / week</div><input class="field-input" id="mroCalls" placeholder="___"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128241;</div><h2>Required apps</h2></div>
+    <ul class="checklist">
+      <li><input type="checkbox" id="a1"><label for="a1">Discord &mdash; team communication, meetings, call clinics<span class="pill pill-green">Required</span></label></li>
+      <li><input type="checkbox" id="a2"><label for="a2">Adobe Acrobat &mdash; document handling<span class="pill pill-green">Required</span></label></li>
+      <li><input type="checkbox" id="a3"><label for="a3">Cam Scanner &mdash; scan documents on mobile<span class="pill pill-green">Required</span></label></li>
+      <li><input type="checkbox" id="a4"><label for="a4">Consolidated eApp &mdash; Windows 10/8.1 only (32 or 64-bit), 2GB RAM min<span class="pill pill-amber">Windows only</span></label></li>
+      <li><input type="checkbox" id="a5"><label for="a5">LogMeIn Rescue &mdash; via Agent Services &rarr; Resources &rarr; Support &rarr; LogMeIn Calling Card</label></li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- TAB: QUICK REFERENCE -->
+<div id="tab-quickref" class="tab-panel">
+  <div class="quick-hero">
+    <h2>&#129517; Quick Reference</h2>
+    <p>Before you ask, check here first. This tab is designed to help you find the right answer, contact, or next step quickly.</p>
+    <div class="resource-list">
+      <div class="resource-pill">&#129517; Quick Reference</div>
+      <div class="resource-pill">&#128203; Licensing</div>
+      <div class="resource-pill">&#128222; Scripts</div>
+      <div class="resource-pill">&#128100; Your Manager</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128161;</div><h2>Before you ask</h2><span class="section-sub">Resourcefulness builds confidence</span></div>
+    <div class="callout c-green">
+      <strong>&#9989; ASKING QUESTIONS IS ENCOURAGED</strong>
+      This section is not here to stop you from asking questions. It is here to help you find answers quickly and become confident navigating the resources available to you.
+    </div>
+    <div class="qr-grid">
+      <div class="qr-card"><h3>&#129517; 1. Quick Reference</h3><p>Use this for contacts, logins, common tasks, and “where do I send this?” questions.</p></div>
+      <div class="qr-card"><h3>&#128203; 2. Licensing</h3><p>Use this for state licensing, exam scheduling, scholarship reimbursement, and Agent Concierge information.</p></div>
+      <div class="qr-card"><h3>&#128222; 3. Scripts</h3><p>Use this for foundational phone scripts, presentation flow, objections, and down-closing language.</p></div>
+      <div class="qr-card"><h3>&#128100; 4. Your Manager</h3><p>If you still need help after checking the resource tabs, reach out to your manager using the contact info below.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128222;</div><h2>Important contacts</h2><span class="section-sub">Who to contact and when</span></div>
+    <div class="qr-grid">
+      <div class="qr-card qr-big">
+        <h3>&#128100; Your Manager</h3>
+        <div class="qr-contact-line"><div class="lbl">Name</div><div class="val" id="qrManagerName">Manager name not entered yet</div></div>
+        <div class="qr-contact-line"><div class="lbl">Phone</div><div class="val" id="qrManagerPhone">Manager phone not entered yet</div></div>
+        <div class="qr-contact-line"><div class="lbl">Email</div><div class="val" id="qrManagerEmail">Manager email not entered yet</div></div>
+        <div class="qr-contact-line"><div class="lbl">Preferred</div><div class="val" id="qrManagerContact">Preferred method not entered yet</div></div>
+      </div>
+
+      <div class="qr-card">
+        <h3>&#127970; Agent Services</h3>
+        <p><strong>Phone:</strong> 1-800-405-7508<br><strong>Email:</strong> LNAgentServices@Globe.Life</p>
+        <ul>
+          <li>Agent account support</li>
+          <li>General system questions</li>
+          <li>Agent Services questions</li>
+        </ul>
+        <p style="margin-top:7px"><strong>Hours:</strong><br>Monday 7:30 AM - 5:00 PM CST<br>Tuesday-Friday 7:30 AM - 6:00 PM CST</p>
+      </div>
+
+      <div class="qr-card">
+        <h3>&#127891; Agent Concierge</h3>
+        <p><strong>Phone/Text:</strong> 469-317-0281<br><strong>Email:</strong> LNAgentConcierge@Globe.Life</p>
+        <ul>
+          <li>Licensing questions</li>
+          <li>Scholarship reimbursement</li>
+          <li>Exam support</li>
+          <li>Course completion questions</li>
+        </ul>
+      </div>
+
+      <div class="qr-card">
+        <h3>&#127970; Office</h3>
+        <p><strong>Phone:</strong> (417) 731-4006</p>
+        <p>Use for agency-level support or when directed by your manager.</p>
+      </div>
+
+      <div class="qr-card">
+        <h3>&#9989; Completed Forms / Certifications</h3>
+        <p><strong>Email:</strong> mowens@globe.life</p>
+        <p>Send completed certifications, required forms, or manager-directed documents here.</p>
+      </div>
+
+      <div class="qr-card">
+        <h3>&#128187; Globe Life Help Desk</h3>
+        <p><strong>Email:</strong> askit@globe.life<br><strong>Phone:</strong> 1-888-801-3347</p>
+        <p>Use for technical access or company help desk issues.</p>
+      </div>
+
+      <div class="qr-card">
+        <h3>&#128218; TNT Support</h3>
+        <p><strong>Email:</strong> support@topnotchtraining.net<br><strong>Phone:</strong> (504) 784-0333</p>
+        <p>Use for Top Notch Training technical problems.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#9889;</div><h2>Common tasks</h2><span class="section-sub">Operational cheat sheet</span></div>
+    <div class="qr-grid">
+      <div class="qr-card qr-task bank">
+        <h3>&#127974; Bank Verification</h3>
+        <p>When submitting bank verification, CC your manager and a Quality Manager.</p>
+        <ul>
+          <li>Becky Baxter: qmblbaxter@globe.life</li>
+          <li>Carly Marczack: qmcmmarczack@globe.life</li>
+        </ul>
+      </div>
+
+      <div class="qr-card qr-task signature">
+        <h3>&#9997; Virtual Signatures</h3>
+        <p>Anything requiring a virtual signature should include your manager and a Quality Manager.</p>
+        <ul>
+          <li>CC your manager</li>
+          <li>CC Becky or Carly</li>
+        </ul>
+      </div>
+
+      <div class="qr-card qr-task cod">
+        <h3>&#128196; COD / “I Agree” Emails</h3>
+        <p>Forward the “I agree” email, including the agent-signed COD, to:</p>
+        <p><strong>LNCODIssue@Globe.Life</strong></p>
+      </div>
+
+      <div class="qr-card qr-task refund">
+        <h3>&#128176; Refund Requests</h3>
+        <p>You need a signed letter from the client that includes:</p>
+        <ul>
+          <li>Policy number</li>
+          <li>Amount to refund</li>
+          <li>Reason they want a refund</li>
+        </ul>
+        <p style="margin-top:7px">Then email the Quality Manager and CC your manager.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section qr-faq">
+    <div class="section-header"><div class="section-icon">&#10067;</div><h2>Most common new agent questions</h2><span class="section-sub">Fast answers</span></div>
+    <details>
+      <summary>What email do I use before my work email is created?</summary>
+      <div>Use your personal email until your .libnat@gmail.com work email is created and confirmed.</div>
+    </details>
+    <details>
+      <summary>What is my EPIC username?</summary>
+      <div>Your EPIC username is the personal email used when you completed your contract/application. Once your work email is set up, your manager can help file a case to switch it.</div>
+    </details>
+    <details>
+      <summary>How long should TNT take?</summary>
+      <div>The goal is to complete TNT within 5 business days: Monday through Friday, one major course block per day.</div>
+    </details>
+    <details>
+      <summary>Where do I submit passing exam results?</summary>
+      <div>Submit passing results to Agent Concierge at LNAgentConcierge@Globe.Life or call/text 469-317-0281.</div>
+    </details>
+    <details>
+      <summary>Where do I submit completed certifications?</summary>
+      <div>Send completed certification documents to mowens@globe.life and complete the official certification form linked in the Field Ready Cert tab.</div>
+    </details>
+    <details>
+      <summary>Who do I contact if I am stuck?</summary>
+      <div>Check Quick Reference, Licensing, and Scripts first. If you still need help, reach out to your manager using the manager contact card above.</div>
+    </details>
+  </div>
+</div>
+
+
+<!-- TAB: LICENSING -->
+<div id="tab-licensing" class="tab-panel">
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128205;</div><h2>Agent state &amp; course provider</h2><span class="section-sub">Select below &mdash; packet adjusts automatically</span></div>
+    <div class="field-grid g2" style="margin-bottom:1rem">
+      <div>
+        <div class="field-label">Agent's state</div>
+        <select class="field-input" id="agentState" onchange="updateState()">
+          <option value="">- Select state -</option>
+          <option value="MO">Missouri (MO)</option>
+          <option value="IL">Illinois (IL)</option>
+        </select>
+      </div>
+      <div>
+        <div class="field-label">License type</div>
+        <select class="field-input" id="licenseType" onchange="updateState()">
+          <option value="perm">Permanent license state</option>
+          <option value="temp">Temp-to-permanent state</option>
+        </select>
+      </div>
+    </div>
+    <div id="state-details" style="display:none">
+      <div id="state-MO" style="display:none">
+        <div class="callout c-blue"><strong>&#127963; MISSOURI &mdash; TSI National</strong>TSI National virtual study: 2-day live webinar + 70 days online access. Visit <a href="https://tsinational.com" target="_blank">tsinational.com</a> to enroll. Exam via Pearson VUE (in-person only). $29 per line / $49 combined. Apply at <a href="https://nipr.com" target="_blank">nipr.com</a> &mdash; $100 + $5.60 NIPR fee. 24&ndash;48 hour wait after exam. No fingerprinting required.</div>
+        <div class="field-grid g2">
+          <div><div class="field-label">TSI National class date</div><input class="field-input" type="date" id="classDateMO" oninput="renderCal()"></div>
+          <div><div class="field-label">Pearson VUE exam target date</div><input class="field-input" type="date" id="examDateMO" oninput="renderCal()"></div>
+        </div>
+        <div class="field-grid g1"><div><div class="field-label">TSI National enrollment link (manager fills in)</div><input class="field-input" id="tsiLink" placeholder="https://tsinational.com/..."></div></div>
+      </div>
+      <div id="state-IL" style="display:none">
+        <div class="callout c-blue"><strong>&#127961; ILLINOIS &mdash; Xcel Solutions</strong>Xcel Solutions: <a href="https://xcelsolutions.com" target="_blank">xcelsolutions.com</a>. Required 7.5-hour live webinar per line (Life + Health = 2 webinars, 40 hrs total). 100% attendance mandatory &mdash; webcam on entire time. Exam via Pearson VUE (in-person). $92 per exam ($184 total). $215 application fee + fingerprinting required. 5-day mandatory wait after passing before applying via NIPR.</div>
+        <div class="callout c-amber"><strong>&#9888;&#65039; IL WEBINAR RULES</strong>Log in 5 minutes early &mdash; latecomers turned away. Webcam on 100% of the time. Must answer all polling questions. Logged off 10+ cumulative minutes = must reschedule.</div>
+        <div class="field-grid g2">
+          <div><div class="field-label">Xcel Solutions class date (Life)</div><input class="field-input" type="date" id="classDateIL" oninput="renderCal()"></div>
+          <div><div class="field-label">Pearson VUE exam target date</div><input class="field-input" type="date" id="examDateIL" oninput="renderCal()"></div>
+        </div>
+        <div class="field-grid g1"><div><div class="field-label">Xcel Solutions enrollment link (manager fills in)</div><input class="field-input" id="xcelLink" placeholder="https://xcelsolutions.com/..."></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128176;</div><h2>Scholarship program</h2><span class="section-sub">Auto-selected based on license type</span></div>
+    <div class="callout c-green">
+      <strong>&#127919; YOUR GOAL: 0&ndash;15 DAYS = 100% BACK</strong>
+      Complete coursework and pass your exam within 15 days of enrollment and Globe Life reimburses 100% of your licensing costs on your next paycheck. Every agent qualifies &mdash; permanent or temp-to-perm state.
+    </div>
+    <div id="schol-perm" class="schol-content active">
+      <div class="schol-header" style="background:var(--navy)"><h3>Program A &mdash; Permanent License States</h3><p>For agents in states that require a permanent license from the start (Missouri, Illinois)</p></div>
+      <div class="schol-body">
+        <div class="schol-col"><h4>Steps</h4><ol style="margin-left:16px;color:var(--muted);font-size:13px;line-height:1.9"><li>Enroll in coursework</li><li>Pass the exam</li></ol><p style="font-size:12px;color:var(--muted);margin-top:12px">The Concierge Department will begin reaching out after you have enrolled in the coursework.</p></div>
+        <div class="schol-col"><h4>Reimbursement schedule</h4><div class="reimb-row reimb-100"><span class="reimb-tl">0&ndash;15 Days</span><span class="reimb-am">&rarr; 100% Reimbursement</span></div><div class="reimb-row reimb-50"><span class="reimb-tl">16&ndash;30 Days</span><span class="reimb-am">&rarr; 50% Reimbursement</span></div><p class="fine">Paid on next available paycheck after submission of passing results. Reimbursement = cost of obtaining the permanent license. Test fee reimbursed for the attempt passed. Form: 39950A / LND1399501A 0326</p></div>
+      </div>
+    </div>
+    <div id="schol-temp" class="schol-content">
+      <div class="schol-header" style="background:var(--purple)"><h3>Program B &mdash; Temp-to-Permanent States</h3><p>For agents hired on a temporary license transitioning to permanent status</p></div>
+      <div class="schol-body">
+        <div class="schol-col"><h4>Steps</h4><ol style="margin-left:16px;color:var(--muted);font-size:13px;line-height:1.9"><li>Get your Temporary License</li><li>Enroll in coursework within 30 days of first submit</li><li>Pass your licensing exam</li></ol><p style="font-size:12px;color:var(--muted);margin-top:12px">The Concierge Team will begin reaching out within a week of your first submit.</p></div>
+        <div class="schol-col"><h4>Reimbursement schedule</h4><div class="reimb-row reimb-100"><span class="reimb-tl">0&ndash;15 Days</span><span class="reimb-am">&rarr; 100% Reimbursement</span></div><div class="reimb-row reimb-50"><span class="reimb-tl">16&ndash;30 Days</span><span class="reimb-am">&rarr; 50% Reimbursement</span></div><p class="fine">Must enroll within 30 days of first submit to qualify. Paid on next available paycheck. Scholarship = cost of obtaining permanent license. Test fee reimbursed for attempt passed. Form: 06741A / LND674104A 0326</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128222;</div><h2>Agent Concierge Team</h2></div>
+    <div class="concierge-card">
+      <div>
+        <h3>The Agent Concierge Team Welcomes You</h3>
+        <p style="color:rgba(255,255,255,0.5);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">Launch Your Career With Confidence</p>
+        <div class="concierge-services">
+          <span class="concierge-service">Answer questions about coursework and exam prep</span>
+          <span class="concierge-service">Put you in touch with the right contact or resource</span>
+          <span class="concierge-service">Provide exam scheduling requirements</span>
+          <span class="concierge-service">Stay in touch with updates and encouragement throughout prep</span>
+        </div>
+      </div>
+      <div class="concierge-contact-box">
+        <div class="lbl">Email</div>
+        <span class="val" style="font-size:12px">LNAgentConcierge<br>@Globe.Life</span>
+        <div class="lbl" style="margin-top:12px">Call / Text</div>
+        <span class="val">469-317-0281</span>
+      </div>
+    </div>
+    <div class="callout c-amber">
+      <strong>&#128231; SUBMIT PASSING RESULTS HERE</strong>
+      Once you pass your exam, immediately submit your results to <strong>LNAgentConcierge@Globe.Life</strong> or call/text <strong>469-317-0281</strong> to trigger your scholarship reimbursement.
+    </div>
+  </div>
+</div>
+
+<!-- TAB: SETUP CHECKLIST -->
+<div id="tab-setup" class="tab-panel">
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#9989;</div><h2>Classroom training setup</h2><span class="section-sub" id="setup-progress">0 / 10 complete</span></div>
+    <div class="progress-wrap"><div class="progress-bar" id="setup-bar" style="width:0%"></div></div>
+    <ul class="checklist" id="setup-list">
+      <li><input type="checkbox" id="s1" onchange="updateProgress()"><label for="s1">Create EPIC account &mdash; go to <a href="https://libertynational.my.site.com" target="_blank">libertynational.my.site.com</a>, click Forgot Password, enter the <strong>personal email used on your contract/application</strong><span class="pill pill-blue">Step 1</span><span class="cl-sub">This is your EPIC username until a case is filed to switch it to your work (libnat) email.</span></label></li>
+      <li><input type="checkbox" id="s2" onchange="updateProgress()"><label for="s2">Verify EPIC password: 8+ chars, 1 digit, 1 symbol (!@#$%*), 1 uppercase, 1 lowercase</label></li>
+      <li><input type="checkbox" id="s3" onchange="updateProgress()"><label for="s3">Log into libertynational.com &rarr; Agent Services and download Consolidated eApp via Resources</label></li>
+      <li><input type="checkbox" id="s4" onchange="updateProgress()"><label for="s4">Create work Gmail: [first initial][last name].libnat@gmail.com<span class="cl-sub">Example: Jamie Collins &rarr; jcollins.libnat@gmail.com (add middle initial if taken)</span></label></li>
+      <li><input type="checkbox" id="s5" onchange="updateProgress()"><label for="s5">Email your name, phone number, and work email to <strong>mowens@globe.life</strong> to be added to the Agent Roster<span class="cl-sub">Use your personal email until your work email is set up.</span></label></li>
+      <li><input type="checkbox" id="s6" onchange="updateProgress()"><label for="s6">Create Discord account &mdash; notify manager for server invite, set display name to your full first and last name</label></li>
+      <li><input type="checkbox" id="s7" onchange="updateProgress()"><label for="s7">Enroll in your pre-licensing coursework (see Licensing tab for your state's provider and enrollment link)<span class="pill pill-amber">Day 1 goal</span></label></li>
+      <li><input type="checkbox" id="s8" onchange="updateProgress()"><label for="s8">Apply for Life insurance license at <a href="https://nipr.com" target="_blank">nipr.com</a> (fill required * fields only)</label></li>
+      <li><input type="checkbox" id="s9" onchange="updateProgress()"><label for="s9">Download Adobe Acrobat, Cam Scanner, and LogMeIn Rescue Calling Card</label></li>
+      <li><input type="checkbox" id="s10" onchange="updateProgress()"><label for="s10">Log into Top Notch Training using credentials from Agent Info tab and begin Course 1<span class="pill pill-green">Let's go!</span></label></li>
+    </ul>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128222;</div><h2>Call clinic checklist</h2></div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:.75rem">Have all of these ready before each call clinic session on Discord.</p>
+    <ul class="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1">Quiet area or private office to work in</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">Laptop or computer compatible with eApps (Windows 10 or 8.1)</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">Webcam working and positioned correctly</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">Notebook and pens/pencils ready</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">Phone charger plugged in</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6">Google Calendar pulled up</label></li>
+      <li><input type="checkbox" id="c7"><label for="c7">Discord open &mdash; joined Moly's VC, video on</label></li>
+      <li><input type="checkbox" id="c8"><label for="c8">Top Notch Training workbook out and ready to follow along</label></li>
+      <li><input type="checkbox" id="c9"><label for="c9">Presentation script available for practice presentations</label></li>
+    </ul>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128161;</div><h2>Training tips</h2></div>
+    <ul class="checklist">
+      <li><input type="checkbox" id="t1"><label for="t1">Take 10&ndash;15 minutes each morning to study rebuttals, policies, and enrollment procedures</label></li>
+      <li><input type="checkbox" id="t2"><label for="t2">Keep a notes log: agent #, agency #, office #, email prompts, and training references</label></li>
+      <li><input type="checkbox" id="t3"><label for="t3">Record all practice presentations and upload with screenshots to Presentation Recording Turn-In in TNT</label></li>
+      <li><input type="checkbox" id="t4"><label for="t4">Never sign applications during practice &mdash; always use "Start Presentation No Lead"</label></li>
+      <li><input type="checkbox" id="t5"><label for="t5">Complete 1&ndash;2 TNT chapters per day to stay on track</label></li>
+      <li><input type="checkbox" id="t6"><label for="t6">Aim for 200+ activity actions per week in your first 3 months</label></li>
+      <li><input type="checkbox" id="t7"><label for="t7">Use Horne's Call Clinic on Discord for call clinic practice sessions</label></li>
+      <li><input type="checkbox" id="t8"><label for="t8">Use Atlas AI on Discord to drill calls and quiz on policy knowledge, underwriting, and rapport</label></li>
+      <li><input type="checkbox" id="t9"><label for="t9">Post appointments in Schedule chat and wins in Wins chat on Discord</label></li>
+      <li><input type="checkbox" id="t10"><label for="t10">Read books and listen to podcasts &mdash; find what motivates you through tough stretches</label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- TAB: STUDY SCHEDULE -->
+<div id="tab-schedule" class="tab-panel">
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128214;</div><h2>Pre-licensing daily study schedule</h2><span class="section-sub">Goal: pass exam in 15 days = 100% scholarship</span></div>
+    <div class="callout c-green">
+      <strong>&#128176; SCHOLARSHIP TIMELINE</strong>
+      Complete coursework and pass your exam within 15 days of enrollment = 100% reimbursement on your next paycheck. 16&ndash;30 days = 50%. Your manager checks in daily &mdash; use this schedule to stay on track.
+    </div>
+    <div id="study-rows">
+      <div class="study-row"><input type="checkbox" class="study-check" id="st1"><div class="study-day">Day 1</div><div class="study-topic"><strong>Insurance basics</strong> &mdash; risks, perils &amp; risk-sharing; Life insurance fundamentals<span class="pill pill-blue">Foundation</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st2"><div class="study-day">Day 2</div><div class="study-topic"><strong>Types of life insurance policies</strong> &mdash; Term vs. permanent coverage</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st3"><div class="study-day">Day 3</div><div class="study-topic"><strong>Policy provisions, riders &amp; options</strong> &mdash; Beneficiary rules</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st4"><div class="study-day">Day 4</div><div class="study-topic"><strong>Annuities</strong> &mdash; Types, benefits, and payment structures<span class="pill pill-amber">Key topic</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st5"><div class="study-day">Day 5</div><div class="study-topic"><strong>Group life insurance</strong> &mdash; Other forms of group coverage</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st6"><div class="study-day">Day 6</div><div class="study-topic"><strong>Health insurance fundamentals</strong> &mdash; Key concepts &amp; systems</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st7"><div class="study-day">Day 7</div><div class="study-topic"><strong>Disability income &amp; AD&amp;D</strong> &mdash; Accident coverage<span class="pill pill-green">1 week done!</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st8"><div class="study-day">Day 8</div><div class="study-topic"><strong>Managed care</strong> &mdash; HMOs, PPOs, EPOs; Provider types &amp; reimbursement</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st9"><div class="study-day">Day 9</div><div class="study-topic"><strong>Medicare, Medicaid &amp; Social Security</strong> &mdash; Government health programs<span class="pill pill-amber">Key topic</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st10"><div class="study-day">Day 10</div><div class="study-topic"><strong>State regulations &amp; ethics</strong> &mdash; State-specific insurance law</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st11"><div class="study-day">Day 11</div><div class="study-topic"><strong>Full review</strong> &mdash; Flash cards &amp; practice tests, weak-area focus</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st12"><div class="study-day">Day 12</div><div class="study-topic"><strong>Full practice exam</strong> &mdash; Timed, no notes, aim for 80%+</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st13"><div class="study-day">Day 13</div><div class="study-topic"><strong>Schedule your state exam</strong> at pearsonvue.com &mdash; light review only today<span class="pill pill-amber">Action required</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st14"><div class="study-day">Day 14</div><div class="study-topic"><strong>&#127942; EXAM DAY</strong> &mdash; Arrive early, bring valid government-issued photo ID<span class="pill pill-green">Goal: Pass!</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st15"><div class="study-day">Day 15</div><div class="study-topic"><strong>Submit passing results</strong> to Agent Concierge: LNAgentConcierge@Globe.Life or 469-317-0281 &mdash; triggers 100% scholarship reimbursement<span class="pill pill-gold">&#128176; 100% back</span></div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#127891;</div><h2>TNT 5-day completion goals</h2><span class="section-sub">Monday&ndash;Friday</span></div>
+    <ul class="checklist">
+      <li><input type="checkbox" id="tn1"><label for="tn1">Monday &mdash; Course 1: Introduction (14 lessons)<span class="pill pill-amber">Start strong</span></label></li>
+      <li><input type="checkbox" id="tn2"><label for="tn2">Tuesday &mdash; Course 2: Compensation (10 lessons)</label></li>
+      <li><input type="checkbox" id="tn3"><label for="tn3">Wednesday &mdash; Course 3: Presentation Part 1 (14 lessons)</label></li>
+      <li><input type="checkbox" id="tn4"><label for="tn4">Thursday &mdash; Course 4: Presentation Part 2 (18 lessons)</label></li>
+      <li><input type="checkbox" id="tn5"><label for="tn5">Friday &mdash; Course 5: Accident &amp; Health Plans (12 lessons)</label></li>
+      <li><input type="checkbox" id="tn6"><label for="tn6">TNT complete &mdash; workbook finished, quizzes complete, manager notified<span class="pill pill-green">Goal</span></label></li>
+    </ul>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128197;</div><h2>Recurring schedule</h2></div>
+    <ul class="checklist">
+      <li><input type="checkbox" id="r1"><label for="r1"><strong>Friday 9:30am CST</strong> &mdash; Agency team meeting on Discord (video on, every week)</label></li>
+      <li><input type="checkbox" id="r2"><label for="r2"><strong>Mon / Tue / Wed / Thu</strong> &mdash; Advanced trainings on Discord</label></li>
+      <li><input type="checkbox" id="r3"><label for="r3">Post appointments in Schedule chat on Discord after each call clinic</label></li>
+      <li><input type="checkbox" id="r4"><label for="r4">Log all calls in EPIC / Geopointe same day with notes, disposition, and follow-up dates</label></li>
+      <li><input type="checkbox" id="r5"><label for="r5">Update Google Calendar with each appointment: Client Name + Lead Type as event title</label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- TAB: CALENDAR -->
+<div id="tab-calendar" class="tab-panel">
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128197;</div><h2>Training calendar</h2><span class="section-sub">Set start date in Start Here &rarr; auto-populates</span></div>
+    <div class="event-add-row no-print">
+      <div class="field-group"><div class="field-label">Add custom event &mdash; date</div><input class="field-input" type="date" id="customDate" style="width:160px"></div>
+      <div class="field-group" style="flex:2"><div class="field-label">Event label</div><input class="field-input" id="customLabel" placeholder="e.g. 1-on-1 with manager"></div>
+      <button class="btn btn-green" onclick="addCustomEvent()">+ Add event</button>
+    </div>
+    <div class="cal-controls">
+      <button class="cal-btn" onclick="prevMonth()">&lsaquo; Prev</button>
+      <span class="cal-month" id="calTitle">&mdash;</span>
+      <button class="cal-btn" onclick="nextMonth()">Next &rsaquo;</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--navy)"></div>Start day</div>
+      <div class="leg"><div class="leg-dot ev-meet"></div>Team mtg (Fri)</div>
+      <div class="leg"><div class="leg-dot ev-train"></div>Adv. training (M&ndash;Th)</div>
+      <div class="leg"><div class="leg-dot ev-tnt"></div>TNT milestone</div>
+      <div class="leg"><div class="leg-dot ev-exam"></div>Exam target (Day 14)</div>
+      <div class="leg"><div class="leg-dot ev-schol"></div>&#128176; Scholarship deadline (Day 15)</div>
+      <div class="leg"><div class="leg-dot ev-field"></div>Field ready target (Day 35)</div>
+      <div class="leg"><div class="leg-dot ev-custom"></div>Custom event</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: SCRIPTS -->
+<div id="tab-rebuttals" class="tab-panel">
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128222;</div><h2>Scripts &amp; foundational playbook</h2><span class="section-sub">Foundation first &mdash; learn the wording</span></div>
+    <div class="callout c-blue"><strong>&#128221; TRAINING NOTE</strong>These scripts are foundational. New agents should learn the structure and wording before moving into advanced objection handling or personal style.</div>
+    <div class="script-nav no-print">
+      <button class="btn btn-outline" onclick="expandScripts(true)">Expand all</button>
+      <button class="btn btn-outline" onclick="expandScripts(false)">Collapse all</button>
+      <button class="btn btn-green" onclick="window.print()">Print / Save Scripts</button>
+    </div>
+    <div class="cert-section-label">Appointment setting scripts</div>
+    <details class="script-card" id="phone-script-1">
+      <summary><span>Lapse Script</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Hey  ________this is (Agent name) I’m calling regarding the policies you’ve had since (issue date) with Globe Life Liberty National. It looks like your policies came off bank draft. The reason for my call is find out what happened; was this something you did intentionally or was this an error on our end?<br>(Name) that is exactly why I’m calling! What time do you and your spouse get home from work?<br>If off work now run on the spot: “Since you and your spouse are off work now, I have the next thirty minutes open lets knock this out…”<br>If not off work or can’t run on the spot- “The purpose of my call is to set up this appointment for your servicing agent.<br>I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).  (Name) I just want to confirm, there is nothing you can think of that will interfere with at (appointment time), right? Perfect, talk to you tomorrow at (appointment time)!<br>*If client ask “Do I have to make pay the back premiums?” explain that back premiums can usually be waived and payment will resume this month<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
+    </details>
+    <details class="script-card" id="phone-script-2">
+      <summary><span>Worksite Lapse Script</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Hey ________ This is (AGENT NAME) with Globe Life Liberty National Division. The Agency asked that I reach out to you as soon as possible because it appears you are no longer working at [name of company]. Is that correct?<br>The policies you had with Globe Life through [name of company] are portable meaning you are able to keep some or all of those coverages directly with us.<br>The company has opened up a personal enrollment for you. It doesn’t take long, we need to review the NO-COST coverages you are entitled to as a policyholder, quickly remind you how your coverage works, and review any other available options related to you.<br>We have your address as _________, is that still correct?<br>What time do you and your spouse get home from work?<br>-If off work now run on the spot: “Since you and your spouse are off work now, I have the next thirty minutes open lets knock this out…”<br>-If not, the purpose of my call is to set up this appointment for your servicing agent.<br>I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).  (Name) I just want to confirm, there is nothing you can think of that will interfere with at (appointment time), right? Perfect, talk to you tomorrow at (appointment time)!<br>*During your enrollment period, you are entitled to some additional no-cost benefits, including the family $3000 life insurance and our new Legacy Will Kit. Do you bank locally or with an online bank? (WAIT FOR AN ANSWER) Most of the time, your bank will notarize this Legacy Will Kit just for being a valued customer.<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
+    </details>
+    <details class="script-card" id="phone-script-3">
+      <summary><span>$3000 AD Referral Script</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Hey _______ my name is ______ and I’m calling from your (Sponsor’s relationship- brother, sister, friend, etc.) life insurance company.<br>Let me explain the importance of my call! (Sponsor’s name) gave you $3,000 of insurance, the same one (name) is covered by. I promised (Sponsor’s name) that I would get this set up for you as soon as possible. For your convenience, we do that over the phone.<br>What time do you and your spouse get home from work?<br>If both are off work or single- I just finished up with a client and have 30 minutes before my next appointment. We can knock this out now…<br>If not- I’ll tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).<br>Great! (Name) to save time when I call you back at (appointment time), confirm your date for birth for me, and your spouse? How many children do you have under 18? Ok great, they are covered as well.<br>Okay (client), my schedule is packed, so if I’m saying yes to speaking with you, I am saying no to another family. Could anything prevent us from speaking on (day, date, time)? Great! I will look forward to speaking with you (and significant other) on (day) between (time) and (time)… have a wonderful day!”<br>**Solidifying the appointment is the most important part of this script!**<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
+    </details>
+    <details class="script-card" id="phone-script-4">
+      <summary><span>Policy Owner Service Script</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Hello _____ this is _____ with Globe Life Liberty National… your insurance company. Your servicing Agent asked that I call you to…well, first to introduce myself, but also to verify a couple of things. I have your address as______________. Is that still correct?<br>Ok, great…. Well, the company has a policy for “dedication to service” and asked your agent to review your account and give you a well-deserved update. It doesn’t take long, we just need to schedule a call with you and your spouse to verify your beneficiaries and quickly review what you have and how it works. Your agent actually noticed that your account was flagged for service.  It’s essential we take care of that as soon as possible.<br>“Why was it flagged?”- Usually it means you don’t have a listed contingent beneficiary, contingent owner, address, etc. This is the reason for my call.<br>Only if you have policy information- What time do you and your spouse get home from work?<br>If off work- I just finished up with a client and have a few minutes before my next appointment. Are you home right now?”<br>If YES: Let me get your file<br>If NO: I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).  Okay (client), my schedule is packed, so if I’m saying yes to speaking with you, I am saying no to another family. Could anything prevent us from speaking on (day, date, time)? Great! I will look forward to speaking with you (and significant other) on (day) between (time) and (time)… have a wonderful day!”<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
+    </details>
+    <details class="script-card" id="phone-script-5">
+      <summary><span>Rebook Script</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Hey _______! This is ______ with Globe Life Liberty National Insurance Company! I see (Agents Name) had booked an appointment with you to: (appointment type) on (date)_ at _(time)_ to _(time). I assume (agent’s name) did not take care of this because I see your file is still open, I will be addressing this with them. Did you not hear from them, or did something come up on your end? Help me understand what happened.<br>(Name) I understand sometimes things come up, but it’s important we get this taken care of. Because of the length of time this has been outstanding I will help you get this taken care of right now.<br>If not available- I understand, do me favor, if we reschedule this I need you to make sure nothing interferes with the appointment time on your end.<br>What time do you get home from work? What time does your spouse get home?<br>I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).<br>Okay (client), my schedule is packed, so if I’m saying yes to speaking with you, I am saying no to another family. Could anything prevent us from speaking on (day, date, time)? Great! I will look forward to speaking with you (and significant other) on (day) between (time) and (time)… have a wonderful day!”<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
+    </details>
+    <details class="script-card" id="phone-script-6">
+      <summary><span>Sunday Text Confirmation Template</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Hey [Client Name]! Your appointment is locked in for tomorrow, Monday at [Time]. Reply YES or “like” to confirm<br>Your Name- Globe Life</div>
+    </details>
+    <div class="cert-section-label">Presentation framework</div>
+    <details class="script-card" id="presentation-script-1">
+      <summary><span>Rapport</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">40% of the presentation is Rapport Building<br>When we get on the call, don’t start closing right away! Go slow, build rapport first.<br>Spend the first 3-5 minutes building rapport only.<br>The client must buy you first, the company second, and then products. This cannot go in other order; therefore, you must build rapport in the beginning.<br>The F.O.R.M method is a great way to begin the rapport building process. Using F.O.R.M gives you topics of conversation to discuss as you are beginning to build rapport:<br>Family: So are you from this area? Does your family live nearby? What family do you have in this area?<br>These are the people we collect as referrals later<br>Occupation: How long have you been at your job? What exactly do you do there?<br>People like to talk about the way they make their living, you must show a genuine interest in them. This also gives you an idea on household income.<br>Recreation: What do you do for fun?<br>Discovering their hobbies may give you something in common with that person. It also shows disposable income and the potential need for insurance if those hobbies are dangerous<br>Me: Any common bond you share with the client can be used to help build trust with the client, don’t talk on and on about yourself but share your commonality. Such as living in the same area, knowing the same people, or similar hobbies etc.<br>The rapport building must have a purpose so follow the F.O.R.M guideline.</div>
+    </details>
+    <details class="script-card" id="presentation-script-2">
+      <summary><span>Existing Client Introduction</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Well Nate and Julie, I’m here today to service your policy and make sure you are all up to date. Do you remember a lot about how your policy works?<br>Well then, let me start from the beginning and tell you what its all about. We here at Globe Life Liberty National like to keep in touch with our policyholders on a regular basis.<br>I’m here today to do 3 simple things:<br>Thank you for being a policyholder with our company as long as you have been by offering you some additional no-cost benefits.<br>Review your existing coverage and what it provides for you because if you’re like a lot of clients, the program sounded great when you enrolled, but a few months or years went by and now you may have completely forgotten what you have and how it works.<br>Do a new Needs Analysis to make sure your current coverage is still adequate to take care of your needs.<br>*The purpose of this introduction is to inform the client of how the presentation is going to go. There is a lot to say so get through it quickly without allowing the client to interrupt. If done correctly they will agree that they don’t remember exactly how their coverage applies to them and their situation has changed since last seen</div>
+    </details>
+    <details class="script-card" id="presentation-script-3">
+      <summary><span>Referral Introduction</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Well Nate and Julie, as I mentioned _________ (person that referred them) is a policy holder with us and as part of their benefits they could pass along ________(offer) to a select few people they care about, and you were one of those.<br>Today I’m going to do 2 simple things:<br>Get you _____(offer) that _______(person that referred them) sponsored you to receive<br>Because you are now a part of the program we will also do a Needs Analysis to make sure that any coverage you may already have in place is up to date and adequate to meet your needs.<br>*The purpose of this introduction is to inform the client of how the presentation is going to go. There is a lot to say so get through it quickly without allowing the client to interrupt.</div>
+    </details>
+    <details class="script-card" id="presentation-script-4">
+      <summary><span>Who We Are</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">This is an update on who we are. Globe Life Liberty National Division has been in business since 1900, 125 years. We currently have over 17 million policies in force, more policy holders than any other life insurance company in the U.S. The more impressive number is we have paid 300 million in claims, that just goes to show that we are committed to helping people like you in your time of need.</div>
+    </details>
+    <details class="script-card" id="presentation-script-5">
+      <summary><span>Make Tomorrow Better</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">In addition to helping a lot of families with their insurance needs we believe in helping the communities that we live and work in. “Make Tomorrow Better” is the mindset of Globe Life’s Foundation that gave over 7 million dollars back to communities in need across the US in 2024</div>
+    </details>
+    <details class="script-card" id="presentation-script-6">
+      <summary><span>Sports Partnerships</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">(Client), are you a sports fan? (This is a good place to build rapport) We are the official life insurance providers of the Dallas Cowboys and the LA Lakers. But, for us here in the Atlanta area we were excited to announce our partnership with the Atlanta Braves a few years ago. You might have noticed our logo on their dugout. We also have naming rights to Globe Life Field, home of the Texas Rangers, for the next 50 years. I say that to say, we have been protecting families for over a century and will continue to do so for generations to come</div>
+    </details>
+    <details class="script-card" id="presentation-script-7">
+      <summary><span>Accidental Death Policy</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">The next thing I wanted to talk to you about is this accidental death policy. “Since you have been a policy holder with us for so long / Since your ‘sponsor’ Referred you.” The company gave you these certificates. The way it works is it covers you and your spouse for $3,000 each and your children for $1,000. Who is primary beneficiary? Who is your contingent beneficiary? Okay, so who do you want as your emergency contact. They can’t live with you. They don’t receive any benefits, but when we need someone to reach out to, they would be our point of contact.</div>
+    </details>
+    <details class="script-card" id="presentation-script-8">
+      <summary><span>Collecting Referrals</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Are you still able to see my screen? Okay, so do you see these 10 slots with those beneficiaries and emergency contacts on there? The company has provided 10 of these certificates. It’s built up into your account over the years. The first are already filled in but if you look down and see the 6 other slots. You can sponsor up to 10 people so there are 6 remaining slots. They would also receive this benefit at no cost. Who would you like to sponsor first? Who’s next..etc..</div>
+    </details>
+    <details class="script-card" id="presentation-script-9">
+      <summary><span>Tie-Down</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">If you look at my screen again, you can see we have them listed here on the left. Go ahead and take a screenshot of their names and number so you can reach out to them and let them know that I will be contacting them to issue them the no cost benefit. I must reach out to them to issue this policy, again at no cost. *It’s important that the client understands that exactly how the policy works for them and the people they are sponsoring, be extremely clear</div>
+    </details>
+    <details class="script-card" id="presentation-script-10">
+      <summary><span>Letter of Thanks</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Nate and Julie, this is a brief letter of thanks which explains the purpose of my call today. Nothing we will discuss today is in competition with anything you already have in place or have through your job. This basically says that after I show you the benefits, explain to you how they work and answer all of your questions, you will give us a simple yes or no.<br>In other words, we anticipate that these benefits will make sense to you. If so, go ahead and take advantage of them TODAY, and if not, I will still be issuing you the no cost accidental death policy.<br>In my experience, every person I see has a different need and want when it comes to insuring their individual or family needs. What is right for you may not be right for the person I just met with, or the one that I will meet with after you.</div>
+    </details>
+    <details class="script-card" id="presentation-script-11">
+      <summary><span>Types of Insurance</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">So as a quick review, there are two main types of life insurance. Do you know the difference between whole life and term?<br>*Regardless of the answer, still explain the difference between whole life and term<br>Whole life which is permanent coverage that is primarily used to handle your Final Expenses. Since this is a need that will never change, it is best to get your age, and rate locked in as early as possible to save you money as you get older.<br>Term life, is for a defined period in your life or for specific situations during years as you’re paying off your mortgage, securing your child’s college education, or protecting your income for your family.<br>An easy way to look at it, is whole life is like owning a home and term is like renting.<br>Throughout your life, you will typically need both types of coverage at some point. Make sense?</div>
+    </details>
+    <details class="script-card" id="presentation-script-12">
+      <summary><span>Needs Analysis</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Transition:<br>Since everyone has a different need and a different want and you have a little more knowledge about the different types of insurance, I will go ahead and ask you some questions to see exactly what you qualify for and we’ll go from there.*If an existing client fill in the information you already have<br>Monthly Income:<br>In addition to age and health one of the biggest considerations the needs analysis looks at is budget. What is your typical monthly take home pay?<br>Existing Insurance:<br>Review current coverage. Spend time here. Discuss policy type, coverage amount, beneficiaries, etc.<br>Health Questions:<br>The way you qualify for life insurance coverage is you must be in fairly good health. Some people who want the coverage can’t qualify medically so I’ll go ahead and ask you and Julie some questions about your family’s health.<br>*Make sure to ask height and weight of both spouses and children</div>
+    </details>
+    <details class="script-card" id="presentation-script-13">
+      <summary><span>Final Expense</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Nate and Julie, do you know the average cost of funeral expenses today? If no, ask them to guess. The actual cost can range between $10,000-$15,000 however, as you can see because of inflation over the next 20-30 years cost will be as high as $30,000 just like a gallon of milk or a dozen eggs. Our final expense benefit includes a Freedom of Choice Certificate. This allows your beneficiary to allocate a specific amount directly to the funeral home, making the process easier for your family. This also keeps the funeral home from knowing the total amount of coverage you have in place and possibly taking advantage of that.<br>Recap<br>As I mentioned because of inflation the recommended amount of final expense protection is $30,000, you currently do not have any coverage in place, so the recommended amount is the full $30,000. That is the amount you have been prequalified for, does that make sense?<br>Tie Down<br>Do you see how important this benefit is when something happens to you. Yes?</div>
+    </details>
+    <details class="script-card" id="presentation-script-14">
+      <summary><span>Income Protection</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">On top of taking care of the money that is needed for final expenses, another major concern is how the surviving spouse continues to pay all the bills after half or all the family income has stopped coming in. The income protection benefit puts a lump sum of money in place that the surviving spouse/kids earn a monthly draw from, if they chose. Basically, it’s just as if the bread winner’s income were still coming in which maintains the quality of life you have established for your family.<br>How would you continue to pay all of your bills when one of you is no longer here?<br>Recap<br>The recommended amount is to have at least two years of your income replaced. Nate, two years of your take home pay would be ____, you currently do not have coverage in place, therefore _____ amount is what you been prequalified for. Julie, two years of your take home pay would be ____, you currently do not have coverage in place, therefore _____ amount is what you been prequalified for. Does that make sense?<br>Tie Down<br>I’m sure you see how important this income protection would be to maintain your family’s quality of life, right?</div>
+    </details>
+    <details class="script-card" id="presentation-script-15">
+      <summary><span>Mortgage Protection</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Remember that there will be an adjustment period after the death of a breadwinner. But the most expensive bill, the mortgage, will still need to be paid. The mortgage protection benefit is simple, it will pay off the balance of the home. This benefit is important because we know if the surviving members of the family cannot afford to stay in the current home, they don’t ever move to a better one.<br>Recap<br>As you can see, we’ll provide $ (amount) of mortgage protection. This would pay off your home in the event of Nate’s death. Makes sense so far?<br>Tie Down<br>Once again, I’m sure you can see how important this protection is to allow your family to stay in their home. Right?</div>
+    </details>
+    <details class="script-card" id="presentation-script-16">
+      <summary><span>Headstart Protection</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">The last thing the program covers — and most parents say this becomes their favorite part — is the Headstart Plan. It permanently locks in whole life coverage on your child today, at the lowest rate they&#x27;ll ever qualify for. Once it&#x27;s in place, it can never be taken away, no matter what happens to their health down the road. And because it&#x27;s whole life, it builds real cash value over time that transfers directly to them as an adult. Let me show you what this looks like for (child&#x27;s name)...<br>Recap<br>You will see here that they have provided $_____ of coverage for your child. Does that make sense?<br>Tie Down<br>It probably goes without saying how important it is to (child’s name) coverage locked in, right?</div>
+    </details>
+    <details class="script-card" id="presentation-script-17">
+      <summary><span>Recap and Close</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">So to recap, we have your Final Expenses taken care of, your income is protected so their lifestyle won’t have to change, your mortgage is completely taken care of, and your child’s college education is protected as well.<br>If it all makes sense, starting as of today you’ve taken an important step needed to be properly covered, because this plan is intended to help fulfill your current needs. The only question I have is: which option works best for you?<br>Option 1, which provides all the benefits but has inflation built in for your Final Expense cost down the road.<br>Or would you prefer Option 2 that provides all the benefits and covers your Final Expenses at today’s cost?<br>Which option works best for you?</div>
+    </details>
+    <details class="script-card" id="presentation-script-18">
+      <summary><span>Other Options</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Always give the client 3 opportunities to purchase. The life insurance package is the first option, but if you are not successful in enrolling the client give them at least 2 supplemental (living benefit) options:<br>Cancer Endurance Plan<br>Cancer Lump Sum Plan<br>Critical Illness<br>Intensive Care<br>Head start Program (For Kids and Grandkids)<br>Accident Policy<br>Accident Protection Max</div>
+    </details>
+    <details class="script-card" id="presentation-script-19">
+      <summary><span>Prior To Entering The Application</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Perfect, we can complete the application now and you are covered today, that way you have peace of mind that if something happens your family is protected.<br>I’ll quickly explain our underwriting process to you, but before I do that, I’ll let you know of a couple things I’ll need that people typically don’t have memorized. One being your driver’s license number and the other being your account and routing information for the account you’d like to have this draft from.<br>Nate and Julie, one of the ways Globe Life has remained on the Wards Top 50 list every year since 1995 and pays claims so quickly is their thoroughness in the application process and underwriting policies correctly and accurately. They utilize tools like the MIB (medical information bureau), that all medical record information is reported to, and the national prescription drug database. So, what is really important is that the information you and I put on your application matches what underwriting will see on their end, does that make sense? Next, I am going to ask you a series of questions….”</div>
+    </details>
+    <details class="script-card" id="presentation-script-20">
+      <summary><span>Objections and Rebuttals</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Objection: “I need to think about it.”<br>I completely understand, after all this a big decision for your family and you have to do it right. I help a lot of families each day, and I help a lot of people think about this so they can make the best choice for their family. When folks think about it, no matter how many things they may be thinking of, it usually just comes down to one or two things; either do they need this? Or, can they afford this?<br>So let me ask you, do you feel this is something that your family needs? Do you need your funeral protected, your income protected, your mortgage paid off, and your child(ren) sent to college? Would they be able to cover that financially on their own if something were to happen to you?<br>We all need it, so sometimes it comes down to can we afford this? I don’t pretend to know any family’s financial situation, But, what would make a bigger impact in your family on the day you go, having this monthly premium in the bank, or having all of these needs taken care of? The good news is they give you two options, so if option 1 is too much, you can always start with option 2 and then add later. The important thing is to get something started now. Which option would be better for you to get started today?”<br>Objection: “I can’t afford it.”<br>Ok, I understand. Let me ask you, you understand how important this is right? So here’s what we can do: let’s adjust the Final Expense benefit to $15,000. That should help cover the cost of a funeral. Your income protection will remain the same, along with your mortgage coverage and the college education benefit. Let’s recalculate and see where we’re at. Does this make you feel better?<br>Objection: “I already have insurance.”<br>Yes, and the Needs Analysis has already taken that into consideration, and it has clearly exposed the need for more coverage. Simply put, what you currently have is good, but it’s just not enough to make sure your family is protected. And it’s a lot better to find out that your protection is too little now than when it’s too late because you can do something about it now. The last thing you’d want to do is leave your family open to serious financial strain when you are not around anymore to protect them. With either option you pick, your family is going to be protected, so which one works best?”</div>
+    </details>
+    <details class="script-card" id="presentation-script-21">
+      <summary><span>Down Closing</span><span class="script-chip">Open</span></summary>
+      <div class="script-body">Drop 1: Option 1 to Option 2<br>“Ok, I understand. Let me ask you, you understand how important this is right? So here’s what we can do: let’s adjust the Final Expense benefit to $15,000. That should help cover the cost of a funeral. Your income protection will remain the same, along with your mortgage coverage and the college education benefit. Let’s recalculate and see where we’re at. Does this make your feel better?”<br>Drop 2: $15,000 WL to $10,000 WL<br>“I know you understand how important this is so here’s what we can do: let’s adjust this Final Expense benefit to $10,000. As you recall from the video, the cost of a final expense is between $7,500 and $15,000 currently, so this will make sure you are covered right in the middle of the current cost. That should still help cover the cost of the funeral. Again your income protection will remain the same, along with your mortgage coverage and the college education benefit. Let’s recalculate and see where we’re at. Does this make you feel better?”<br>Drop 3: $10,000 WL to $7,500 WL<br>“I understand and I appreciate your concern. As you recall from the video, the basic cost of a funeral is approximately $7,500. Let’s adjust this Final Expense benefit to $7,500 and leave the rest of your coverage as is to protect your income, mortgage, and college education. Let’s recalculate and see where we’re at. Now you’ve got to be feeling better about that, right?”<br>Drop 4: Reduce Income Protection to 1 year<br>“To make sure your needs are covered, we will leave the Final Expense benefit at $7,500 and adjust your income protection from 2 years to 1 year. That way, your needs are still covered, and when things get better, you can always increase them later. Let’s recalculate and see where we’re at. I’m sure you are feeling much better about that now, right?”<br>Drop 5: Most Important<br>“Nate and Julie, if something were to happen unexpectedly, which one of these obligations do you feel you could go without for the immediate time being, knowing that we can add it on later? Wait for their answer, deselect what they say and say… This is exactly what you want? Are we good?”</div>
+    </details>
+  </div>
+</div>
+
+<!-- TAB: FIELD READY CERT -->
+<div id="tab-cert" class="tab-panel">
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#127942;</div><h2>Field trainer certification checklist</h2><span class="section-sub">Complete with your field trainer/manager</span></div>
+    <div class="note">Complete all sections below with your field trainer. Also submit the official Google Form at: <a href="https://forms.gle/Ty1M6goaDERkX32m8" target="_blank">forms.gle/Ty1M6goaDERkX32m8</a>. Email completed certification to <strong>mowens@globe.life</strong>.</div>
+
+    <div class="cert-section-label">Agent info</div>
+    <div class="field-grid g2" style="margin-bottom:.5rem">
+      <div><div class="field-label">Agent name</div><input class="field-input" id="certAgentName" placeholder="Full name"></div>
+      <div><div class="field-label">Certifying trainer / manager</div><input class="field-input" id="certTrainer" placeholder="Full name"></div>
+    </div>
+    <div class="field-grid g2" style="margin-bottom:.5rem">
+      <div><div class="field-label">EPIC username (personal email from contract)</div><input class="field-input" id="certEpicUser" placeholder="e.g. jsmith@gmail.com"></div>
+      <div><div class="field-label">Work email (libnat) &mdash; switch over after setup</div><input class="field-input" id="certWorkEmail" placeholder="jsmith.libnat@gmail.com"></div>
+    </div>
+
+    <div class="cert-section-label">EPIC</div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ep1"><div class="cert-label">Logging in to EPIC</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ep2"><div class="cert-label">Creating a lead</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ep3"><div class="cert-label">Dispositioning leads</div></div>
+    <div style="margin-top:.5rem"><div class="field-label">Any notes on being certified for EPIC?</div><textarea class="cert-answer" id="epicNotes" rows="2" placeholder="Notes..."></textarea></div>
+
+    <div class="cert-section-label">Promotion Path</div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="sa1"><div class="cert-label">Understands the activity standards expected from a full-time producing agent</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="sa2"><div class="cert-label">Understands personal production must come before coaching or training others</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="sa3"><div class="cert-label">Understands leadership development begins after the initial training foundation is complete</div></div>
+    <div style="margin-top:.5rem"><div class="field-label">What is required before moving into leadership development?</div><textarea class="cert-answer" id="promotionNotes" rows="2" placeholder="Agent's answer..."></textarea></div>
+    <div style="margin-top:.5rem"><div class="field-label">Any notes on promotion path?</div><textarea class="cert-answer" id="saNotes" rows="2" placeholder="Notes..."></textarea></div>
+
+    <div class="cert-section-label">Field Performance</div>
+    <div class="field-grid g3" style="margin-bottom:.5rem">
+      <div><div class="field-label">Appointments for next 2 days</div><input type="number" class="cert-number" id="apptNext2" placeholder="0"></div>
+      <div><div class="field-label">Appointments last week</div><input type="number" class="cert-number" id="apptLastWeek" placeholder="0"></div>
+      <div><div class="field-label">Referrals collected last week</div><input type="number" class="cert-number" id="refsLastWeek" placeholder="0"></div>
+    </div>
+    <div><div class="field-label">Any notes on Field Performance?</div><textarea class="cert-answer" id="perfNotes" rows="2" placeholder="Notes..."></textarea></div>
+
+    <div class="cert-section-label">Field Training &mdash; Activity</div>
+    <div class="field-grid g3" style="margin-bottom:.5rem">
+      <div><div class="field-label">Presentations witnessed</div><input type="number" class="cert-number" id="presosWitnessed" placeholder="0"></div>
+      <div><div class="field-label">Referrals witnessed</div><input type="number" class="cert-number" id="refsWitnessed" placeholder="0"></div>
+      <div><div class="field-label">Referral appointments set</div><input type="number" class="cert-number" id="refAppts" placeholder="0"></div>
+    </div>
+
+    <div class="cert-section-label">Field Training &mdash; Rapport</div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft1"><div class="cert-label">Fact finding using F.O.R.M</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft2"><div class="cert-label">How much time should be spent on building rapport?</div></div>
+
+    <div class="cert-section-label">Field Training &mdash; Introductory Offers</div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft3"><div class="cert-label">3,000 ADB</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft4"><div class="cert-label">Discount Card</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft5"><div class="cert-label">Child Safe Kit</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft6"><div class="cert-label">Will Kit</div></div>
+
+    <div class="cert-section-label">Field Training &mdash; Presentation</div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft7"><div class="cert-label">Read-off letter (Letter of Thanks)</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft8"><div class="cert-label">IRFTS (Final Expense, Mortgage, Income Protection, Cancer Endurance)</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft9"><div class="cert-label">Final Recap and Close</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft10"><div class="cert-label">Rebuttals</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft11"><div class="cert-label">Down closing</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft12"><div class="cert-label">Referral collection</div></div>
+
+    <div class="cert-section-label">Field Training &mdash; Call Clinic</div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft13"><div class="cert-label">Referral phone script</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft14"><div class="cert-label">Set an appointment</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft15"><div class="cert-label">What is the proper schedule?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft16"><div class="cert-label">What does 20/10/4 mean?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft17"><div class="cert-label">How do presets affect scheduling?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft18"><div class="cert-label">Show me your schedule</div></div>
+    <div style="margin-top:.5rem"><div class="field-label">Any notes on Field Training?</div><textarea class="cert-answer" id="ftNotes" rows="2" placeholder="Notes..."></textarea></div>
+
+    <div class="cert-section-label">General Knowledge &mdash; Life &amp; Health Policies</div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk1"><div class="cert-label">Whole Life</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk2"><div class="cert-label">Modified Life (ALX)</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk3"><div class="cert-label">Term Life (10/20, 15/30)</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk4"><div class="cert-label">Accident Protector Max</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk5"><div class="cert-label">Cancer Endurance and Cash Cancer</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk6"><div class="cert-label">Critical Illness</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk7"><div class="cert-label">Accidental Death</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk8"><div class="cert-label">Other</div></div>
+
+    <div class="cert-section-label">General Knowledge &mdash; Pay Structure</div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk9"><div class="cert-label">Show me how to read ICM and log in</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk10"><div class="cert-label">Show me how you can get paid</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk11"><div class="cert-label">What are your commission rates?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk12"><div class="cert-label">What are chargebacks?</div></div>
+
+    <div class="cert-section-label">General Knowledge &mdash; Completing Forms</div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk13"><div class="cert-label">Bank Verification</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk14"><div class="cert-label">What Comes Next Form</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk15"><div class="cert-label">When do you upload?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk16"><div class="cert-label">Summary Sheet</div></div>
+
+    <div class="cert-section-label">General Knowledge &mdash; Activity Generation</div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk17"><div class="cert-label">Activity generation when no-showed</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk18"><div class="cert-label">Setting appointments from referrals</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk19"><div class="cert-label">Rebooking appointments</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk20"><div class="cert-label">How many appointments per week?</div></div>
+    <div style="margin-top:.5rem"><div class="field-label">Any notes on General Knowledge?</div><textarea class="cert-answer" id="gkNotes" rows="2" placeholder="Notes..."></textarea></div>
+
+    <div class="cert-section-label">Certification signatures</div>
+    <div class="sig-area">
+      <div class="sig-block">
+        <div class="field-label" style="margin-bottom:4px">Agent name</div>
+        <input class="field-input" id="sigAgent" placeholder="Full name" style="margin-bottom:8px">
+        <div class="field-label" style="margin-bottom:4px">Date certified</div>
+        <input class="field-input" type="date" id="sigAgentDate">
+        <div class="sig-line">Agent signature</div>
+      </div>
+      <div class="sig-block">
+        <div class="field-label" style="margin-bottom:4px">Field trainer / manager name</div>
+        <input class="field-input" id="sigTrainer" placeholder="Full name" style="margin-bottom:8px">
+        <div class="field-label" style="margin-bottom:4px">Date certified</div>
+        <input class="field-input" type="date" id="sigTrainerDate">
+        <div class="sig-line">Trainer / manager signature</div>
+      </div>
+    </div>
+    <div class="callout c-blue" style="margin-top:1rem">
+      <strong>&#128231; SUBMIT COMPLETED CERTIFICATION</strong>
+      Email completed certification (print to PDF or screenshot all tabs) to <strong>mowens@globe.life</strong>. Also submit the official Google Form at <a href="https://forms.gle/Ty1M6goaDERkX32m8" target="_blank">forms.gle/Ty1M6goaDERkX32m8</a>.
+    </div>
+  </div>
+</div>
+
+<div class="action-bar no-print">
+  <button class="btn btn-primary" onclick="window.print()">&#128424;&#65039; Print / Save as PDF</button>
+  <button class="btn btn-outline" onclick="clearAll()">&#8634; Reset for new agent</button>
+</div>
+<p style="font-size:11px;color:var(--muted);margin-top:.5rem" class="no-print">To save as PDF: click Print &rarr; change destination to "Save as PDF" &rarr; Save. All filled-in info and checked boxes will be included.</p>
+
+</div>
+
+<script>
+function syncHero(){
+  const n=document.getElementById('agentName').value||'Agent Name';
+  const num=document.getElementById('agentNum').value;
+  const sd=document.getElementById('startDate').value;
+  document.getElementById('display-name').textContent=n;
+  document.getElementById('display-num').textContent=num?'Agent #'+num:'Agent #\u2014\u2014';
+  document.getElementById('display-start').textContent=sd?'Start: '+new Date(sd+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'Start date: \u2014';
+  syncManagerContact();
+  const certName=document.getElementById('certAgentName');
+  const sigA=document.getElementById('sigAgent');
+  if(certName&&!certName.dataset.manual)certName.value=n;
+  if(sigA&&!sigA.dataset.manual)sigA.value=n;
+}
+function syncManagerContact(){
+  const setText=(id,val,fallback)=>{const el=document.getElementById(id); if(el) el.textContent=val||fallback;};
+  const mn=document.getElementById('managerName')?.value;
+  const mp=document.getElementById('managerPhone')?.value;
+  const me=document.getElementById('managerEmail')?.value;
+  const mc=document.getElementById('managerContactMethod')?.value;
+  setText('qrManagerName',mn,'Manager name not entered yet');
+  setText('qrManagerPhone',mp,'Manager phone not entered yet');
+  setText('qrManagerEmail',me,'Manager email not entered yet');
+  setText('qrManagerContact',mc,'Preferred method not entered yet');
+}
+function syncEpic(){
+  const eu=document.getElementById('epicUser').value;
+  const ceu=document.getElementById('certEpicUser');
+  if(ceu)ceu.value=eu;
+}
+function showTab(name,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+function updateState(){
+  const state=document.getElementById('agentState').value;
+  const ltype=document.getElementById('licenseType').value;
+  const det=document.getElementById('state-details');
+  document.getElementById('state-MO').style.display='none';
+  document.getElementById('state-IL').style.display='none';
+  if(state){det.style.display='block';document.getElementById('state-'+state).style.display='block';}
+  else{det.style.display='none';}
+  document.querySelectorAll('.schol-content').forEach(el=>el.classList.remove('active'));
+  document.getElementById(ltype==='temp'?'schol-temp':'schol-perm').classList.add('active');
+  const labels={'MO':'Missouri \u2014 TSI National','IL':'Illinois \u2014 Xcel Solutions'};
+  document.getElementById('display-state').textContent=state?labels[state]||'':'';
+}
+function updateProgress(){
+  const list=document.getElementById('setup-list');
+  if(!list)return;
+  const total=10;
+  const checked=list.querySelectorAll('input[type=checkbox]:checked').length;
+  const pct=Math.round((checked/total)*100);
+  document.getElementById('setup-bar').style.width=pct+'%';
+  document.getElementById('setup-progress').textContent=checked+' / '+total+' complete';
+}
+function clearAll(){
+  if(!confirm('Reset all fields for a new agent?'))return;
+  document.querySelectorAll('input[type=text],input[type=date],input[type=number],textarea').forEach(el=>el.value='');
+  document.querySelectorAll('input[type=checkbox]').forEach(el=>el.checked=false);
+  document.getElementById('tntPass').value='Agency11!';
+  document.getElementById('agentState').value='';
+  document.getElementById('licenseType').value='perm';
+  document.getElementById('state-details').style.display='none';
+  document.getElementById('state-MO').style.display='none';
+  document.getElementById('state-IL').style.display='none';
+  document.querySelectorAll('.schol-content').forEach(el=>el.classList.remove('active'));
+  document.getElementById('schol-perm').classList.add('active');
+  document.getElementById('display-state').textContent='';
+  document.getElementById('setup-bar').style.width='0%';
+  document.getElementById('setup-progress').textContent='0 / 10 complete';
+  syncHero();
+  customEvents=[];calYear=today.getFullYear();calMonth=today.getMonth();renderCal();
+}
+let calYear,calMonth,customEvents=[];
+const today=new Date();
+function getSD(){const v=document.getElementById('startDate').value;return v?new Date(v+'T00:00:00'):null;}
+function prevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCal();}
+function nextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCal();}
+function pad(n){return n<10?'0'+n:n}
+function ds(y,m,d){return y+'-'+pad(m+1)+'-'+pad(d)}
+function addCustomEvent(){
+  const d=document.getElementById('customDate').value;
+  const l=document.getElementById('customLabel').value.trim();
+  if(!d||!l)return;
+  customEvents.push({date:d,label:l});
+  document.getElementById('customLabel').value='';renderCal();
+}
+function getEvs(dateStr){
+  const evs=[];const sd=getSD();const d=new Date(dateStr+'T00:00:00');const dow=d.getDay();
+  if(sd){
+    const diff=Math.round((d-sd)/(86400000));
+    if(diff===0)evs.push({cls:'ev-start',label:'Start day!'});
+    if(diff>0&&diff<70){
+      if(dow===5)evs.push({cls:'ev-meet',label:'Team mtg 9:30am'});
+      if(dow>=1&&dow<=4)evs.push({cls:'ev-train',label:'Adv. training'});
+      if(diff===1)evs.push({cls:'ev-tnt',label:'TNT: Course 1'});
+      if(diff===2)evs.push({cls:'ev-tnt',label:'TNT: Course 2'});
+      if(diff===3)evs.push({cls:'ev-tnt',label:'TNT: Course 3'});
+      if(diff===4)evs.push({cls:'ev-tnt',label:'TNT: Course 4'});
+      if(diff===5)evs.push({cls:'ev-tnt',label:'TNT: Course 5'});
+      if(diff===14){evs.push({cls:'ev-exam',label:'Exam target'});}
+      if(diff===15)evs.push({cls:'ev-schol',label:'100% schol. deadline'});
+      
+      if(diff===35)evs.push({cls:'ev-field',label:'Field ready target'});
+    }
+  }
+  customEvents.forEach(ce=>{if(ce.date===dateStr)evs.push({cls:'ev-custom',label:ce.label});});
+  return evs;
+}
+function renderCal(){
+  const sd=getSD();
+  if(!calYear){const ref=sd||today;calYear=ref.getFullYear();calMonth=ref.getMonth();}
+  if(sd){calYear=sd.getFullYear();calMonth=sd.getMonth();}
+  const mn=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('calTitle').textContent=mn[calMonth]+' '+calYear;
+  const fd=new Date(calYear,calMonth,1).getDay();
+  const dim=new Date(calYear,calMonth+1,0).getDate();
+  const dip=new Date(calYear,calMonth,0).getDate();
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let h=days.map(d=>'<div class="cal-dow">'+d+'</div>').join('');
+  for(let i=fd-1;i>=0;i--)h+='<div class="cal-cell dim"><div class="cal-num">'+(dip-i)+'</div></div>';
+  let cells=fd;
+  for(let d=1;d<=dim;d++){
+    const dstr=ds(calYear,calMonth,d);
+    const evs=getEvs(dstr);
+    const isT=(today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d);
+    const evH=evs.map(e=>'<div class="ev '+e.cls+'">'+e.label+'</div>').join('');
+    h+='<div class="cal-cell'+(isT?' today':'')+'"><div class="cal-num">'+d+'</div>'+evH+'</div>';
+    cells++;
+  }
+  const rem=(7-cells%7)%7;
+  for(let d=1;d<=rem;d++)h+='<div class="cal-cell dim"><div class="cal-num">'+d+'</div></div>';
+  document.getElementById('calGrid').innerHTML=h;
+}
+
+function expandScripts(open){
+  document.querySelectorAll('#tab-rebuttals details.script-card').forEach(d=>d.open=open);
+}
+calYear=today.getFullYear();calMonth=today.getMonth();
+syncManagerContact();
+renderCal();
+</script>
+</body>
+</html>
