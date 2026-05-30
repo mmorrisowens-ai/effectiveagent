@@ -1218,11 +1218,9 @@ select.field-input{cursor:pointer}
 </div>
 
 <div class="action-bar no-print">
-  <button class="btn btn-primary" onclick="window.print()">&#128424;&#65039; Print / Save as PDF</button>
-  <button class="btn btn-outline" onclick="clearAll()">&#8634; Reset for new agent</button>
-</div>
-<p style="font-size:11px;color:var(--muted);margin-top:.5rem" class="no-print">To save as PDF: click Print &rarr; change destination to "Save as PDF" &rarr; Save. All filled-in info and checked boxes will be included.</p>
-
+  <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  <button class="btn btn-primary" onclick="saveAgent()">💾 Save Agent</button>
+  <button class="btn btn-outline" onclick="clearAll()">↺ Reset for new agent</button>
 </div>
 
 <script>
@@ -1386,7 +1384,9 @@ function filterGlossary(){
    tr.style.display=tr.innerText.toLowerCase().includes(filter)?'':'none';
  });
 }
-
+function saveAgent(){
+  alert("Save button is working!");
+}
 syncManagerContact();
 renderCal();
 </script>
