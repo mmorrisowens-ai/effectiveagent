@@ -1222,7 +1222,9 @@ select.field-input{cursor:pointer}
   <button class="btn btn-primary" onclick="saveAgent()">💾 Save Agent</button>
   <button class="btn btn-outline" onclick="clearAll()">↺ Reset for new agent</button>
 </div>
-
+  
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
 <script>
 function syncHero(){
   const n=document.getElementById('agentName').value||'Agent Name';
@@ -1384,8 +1386,44 @@ function filterGlossary(){
    tr.style.display=tr.innerText.toLowerCase().includes(filter)?'':'none';
  });
 }
-function saveAgent(){
-  alert("Save button is working!");
+const supabaseUrl = "https://ghtwudtcgfywfgggyztc.supabase.co";
+const supabaseKey = "sb_publishable_SE1GhHygwcESdMkuF3BSug_K-RklCAQ";
+
+const supabaseClient = window.supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
+
+async function saveAgent() {
+
+  const agentRecord = {
+    manager_name: document.getElementById('managerName')?.value || '',
+    agent_name: document.getElementById('agentName')?.value || '',
+    agent_email: document.getElementById('personalEmail')?.value || '',
+    start_date: document.getElementById('startDate')?.value || null,
+
+    onboarding_data: {
+      agentNum: document.getElementById('agentNum')?.value || '',
+      managerPhone: document.getElementById('managerPhone')?.value || '',
+      managerEmail: document.getElementById('managerEmail')?.value || '',
+      workEmail: document.getElementById('workEmail')?.value || '',
+      discordUser: document.getElementById('discordUser')?.value || '',
+      agentPhone: document.getElementById('agentPhone')?.value || ''
+    }
+  };
+
+  const { error } = await supabaseClient
+    .from('agents')
+    .insert([agentRecord]);
+
+  if (error) {
+    console.error(error);
+    alert('Save failed: ' + error.message);
+    return;
+  }
+
+  alert('Agent saved successfully!');
+}
 }
 syncManagerContact();
 renderCal();
