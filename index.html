@@ -1447,8 +1447,8 @@ function filterGlossary(){
    tr.style.display=tr.innerText.toLowerCase().includes(filter)?'':'none';
  });
 }
-const supabaseUrl = "YOUR_SUPABASE_URL";
-const supabaseKey = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+const supabaseUrl = "https://ghtwudtcgfywfgggyztc.supabase.co";
+const supabaseKey = "sb_publishable_SE1GhHygwcESdMkuF3BSug_K-RklCAQ";
 
 const supabaseClient = window.supabase.createClient(
   supabaseUrl,
@@ -1463,8 +1463,8 @@ function setSaveStatus(message) {
 }
 
 function isSupabaseConfigured() {
-  return !supabaseUrl.includes("https://ghtwudtcgfywfgggyztc.supabase.co") &&
-         !supabaseKey.includes("sb_publishable_SE1GhHygwcESdMkuF3BSug_K-RklCAQ");
+  return !supabaseUrl.includes('YOUR_SUPABASE_URL') &&
+         !supabaseKey.includes('YOUR_SUPABASE_PUBLISHABLE_KEY');
 }
 
 function getFieldValue(el) {
