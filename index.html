@@ -191,6 +191,23 @@ select.field-input{cursor:pointer}
 .overall-progress-track{height:12px;background:var(--border);border-radius:999px;overflow:hidden}
 .overall-progress-fill{height:100%;width:0%;background:var(--green);border-radius:999px;transition:width .25s ease}
 .overall-progress-sub{font-size:11px;color:var(--muted);margin-top:6px}
+
+.role-switcher{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:1.25rem;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.role-title{font-size:13px;font-weight:700;color:var(--navy)}
+.role-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+.role-actions{display:flex;gap:8px;flex-wrap:wrap}
+.role-btn{padding:8px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--white);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer}
+.role-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.manager-lock{display:none;background:var(--amber-lt);border:1.5px solid var(--amber);border-radius:10px;padding:12px 14px;margin-bottom:1.25rem;align-items:end;gap:10px;flex-wrap:wrap}
+.manager-lock.active{display:flex}
+.manager-lock .field-group{min-width:220px;flex:1}
+.lock-error{font-size:11.5px;color:var(--coral);font-weight:700;margin-left:4px}
+.agent-mode-note{background:var(--blue-lt);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:#1a3e6a;margin-bottom:1.25rem}
+body:not(.manager-authenticated) .manager-only{display:none!important}
+body.agent-view input:not(#managerPassword),body.agent-view textarea,body.agent-view select{pointer-events:none;background:#f1f5f9;color:var(--muted)}
+body.agent-view input[type=checkbox]{accent-color:var(--muted)}
+body.agent-view .agent-disable{display:none!important}
+body.manager-authenticated .agent-only{display:none!important}
 @media(max-width:700px){.wrapper{padding:1rem .75rem 3rem}.hero{flex-direction:column;align-items:flex-start}.hero-agent{margin-left:0;text-align:left}.field-grid.g2,.field-grid.g3,.schol-body,.course-grid,.sig-area,.info-grid,.contact-grid,.qr-grid,.resource-list,.product-grid{grid-template-columns:1fr}.concierge-card{grid-template-columns:1fr}.tab{font-size:12px;padding:7px 11px}.cal-cell{min-height:54px}.section-sub{display:none}}
 </style>
 </head>
@@ -212,11 +229,37 @@ select.field-input{cursor:pointer}
   </div>
 </div>
 
-<div class="manager-banner no-print">
+<div class="role-switcher no-print">
+  <div>
+    <div class="role-title">Choose Portal View</div>
+    <div class="role-sub">Agent View is a read-only resource guide. Manager View unlocks setup, saved records, and editing tools.</div>
+  </div>
+  <div class="role-actions">
+    <button class="role-btn active" id="agentRoleBtn" onclick="setRole('agent')">Agent View</button>
+    <button class="role-btn" id="managerRoleBtn" onclick="requestManagerMode()">Manager View</button>
+  </div>
+</div>
+
+<div class="manager-lock no-print" id="managerLock">
+  <div class="field-group">
+    <div class="field-label">Manager password</div>
+    <input class="field-input" type="password" id="managerPassword" placeholder="Enter manager password" onkeydown="if(event.key==='Enter') unlockManagerMode()">
+    <div class="lock-error" id="managerLockError"></div>
+  </div>
+  <button class="btn btn-primary" onclick="unlockManagerMode()">Unlock Manager View</button>
+  <button class="btn btn-outline" onclick="setRole('agent')">Cancel</button>
+</div>
+
+<div class="agent-mode-note agent-only no-print">
+  <strong>Agent Resource Mode:</strong> This view is read-only. Use the tabs as your resource guide; your manager controls setup, saved records, and editable progress tracking.
+</div>
+
+
+<div class="manager-banner no-print manager-only">
   &#9881;&#65039; <strong>Manager Setup Mode:</strong> Fill in the Start Here tab first &mdash; the packet auto-populates throughout. Then send this file to the agent to complete their checklist and track progress.
 </div>
 
-<div class="overall-progress-card no-print">
+<div class="overall-progress-card no-print manager-only">
   <div class="overall-progress-head">
     <div class="overall-progress-title">📊 Agent Onboarding Progress</div>
     <div class="overall-progress-meta" id="overallProgressText">0% complete</div>
@@ -235,7 +278,7 @@ select.field-input{cursor:pointer}
   <button class="tab" onclick="showTab('rebuttals',this)">&#128222; Scripts</button>
   <button class="tab" onclick="showTab('products',this)">&#128218; Product Knowledge</button>
   <button class="tab" onclick="showTab('pairing',this)">&#129309; Product Pairing</button>
-  <button class="tab" onclick="showTab('cert',this)">&#127942; Field Ready Cert</button>
+  <button class="tab manager-only" onclick="showTab('cert',this)">&#127942; Field Ready Cert</button>
 </div>
 
 <!-- TAB: START HERE -->
@@ -309,7 +352,7 @@ select.field-input{cursor:pointer}
     </ul>
   </div>
 
-  <div class="section">
+  <div class="section manager-only">
     <div class="section-header"><div class="section-icon">&#128100;</div><h2>Agent details</h2><span class="section-sub">Manager fills in before sending</span></div>
     <div class="field-grid g2">
       <div><div class="field-label">Agent first &amp; last name</div><input class="field-input" id="agentName" placeholder="First Last" oninput="syncHero()"></div>
@@ -373,7 +416,7 @@ select.field-input{cursor:pointer}
       <div><div class="field-label">Manager notes for TNT</div><input class="field-input" id="tntNotes" placeholder="Any specific instructions or login help..."></div>
     </div>
   </div>
-  <div class="section">
+  <div class="section manager-only">
     <div class="section-header"><div class="section-icon">&#127919;</div><h2>MRO weekly goals</h2><span class="section-sub">Set by manager</span></div>
     <div class="field-grid g3">
       <div><div class="field-label">Income / week</div><input class="field-input" id="mroIncome" placeholder="$___"></div>
@@ -836,7 +879,7 @@ select.field-input{cursor:pointer}
 <div id="tab-calendar" class="tab-panel">
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128197;</div><h2>Training calendar</h2><span class="section-sub">Set start date in Start Here &rarr; auto-populates</span></div>
-    <div class="event-add-row no-print">
+    <div class="event-add-row no-print manager-only">
       <div class="field-group"><div class="field-label">Add custom event &mdash; date</div><input class="field-input" type="date" id="customDate" style="width:160px"></div>
       <div class="field-group" style="flex:2"><div class="field-label">Event label</div><input class="field-input" id="customLabel" placeholder="e.g. 1-on-1 with manager"></div>
       <button class="btn btn-green" onclick="addCustomEvent()">+ Add event</button>
@@ -873,23 +916,23 @@ select.field-input{cursor:pointer}
     <div class="cert-section-label">Appointment setting scripts</div>
     <details class="script-card" id="phone-script-1">
       <summary><span>Lapse Script</span><span class="script-chip">Open</span></summary>
-      <div class="script-body">Hey  ________this is (Agent name) I’m calling regarding the policies you’ve had since (issue date) with Globe Life Liberty National. It looks like your policies came off bank draft. The reason for my call is find out what happened; was this something you did intentionally or was this an error on our end?<br>(Name) that is exactly why I’m calling! What time do you and your spouse get home from work?<br>If off work now run on the spot: “Since you and your spouse are off work now, I have the next thirty minutes open lets knock this out…”<br>If not off work or can’t run on the spot- “The purpose of my call is to set up this appointment for your servicing agent.<br>I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).  (Name) I just want to confirm, there is nothing you can think of that will interfere with at (appointment time), right? Perfect, talk to you tomorrow at (appointment time)!<br>*If client ask “Do I have to make pay the back premiums?” explain that back premiums can usually be waived and payment will resume this month<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
+      <div class="script-body">Hey  ________this is (Agent name) I’m calling regarding the policies you’ve had since (issue date) with Globe Life Liberty National. It looks like your policies came off bank draft. The reason for my call is find out what happened; was this something you did intentionally or was this an error on our end?<br>(Name) that is exactly why I’m calling! What time do you and your spouse get home from work?<br>If off work now run on the spot: “Since you and your spouse are off work now, I have the next thirty minutes open lets knock this out…”<br>If not off work or can’t run on the spot- “The purpose of my call is to set up this appointment for your servicing agent.<br>I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).  (Name) I just want to confirm, there is nothing you can think of that will interfere with at (appointment time), right? Perfect, talk to you tomorrow at (appointment time)!<br>*If client ask “Do I have to make pay the back premiums?” explain that back premiums can usually be waived and payment will resume this month<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
     </details>
     <details class="script-card" id="phone-script-2">
       <summary><span>Worksite Lapse Script</span><span class="script-chip">Open</span></summary>
-      <div class="script-body">Hey ________ This is (AGENT NAME) with Globe Life Liberty National Division. The Agency asked that I reach out to you as soon as possible because it appears you are no longer working at [name of company]. Is that correct?<br>The policies you had with Globe Life through [name of company] are portable meaning you are able to keep some or all of those coverages directly with us.<br>The company has opened up a personal enrollment for you. It doesn’t take long, we need to review the NO-COST coverages you are entitled to as a policyholder, quickly remind you how your coverage works, and review any other available options related to you.<br>We have your address as _________, is that still correct?<br>What time do you and your spouse get home from work?<br>-If off work now run on the spot: “Since you and your spouse are off work now, I have the next thirty minutes open lets knock this out…”<br>-If not, the purpose of my call is to set up this appointment for your servicing agent.<br>I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).  (Name) I just want to confirm, there is nothing you can think of that will interfere with at (appointment time), right? Perfect, talk to you tomorrow at (appointment time)!<br>*During your enrollment period, you are entitled to some additional no-cost benefits, including the family $3000 life insurance and our new Legacy Will Kit. Do you bank locally or with an online bank? (WAIT FOR AN ANSWER) Most of the time, your bank will notarize this Legacy Will Kit just for being a valued customer.<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
+      <div class="script-body">Hey ________ This is (AGENT NAME) with Globe Life Liberty National Division. The Agency asked that I reach out to you as soon as possible because it appears you are no longer working at [name of company]. Is that correct?<br>The policies you had with Globe Life through [name of company] are portable meaning you are able to keep some or all of those coverages directly with us.<br>The company has opened up a personal enrollment for you. It doesn’t take long, we need to review the NO-COST coverages you are entitled to as a policyholder, quickly remind you how your coverage works, and review any other available options related to you.<br>We have your address as _________, is that still correct?<br>What time do you and your spouse get home from work?<br>-If off work now run on the spot: “Since you and your spouse are off work now, I have the next thirty minutes open lets knock this out…”<br>-If not, the purpose of my call is to set up this appointment for your servicing agent.<br>I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).  (Name) I just want to confirm, there is nothing you can think of that will interfere with at (appointment time), right? Perfect, talk to you tomorrow at (appointment time)!<br>*During your enrollment period, you are entitled to some additional no-cost benefits, including the family $3000 life insurance and our new Legacy Will Kit. Do you bank locally or with an online bank? (WAIT FOR AN ANSWER) Most of the time, your bank will notarize this Legacy Will Kit just for being a valued customer.<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
     </details>
     <details class="script-card" id="phone-script-3">
       <summary><span>$3000 AD Referral Script</span><span class="script-chip">Open</span></summary>
-      <div class="script-body">Hey _______ my name is ______ and I’m calling from your (Sponsor’s relationship- brother, sister, friend, etc.) life insurance company.<br>Let me explain the importance of my call! (Sponsor’s name) gave you $3,000 of insurance, the same one (name) is covered by. I promised (Sponsor’s name) that I would get this set up for you as soon as possible. For your convenience, we do that over the phone.<br>What time do you and your spouse get home from work?<br>If both are off work or single- I just finished up with a client and have 30 minutes before my next appointment. We can knock this out now…<br>If not- I’ll tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).<br>Great! (Name) to save time when I call you back at (appointment time), confirm your date for birth for me, and your spouse? How many children do you have under 18? Ok great, they are covered as well.<br>Okay (client), my schedule is packed, so if I’m saying yes to speaking with you, I am saying no to another family. Could anything prevent us from speaking on (day, date, time)? Great! I will look forward to speaking with you (and significant other) on (day) between (time) and (time)… have a wonderful day!”<br>**Solidifying the appointment is the most important part of this script!**<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
+      <div class="script-body">Hey _______ my name is ______ and I’m calling from your (Sponsor’s relationship- brother, sister, friend, etc.) life insurance company.<br>Let me explain the importance of my call! (Sponsor’s name) gave you $3,000 of insurance, the same one (name) is covered by. I promised (Sponsor’s name) that I would get this set up for you as soon as possible. For your convenience, we do that over the phone.<br>What time do you and your spouse get home from work?<br>If both are off work or single- I just finished up with a client and have 30 minutes before my next appointment. We can knock this out now…<br>If not- I’ll tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).<br>Great! (Name) to save time when I call you back at (appointment time), confirm your date for birth for me, and your spouse? How many children do you have under 18? Ok great, they are covered as well.<br>Okay (client), my schedule is packed, so if I’m saying yes to speaking with you, I am saying no to another family. Could anything prevent us from speaking on (day, date, time)? Great! I will look forward to speaking with you (and significant other) on (day) between (time) and (time)… have a wonderful day!”<br>**Solidifying the appointment is the most important part of this script!**<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
     </details>
     <details class="script-card" id="phone-script-4">
       <summary><span>Policy Owner Service Script</span><span class="script-chip">Open</span></summary>
-      <div class="script-body">Hello _____ this is _____ with Globe Life Liberty National… your insurance company. Your servicing Agent asked that I call you to…well, first to introduce myself, but also to verify a couple of things. I have your address as______________. Is that still correct?<br>Ok, great…. Well, the company has a policy for “dedication to service” and asked your agent to review your account and give you a well-deserved update. It doesn’t take long, we just need to schedule a call with you and your spouse to verify your beneficiaries and quickly review what you have and how it works. Your agent actually noticed that your account was flagged for service.  It’s essential we take care of that as soon as possible.<br>“Why was it flagged?”- Usually it means you don’t have a listed contingent beneficiary, contingent owner, address, etc. This is the reason for my call.<br>Only if you have policy information- What time do you and your spouse get home from work?<br>If off work- I just finished up with a client and have a few minutes before my next appointment. Are you home right now?”<br>If YES: Let me get your file<br>If NO: I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).  Okay (client), my schedule is packed, so if I’m saying yes to speaking with you, I am saying no to another family. Could anything prevent us from speaking on (day, date, time)? Great! I will look forward to speaking with you (and significant other) on (day) between (time) and (time)… have a wonderful day!”<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
+      <div class="script-body">Hello _____ this is _____ with Globe Life Liberty National… your insurance company. Your servicing Agent asked that I call you to…well, first to introduce myself, but also to verify a couple of things. I have your address as______________. Is that still correct?<br>Ok, great…. Well, the company has a policy for “dedication to service” and asked your agent to review your account and give you a well-deserved update. It doesn’t take long, we just need to schedule a call with you and your spouse to verify your beneficiaries and quickly review what you have and how it works. Your agent actually noticed that your account was flagged for service.  It’s essential we take care of that as soon as possible.<br>“Why was it flagged?”- Usually it means you don’t have a listed contingent beneficiary, contingent owner, address, etc. This is the reason for my call.<br>Only if you have policy information- What time do you and your spouse get home from work?<br>If off work- I just finished up with a client and have a few minutes before my next appointment. Are you home right now?”<br>If YES: Let me get your file<br>If NO: I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).  Okay (client), my schedule is packed, so if I’m saying yes to speaking with you, I am saying no to another family. Could anything prevent us from speaking on (day, date, time)? Great! I will look forward to speaking with you (and significant other) on (day) between (time) and (time)… have a wonderful day!”<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
     </details>
     <details class="script-card" id="phone-script-5">
       <summary><span>Rebook Script</span><span class="script-chip">Open</span></summary>
-      <div class="script-body">Hey _______! This is ______ with Globe Life Liberty National Insurance Company! I see (Agents Name) had booked an appointment with you to: (appointment type) on (date)_ at _(time)_ to _(time). I assume (agent’s name) did not take care of this because I see your file is still open, I will be addressing this with them. Did you not hear from them, or did something come up on your end? Help me understand what happened.<br>(Name) I understand sometimes things come up, but it’s important we get this taken care of. Because of the length of time this has been outstanding I will help you get this taken care of right now.<br>If not available- I understand, do me favor, if we reschedule this I need you to make sure nothing interferes with the appointment time on your end.<br>What time do you get home from work? What time does your spouse get home?<br>I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).<br>Okay (client), my schedule is packed, so if I’m saying yes to speaking with you, I am saying no to another family. Could anything prevent us from speaking on (day, date, time)? Great! I will look forward to speaking with you (and significant other) on (day) between (time) and (time)… have a wonderful day!”<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
+      <div class="script-body">Hey _______! This is ______ with Globe Life Liberty National Insurance Company! I see (Agents Name) had booked an appointment with you to: (appointment type) on (date)_ at _(time)_ to _(time). I assume (agent’s name) did not take care of this because I see your file is still open, I will be addressing this with them. Did you not hear from them, or did something come up on your end? Help me understand what happened.<br>(Name) I understand sometimes things come up, but it’s important we get this taken care of. Because of the length of time this has been outstanding I will help you get this taken care of right now.<br>If not available- I understand, do me favor, if we reschedule this I need you to make sure nothing interferes with the appointment time on your end.<br>What time do you get home from work? What time does your spouse get home?<br>I tell you what I am going to do, I will call you and your spouse (today/tomorrow only) between _____ and ____ o’clock. Go ahead and grab a pen for me so I can give you some additional information.  My name is ___________ and your confirmation # for your appointment is (your agent #).<br>Okay (client), my schedule is packed, so if I’m saying yes to speaking with you, I am saying no to another family. Could anything prevent us from speaking on (day, date, time)? Great! I will look forward to speaking with you (and significant other) on (day) between (time) and (time)… have a wonderful day!”<br>*If booking for Monday “(name) can you do me a favor? Monday is my busiest day and to make sure nothing comes on your end between now and Monday I will send you a quick text Sunday to make sure we are still good at (time). What time Sunday would be the easiest for you to reply “ok” or give me a thumbs up to the text?”</div>
     </details>
     <details class="script-card" id="phone-script-6">
       <summary><span>Sunday Text Confirmation Template</span><span class="script-chip">Open</span></summary>
@@ -1234,7 +1277,7 @@ select.field-input{cursor:pointer}
   </div>
 </div>
 
-<div class="section no-print" style="border:1.5px solid var(--green);background:var(--green-lt)">
+<div class="section no-print manager-only" style="border:1.5px solid var(--green);background:var(--green-lt)">
   <div class="section-header" style="border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:.75rem">
     <div class="section-icon">💾</div>
     <h2>Saved Agent Records</h2>
@@ -1270,7 +1313,11 @@ select.field-input{cursor:pointer}
   </div>
 </div>
 
-<div class="action-bar no-print">
+<div class="action-bar no-print agent-only">
+  <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+
+<div class="action-bar no-print manager-only">
   <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
   <button class="btn btn-outline" onclick="clearAll()">↺ Reset for new agent</button>
 </div>
@@ -1278,6 +1325,71 @@ select.field-input{cursor:pointer}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
 <script>
+
+const MANAGER_PASSWORD = 'CHANGE_ME_MANAGER_PASSWORD';
+let currentRole = 'agent';
+
+function setRole(role){
+  currentRole = role;
+  const body = document.body;
+  const agentBtn = document.getElementById('agentRoleBtn');
+  const managerBtn = document.getElementById('managerRoleBtn');
+  const lock = document.getElementById('managerLock');
+  const err = document.getElementById('managerLockError');
+
+  if (role === 'manager') {
+    body.classList.remove('agent-view');
+    body.classList.add('manager-authenticated');
+    if (agentBtn) agentBtn.classList.remove('active');
+    if (managerBtn) managerBtn.classList.add('active');
+    if (lock) lock.classList.remove('active');
+    if (err) err.textContent = '';
+    enableEditableControls(true);
+    return;
+  }
+
+  body.classList.add('agent-view');
+  body.classList.remove('manager-authenticated');
+  if (agentBtn) agentBtn.classList.add('active');
+  if (managerBtn) managerBtn.classList.remove('active');
+  if (lock) lock.classList.remove('active');
+  if (err) err.textContent = '';
+  enableEditableControls(false);
+
+  const activePanel = document.querySelector('.tab-panel.active');
+  if (activePanel && activePanel.id === 'tab-cert') {
+    const firstTab = document.querySelector('.tab:not(.manager-only)');
+    showTab('info', firstTab);
+  }
+}
+
+function requestManagerMode(){
+  const lock = document.getElementById('managerLock');
+  const pwd = document.getElementById('managerPassword');
+  const agentBtn = document.getElementById('agentRoleBtn');
+  const managerBtn = document.getElementById('managerRoleBtn');
+  if (agentBtn) agentBtn.classList.remove('active');
+  if (managerBtn) managerBtn.classList.add('active');
+  if (lock) lock.classList.add('active');
+  if (pwd) { pwd.value = ''; setTimeout(()=>pwd.focus(), 50); }
+}
+
+function unlockManagerMode(){
+  const pwd = document.getElementById('managerPassword')?.value || '';
+  const err = document.getElementById('managerLockError');
+  if (pwd !== MANAGER_PASSWORD) {
+    if (err) err.textContent = 'Incorrect password.';
+    return;
+  }
+  setRole('manager');
+}
+
+function enableEditableControls(enabled){
+  document.querySelectorAll('input, textarea, select').forEach(el => {
+    if (el.id === 'managerPassword') return;
+    el.disabled = !enabled;
+  });
+}
 function syncHero(){
   const n=document.getElementById('agentName').value||'Agent Name';
   const num=document.getElementById('agentNum').value;
@@ -1768,6 +1880,7 @@ updateCurrentAgentBanner('New Unsaved Agent');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  setRole('agent');
   refreshAgentList();
   updateOverallProgress();
   document.addEventListener('change', (event) => {
