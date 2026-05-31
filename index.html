@@ -1627,10 +1627,19 @@ async function saveAgent() {
   }
 
   currentAgentId = data.id;
+updateCurrentAgentBanner(data.agent_name || 'Unnamed Agent');
   setSaveStatus('Saved: ' + new Date().toLocaleString());
   await refreshAgentList(currentAgentId);
   alert('Agent saved successfully!');
 }
+
+function updateCurrentAgentBanner(name) {
+  const el = document.getElementById('currentAgentDisplay');
+  if (!el) return;
+
+  el.textContent = name || 'No agent selected';
+}
+
 function renderManagerDashboard(agents) {
   const list = document.getElementById('managerAgentList');
   if (!list) return;
@@ -1741,6 +1750,7 @@ async function loadSelectedAgent() {
   currentAgentId = data.id;
   restorePacketState(data.onboarding_data);
   setSaveStatus('Loaded: ' + (data.agent_name || 'Unnamed Agent'));
+updateCurrentAgentBanner(data.agent name || 'Unamed Agent');
   alert('Agent loaded successfully!');
 }
 
@@ -1749,6 +1759,7 @@ function startNewAgent() {
   if (!proceed) return;
 
   currentAgentId = null;
+updateCurrentAgentBanner('New Unsaved Agent');
   const select = document.getElementById('agentSelect');
   if (select) select.value = '';
 
