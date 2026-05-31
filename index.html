@@ -183,6 +183,14 @@ select.field-input{cursor:pointer}
 .timeline-item{border:1px solid var(--border);border-radius:9px;padding:10px 12px;background:var(--bg)}
 .timeline-item strong{color:var(--navy);font-size:13px}.timeline-item span{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.contact-card{border:1px solid var(--border);border-radius:9px;padding:10px 12px;background:var(--bg)}.contact-card .lbl{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}.contact-card .val{font-size:13px;color:var(--text);font-weight:600}
+
+.overall-progress-card{background:var(--white);border:1.5px solid var(--green);border-radius:10px;padding:14px 16px;margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.overall-progress-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.overall-progress-title{font-size:14px;font-weight:700;color:var(--navy)}
+.overall-progress-meta{font-size:12px;font-weight:700;color:var(--green-mid)}
+.overall-progress-track{height:12px;background:var(--border);border-radius:999px;overflow:hidden}
+.overall-progress-fill{height:100%;width:0%;background:var(--green);border-radius:999px;transition:width .25s ease}
+.overall-progress-sub{font-size:11px;color:var(--muted);margin-top:6px}
 @media(max-width:700px){.wrapper{padding:1rem .75rem 3rem}.hero{flex-direction:column;align-items:flex-start}.hero-agent{margin-left:0;text-align:left}.field-grid.g2,.field-grid.g3,.schol-body,.course-grid,.sig-area,.info-grid,.contact-grid,.qr-grid,.resource-list,.product-grid{grid-template-columns:1fr}.concierge-card{grid-template-columns:1fr}.tab{font-size:12px;padding:7px 11px}.cal-cell{min-height:54px}.section-sub{display:none}}
 </style>
 </head>
@@ -208,6 +216,15 @@ select.field-input{cursor:pointer}
   &#9881;&#65039; <strong>Manager Setup Mode:</strong> Fill in the Start Here tab first &mdash; the packet auto-populates throughout. Then send this file to the agent to complete their checklist and track progress.
 </div>
 
+<div class="overall-progress-card no-print">
+  <div class="overall-progress-head">
+    <div class="overall-progress-title">📊 Agent Onboarding Progress</div>
+    <div class="overall-progress-meta" id="overallProgressText">0% complete</div>
+  </div>
+  <div class="overall-progress-track"><div class="overall-progress-fill" id="overallProgressBar"></div></div>
+  <div class="overall-progress-sub" id="overallProgressSub">0 of 0 checklist items complete</div>
+</div>
+
 <div class="tab-bar no-print">
   <button class="tab active" onclick="showTab('info',this)">&#128640; Start Here</button>
   <button class="tab" onclick="showTab('quickref',this)">&#129517; Quick Reference</button>
@@ -230,12 +247,12 @@ select.field-input{cursor:pointer}
       This portal replaces the long onboarding email and multiple attachments. Start at the top, complete each checklist, and use the Scripts tab as your foundational playbook.
     </div>
     <ul class="checklist">
-      <li><input type="checkbox" id="road1"><label for="road1"><strong>1. Complete setup checklist</strong><span class="cl-sub">Create email, join Discord, verify TNT login, install required tools.</span></label></li>
-      <li><input type="checkbox" id="road2"><label for="road2"><strong>2. Complete TNT within 5 business days</strong><span class="cl-sub">Monday through Friday: one major course block per day.</span></label></li>
-      <li><input type="checkbox" id="road3"><label for="road3"><strong>3. Learn the foundational scripts</strong><span class="cl-sub">Do not improvise early. Learn the structure first, then build skill with repetition.</span></label></li>
-      <li><input type="checkbox" id="road4"><label for="road4"><strong>4. Attend call clinics and set appointments</strong><span class="cl-sub">Use the phone scripts, post appointments, and build your calendar.</span></label></li>
-      <li><input type="checkbox" id="road5"><label for="road5"><strong>5. Run presentations and complete field certification</strong><span class="cl-sub">Record practice, demonstrate readiness, and submit certification.</span></label></li>
-      <li><input type="checkbox" id="road6"><label for="road6"><strong>6. Begin independent production and leadership development</strong><span class="cl-sub">Leadership conversations come after the initial training foundation is in place.</span></label></li>
+      <li><input type="checkbox" id="road1" onchange="updateOverallProgress()"><label for="road1"><strong>1. Complete setup checklist</strong><span class="cl-sub">Create email, join Discord, verify TNT login, install required tools.</span></label></li>
+      <li><input type="checkbox" id="road2" onchange="updateOverallProgress()"><label for="road2"><strong>2. Complete TNT within 5 business days</strong><span class="cl-sub">Monday through Friday: one major course block per day.</span></label></li>
+      <li><input type="checkbox" id="road3" onchange="updateOverallProgress()"><label for="road3"><strong>3. Learn the foundational scripts</strong><span class="cl-sub">Do not improvise early. Learn the structure first, then build skill with repetition.</span></label></li>
+      <li><input type="checkbox" id="road4" onchange="updateOverallProgress()"><label for="road4"><strong>4. Attend call clinics and set appointments</strong><span class="cl-sub">Use the phone scripts, post appointments, and build your calendar.</span></label></li>
+      <li><input type="checkbox" id="road5" onchange="updateOverallProgress()"><label for="road5"><strong>5. Run presentations and complete field certification</strong><span class="cl-sub">Record practice, demonstrate readiness, and submit certification.</span></label></li>
+      <li><input type="checkbox" id="road6" onchange="updateOverallProgress()"><label for="road6"><strong>6. Begin independent production and leadership development</strong><span class="cl-sub">Leadership conversations come after the initial training foundation is in place.</span></label></li>
     </ul>
   </div>
 
@@ -285,10 +302,10 @@ select.field-input{cursor:pointer}
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128161;</div><h2>What every new agent experiences</h2><span class="section-sub">This is normal</span></div>
     <ul class="checklist">
-      <li><input type="checkbox" id="normal1"><label for="normal1">Feeling overwhelmed at first is normal.<span class="cl-sub">There is a lot to learn, but you are not expected to master everything on Day 1.</span></label></li>
-      <li><input type="checkbox" id="normal2"><label for="normal2">Nobody memorizes the scripts immediately.<span class="cl-sub">Confidence comes from repetition, roleplay, and real conversations.</span></label></li>
-      <li><input type="checkbox" id="normal3"><label for="normal3">Hearing "no" is part of the job.<span class="cl-sub">Do not take it personally. Learn, reset, and keep moving.</span></label></li>
-      <li><input type="checkbox" id="normal4"><label for="normal4">The team is here to help.<span class="cl-sub">Ask questions, attend trainings, and stay plugged into Discord.</span></label></li>
+      <li><input type="checkbox" id="normal1" onchange="updateOverallProgress()"><label for="normal1">Feeling overwhelmed at first is normal.<span class="cl-sub">There is a lot to learn, but you are not expected to master everything on Day 1.</span></label></li>
+      <li><input type="checkbox" id="normal2" onchange="updateOverallProgress()"><label for="normal2">Nobody memorizes the scripts immediately.<span class="cl-sub">Confidence comes from repetition, roleplay, and real conversations.</span></label></li>
+      <li><input type="checkbox" id="normal3" onchange="updateOverallProgress()"><label for="normal3">Hearing "no" is part of the job.<span class="cl-sub">Do not take it personally. Learn, reset, and keep moving.</span></label></li>
+      <li><input type="checkbox" id="normal4" onchange="updateOverallProgress()"><label for="normal4">The team is here to help.<span class="cl-sub">Ask questions, attend trainings, and stay plugged into Discord.</span></label></li>
     </ul>
   </div>
 
@@ -371,11 +388,11 @@ select.field-input{cursor:pointer}
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128241;</div><h2>Required apps</h2></div>
     <ul class="checklist">
-      <li><input type="checkbox" id="a1"><label for="a1">Discord &mdash; team communication, meetings, call clinics<span class="pill pill-green">Required</span></label></li>
-      <li><input type="checkbox" id="a2"><label for="a2">Adobe Acrobat &mdash; document handling<span class="pill pill-green">Required</span></label></li>
-      <li><input type="checkbox" id="a3"><label for="a3">Cam Scanner &mdash; scan documents on mobile<span class="pill pill-green">Required</span></label></li>
-      <li><input type="checkbox" id="a4"><label for="a4">Consolidated eApp &mdash; Windows 10/8.1 only (32 or 64-bit), 2GB RAM min<span class="pill pill-amber">Windows only</span></label></li>
-      <li><input type="checkbox" id="a5"><label for="a5">LogMeIn Rescue &mdash; via Agent Services &rarr; Resources &rarr; Support &rarr; LogMeIn Calling Card</label></li>
+      <li><input type="checkbox" id="a1" onchange="updateOverallProgress()"><label for="a1">Discord &mdash; team communication, meetings, call clinics<span class="pill pill-green">Required</span></label></li>
+      <li><input type="checkbox" id="a2" onchange="updateOverallProgress()"><label for="a2">Adobe Acrobat &mdash; document handling<span class="pill pill-green">Required</span></label></li>
+      <li><input type="checkbox" id="a3" onchange="updateOverallProgress()"><label for="a3">Cam Scanner &mdash; scan documents on mobile<span class="pill pill-green">Required</span></label></li>
+      <li><input type="checkbox" id="a4" onchange="updateOverallProgress()"><label for="a4">Consolidated eApp &mdash; Windows 10/8.1 only (32 or 64-bit), 2GB RAM min<span class="pill pill-amber">Windows only</span></label></li>
+      <li><input type="checkbox" id="a5" onchange="updateOverallProgress()"><label for="a5">LogMeIn Rescue &mdash; via Agent Services &rarr; Resources &rarr; Support &rarr; LogMeIn Calling Card</label></li>
     </ul>
   </div>
 </div>
@@ -722,46 +739,46 @@ select.field-input{cursor:pointer}
     <div class="section-header"><div class="section-icon">&#9989;</div><h2>Classroom training setup</h2><span class="section-sub" id="setup-progress">0 / 10 complete</span></div>
     <div class="progress-wrap"><div class="progress-bar" id="setup-bar" style="width:0%"></div></div>
     <ul class="checklist" id="setup-list">
-      <li><input type="checkbox" id="s1" onchange="updateProgress()"><label for="s1">Create EPIC account &mdash; go to <a href="https://libertynational.my.site.com" target="_blank">libertynational.my.site.com</a>, click Forgot Password, enter the <strong>personal email used on your contract/application</strong><span class="pill pill-blue">Step 1</span><span class="cl-sub">This is your EPIC username until a case is filed to switch it to your work (libnat) email.</span></label></li>
-      <li><input type="checkbox" id="s2" onchange="updateProgress()"><label for="s2">Verify EPIC password: 8+ chars, 1 digit, 1 symbol (!@#$%*), 1 uppercase, 1 lowercase</label></li>
-      <li><input type="checkbox" id="s3" onchange="updateProgress()"><label for="s3">Log into libertynational.com &rarr; Agent Services and download Consolidated eApp via Resources</label></li>
-      <li><input type="checkbox" id="s4" onchange="updateProgress()"><label for="s4">Create work Gmail: [first initial][last name].libnat@gmail.com<span class="cl-sub">Example: Jamie Collins &rarr; jcollins.libnat@gmail.com (add middle initial if taken)</span></label></li>
-      <li><input type="checkbox" id="s5" onchange="updateProgress()"><label for="s5">Email your name, phone number, and work email to <strong>mowens@globe.life</strong> to be added to the Agent Roster<span class="cl-sub">Use your personal email until your work email is set up.</span></label></li>
-      <li><input type="checkbox" id="s6" onchange="updateProgress()"><label for="s6">Create Discord account &mdash; notify manager for server invite, set display name to your full first and last name</label></li>
-      <li><input type="checkbox" id="s7" onchange="updateProgress()"><label for="s7">Enroll in your pre-licensing coursework (see Licensing tab for your state's provider and enrollment link)<span class="pill pill-amber">Day 1 goal</span></label></li>
-      <li><input type="checkbox" id="s8" onchange="updateProgress()"><label for="s8">Apply for Life insurance license at <a href="https://nipr.com" target="_blank">nipr.com</a> (fill required * fields only)</label></li>
-      <li><input type="checkbox" id="s9" onchange="updateProgress()"><label for="s9">Download Adobe Acrobat, Cam Scanner, and LogMeIn Rescue Calling Card</label></li>
-      <li><input type="checkbox" id="s10" onchange="updateProgress()"><label for="s10">Log into Top Notch Training using credentials from Agent Info tab and begin Course 1<span class="pill pill-green">Let's go!</span></label></li>
+      <li><input type="checkbox" id="s1" onchange="updateProgress() ; updateOverallProgress()"><label for="s1">Create EPIC account &mdash; go to <a href="https://libertynational.my.site.com" target="_blank">libertynational.my.site.com</a>, click Forgot Password, enter the <strong>personal email used on your contract/application</strong><span class="pill pill-blue">Step 1</span><span class="cl-sub">This is your EPIC username until a case is filed to switch it to your work (libnat) email.</span></label></li>
+      <li><input type="checkbox" id="s2" onchange="updateProgress() ; updateOverallProgress()"><label for="s2">Verify EPIC password: 8+ chars, 1 digit, 1 symbol (!@#$%*), 1 uppercase, 1 lowercase</label></li>
+      <li><input type="checkbox" id="s3" onchange="updateProgress() ; updateOverallProgress()"><label for="s3">Log into libertynational.com &rarr; Agent Services and download Consolidated eApp via Resources</label></li>
+      <li><input type="checkbox" id="s4" onchange="updateProgress() ; updateOverallProgress()"><label for="s4">Create work Gmail: [first initial][last name].libnat@gmail.com<span class="cl-sub">Example: Jamie Collins &rarr; jcollins.libnat@gmail.com (add middle initial if taken)</span></label></li>
+      <li><input type="checkbox" id="s5" onchange="updateProgress() ; updateOverallProgress()"><label for="s5">Email your name, phone number, and work email to <strong>mowens@globe.life</strong> to be added to the Agent Roster<span class="cl-sub">Use your personal email until your work email is set up.</span></label></li>
+      <li><input type="checkbox" id="s6" onchange="updateProgress() ; updateOverallProgress()"><label for="s6">Create Discord account &mdash; notify manager for server invite, set display name to your full first and last name</label></li>
+      <li><input type="checkbox" id="s7" onchange="updateProgress() ; updateOverallProgress()"><label for="s7">Enroll in your pre-licensing coursework (see Licensing tab for your state's provider and enrollment link)<span class="pill pill-amber">Day 1 goal</span></label></li>
+      <li><input type="checkbox" id="s8" onchange="updateProgress() ; updateOverallProgress()"><label for="s8">Apply for Life insurance license at <a href="https://nipr.com" target="_blank">nipr.com</a> (fill required * fields only)</label></li>
+      <li><input type="checkbox" id="s9" onchange="updateProgress() ; updateOverallProgress()"><label for="s9">Download Adobe Acrobat, Cam Scanner, and LogMeIn Rescue Calling Card</label></li>
+      <li><input type="checkbox" id="s10" onchange="updateProgress() ; updateOverallProgress()"><label for="s10">Log into Top Notch Training using credentials from Agent Info tab and begin Course 1<span class="pill pill-green">Let's go!</span></label></li>
     </ul>
   </div>
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128222;</div><h2>Call clinic checklist</h2></div>
     <p style="font-size:12px;color:var(--muted);margin-bottom:.75rem">Have all of these ready before each call clinic session on Discord.</p>
     <ul class="checklist">
-      <li><input type="checkbox" id="c1"><label for="c1">Quiet area or private office to work in</label></li>
-      <li><input type="checkbox" id="c2"><label for="c2">Laptop or computer compatible with eApps (Windows 10 or 8.1)</label></li>
-      <li><input type="checkbox" id="c3"><label for="c3">Webcam working and positioned correctly</label></li>
-      <li><input type="checkbox" id="c4"><label for="c4">Notebook and pens/pencils ready</label></li>
-      <li><input type="checkbox" id="c5"><label for="c5">Phone charger plugged in</label></li>
-      <li><input type="checkbox" id="c6"><label for="c6">Google Calendar pulled up</label></li>
-      <li><input type="checkbox" id="c7"><label for="c7">Discord open &mdash; joined Moly's VC, video on</label></li>
-      <li><input type="checkbox" id="c8"><label for="c8">Top Notch Training workbook out and ready to follow along</label></li>
-      <li><input type="checkbox" id="c9"><label for="c9">Presentation script available for practice presentations</label></li>
+      <li><input type="checkbox" id="c1" onchange="updateOverallProgress()"><label for="c1">Quiet area or private office to work in</label></li>
+      <li><input type="checkbox" id="c2" onchange="updateOverallProgress()"><label for="c2">Laptop or computer compatible with eApps (Windows 10 or 8.1)</label></li>
+      <li><input type="checkbox" id="c3" onchange="updateOverallProgress()"><label for="c3">Webcam working and positioned correctly</label></li>
+      <li><input type="checkbox" id="c4" onchange="updateOverallProgress()"><label for="c4">Notebook and pens/pencils ready</label></li>
+      <li><input type="checkbox" id="c5" onchange="updateOverallProgress()"><label for="c5">Phone charger plugged in</label></li>
+      <li><input type="checkbox" id="c6" onchange="updateOverallProgress()"><label for="c6">Google Calendar pulled up</label></li>
+      <li><input type="checkbox" id="c7" onchange="updateOverallProgress()"><label for="c7">Discord open &mdash; joined Moly's VC, video on</label></li>
+      <li><input type="checkbox" id="c8" onchange="updateOverallProgress()"><label for="c8">Top Notch Training workbook out and ready to follow along</label></li>
+      <li><input type="checkbox" id="c9" onchange="updateOverallProgress()"><label for="c9">Presentation script available for practice presentations</label></li>
     </ul>
   </div>
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128161;</div><h2>Training tips</h2></div>
     <ul class="checklist">
-      <li><input type="checkbox" id="t1"><label for="t1">Take 10&ndash;15 minutes each morning to study rebuttals, policies, and enrollment procedures</label></li>
-      <li><input type="checkbox" id="t2"><label for="t2">Keep a notes log: agent #, agency #, office #, email prompts, and training references</label></li>
-      <li><input type="checkbox" id="t3"><label for="t3">Record all practice presentations and upload with screenshots to Presentation Recording Turn-In in TNT</label></li>
-      <li><input type="checkbox" id="t4"><label for="t4">Never sign applications during practice &mdash; during practice, always use "Start Presentation No Lead"</label></li>
-      <li><input type="checkbox" id="t5"><label for="t5">Complete 1&ndash;2 TNT chapters per day to stay on track</label></li>
-      <li><input type="checkbox" id="t6"><label for="t6">Aim for 200+ activity actions per week in your first 3 months</label></li>
-      <li><input type="checkbox" id="t7"><label for="t7">Use Horne's Call Clinic on Discord for call clinic practice sessions</label></li>
-      <li><input type="checkbox" id="t8"><label for="t8">Use Atlas AI on Discord to drill calls and quiz on policy knowledge, underwriting, and rapport</label></li>
-      <li><input type="checkbox" id="t9"><label for="t9">Post appointments in Schedule chat and wins in Wins chat on Discord</label></li>
-      <li><input type="checkbox" id="t10"><label for="t10">Read books and listen to podcasts &mdash; find what motivates you through tough stretches</label></li>
+      <li><input type="checkbox" id="t1" onchange="updateOverallProgress()"><label for="t1">Take 10&ndash;15 minutes each morning to study rebuttals, policies, and enrollment procedures</label></li>
+      <li><input type="checkbox" id="t2" onchange="updateOverallProgress()"><label for="t2">Keep a notes log: agent #, agency #, office #, email prompts, and training references</label></li>
+      <li><input type="checkbox" id="t3" onchange="updateOverallProgress()"><label for="t3">Record all practice presentations and upload with screenshots to Presentation Recording Turn-In in TNT</label></li>
+      <li><input type="checkbox" id="t4" onchange="updateOverallProgress()"><label for="t4">Never sign applications during practice &mdash; during practice, always use "Start Presentation No Lead"</label></li>
+      <li><input type="checkbox" id="t5" onchange="updateOverallProgress()"><label for="t5">Complete 1&ndash;2 TNT chapters per day to stay on track</label></li>
+      <li><input type="checkbox" id="t6" onchange="updateOverallProgress()"><label for="t6">Aim for 200+ activity actions per week in your first 3 months</label></li>
+      <li><input type="checkbox" id="t7" onchange="updateOverallProgress()"><label for="t7">Use Horne's Call Clinic on Discord for call clinic practice sessions</label></li>
+      <li><input type="checkbox" id="t8" onchange="updateOverallProgress()"><label for="t8">Use Atlas AI on Discord to drill calls and quiz on policy knowledge, underwriting, and rapport</label></li>
+      <li><input type="checkbox" id="t9" onchange="updateOverallProgress()"><label for="t9">Post appointments in Schedule chat and wins in Wins chat on Discord</label></li>
+      <li><input type="checkbox" id="t10" onchange="updateOverallProgress()"><label for="t10">Read books and listen to podcasts &mdash; find what motivates you through tough stretches</label></li>
     </ul>
   </div>
 </div>
@@ -775,42 +792,42 @@ select.field-input{cursor:pointer}
       Complete coursework and pass your exam within 15 days of enrollment = 100% reimbursement on your next paycheck. 16&ndash;30 days = 50%. Your manager checks in daily &mdash; use this schedule to stay on track.
     </div>
     <div id="study-rows">
-      <div class="study-row"><input type="checkbox" class="study-check" id="st1"><div class="study-day">Day 1</div><div class="study-topic"><strong>Insurance basics</strong> &mdash; risks, perils &amp; risk-sharing; Life insurance fundamentals<span class="pill pill-blue">Foundation</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st2"><div class="study-day">Day 2</div><div class="study-topic"><strong>Types of life insurance policies</strong> &mdash; Term vs. permanent coverage</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st3"><div class="study-day">Day 3</div><div class="study-topic"><strong>Policy provisions, riders &amp; options</strong> &mdash; Beneficiary rules</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st4"><div class="study-day">Day 4</div><div class="study-topic"><strong>Annuities</strong> &mdash; Types, benefits, and payment structures<span class="pill pill-amber">Key topic</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st5"><div class="study-day">Day 5</div><div class="study-topic"><strong>Group life insurance</strong> &mdash; Other forms of group coverage</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st6"><div class="study-day">Day 6</div><div class="study-topic"><strong>Health insurance fundamentals</strong> &mdash; Key concepts &amp; systems</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st7"><div class="study-day">Day 7</div><div class="study-topic"><strong>Disability income &amp; AD&amp;D</strong> &mdash; Accident coverage<span class="pill pill-green">1 week done!</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st8"><div class="study-day">Day 8</div><div class="study-topic"><strong>Managed care</strong> &mdash; HMOs, PPOs, EPOs; Provider types &amp; reimbursement</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st9"><div class="study-day">Day 9</div><div class="study-topic"><strong>Medicare, Medicaid &amp; Social Security</strong> &mdash; Government health programs<span class="pill pill-amber">Key topic</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st10"><div class="study-day">Day 10</div><div class="study-topic"><strong>State regulations &amp; ethics</strong> &mdash; State-specific insurance law</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st11"><div class="study-day">Day 11</div><div class="study-topic"><strong>Full review</strong> &mdash; Flash cards &amp; practice tests, weak-area focus</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st12"><div class="study-day">Day 12</div><div class="study-topic"><strong>Full practice exam</strong> &mdash; Timed, no notes, aim for 80%+</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st13"><div class="study-day">Day 13</div><div class="study-topic"><strong>Schedule your state exam</strong> at pearsonvue.com &mdash; light review only today<span class="pill pill-amber">Action required</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st14"><div class="study-day">Day 14</div><div class="study-topic"><strong>&#127942; EXAM DAY</strong> &mdash; Arrive early, bring valid government-issued photo ID<span class="pill pill-green">Goal: Pass!</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st15"><div class="study-day">Day 15</div><div class="study-topic"><strong>Submit passing results</strong> to Agent Concierge: LNAgentConcierge@Globe.Life or 469-317-0281 &mdash; triggers 100% scholarship reimbursement<span class="pill pill-gold">&#128176; 100% back</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st1" onchange="updateOverallProgress()"><div class="study-day">Day 1</div><div class="study-topic"><strong>Insurance basics</strong> &mdash; risks, perils &amp; risk-sharing; Life insurance fundamentals<span class="pill pill-blue">Foundation</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st2" onchange="updateOverallProgress()"><div class="study-day">Day 2</div><div class="study-topic"><strong>Types of life insurance policies</strong> &mdash; Term vs. permanent coverage</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st3" onchange="updateOverallProgress()"><div class="study-day">Day 3</div><div class="study-topic"><strong>Policy provisions, riders &amp; options</strong> &mdash; Beneficiary rules</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st4" onchange="updateOverallProgress()"><div class="study-day">Day 4</div><div class="study-topic"><strong>Annuities</strong> &mdash; Types, benefits, and payment structures<span class="pill pill-amber">Key topic</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st5" onchange="updateOverallProgress()"><div class="study-day">Day 5</div><div class="study-topic"><strong>Group life insurance</strong> &mdash; Other forms of group coverage</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st6" onchange="updateOverallProgress()"><div class="study-day">Day 6</div><div class="study-topic"><strong>Health insurance fundamentals</strong> &mdash; Key concepts &amp; systems</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st7" onchange="updateOverallProgress()"><div class="study-day">Day 7</div><div class="study-topic"><strong>Disability income &amp; AD&amp;D</strong> &mdash; Accident coverage<span class="pill pill-green">1 week done!</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st8" onchange="updateOverallProgress()"><div class="study-day">Day 8</div><div class="study-topic"><strong>Managed care</strong> &mdash; HMOs, PPOs, EPOs; Provider types &amp; reimbursement</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st9" onchange="updateOverallProgress()"><div class="study-day">Day 9</div><div class="study-topic"><strong>Medicare, Medicaid &amp; Social Security</strong> &mdash; Government health programs<span class="pill pill-amber">Key topic</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st10" onchange="updateOverallProgress()"><div class="study-day">Day 10</div><div class="study-topic"><strong>State regulations &amp; ethics</strong> &mdash; State-specific insurance law</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st11" onchange="updateOverallProgress()"><div class="study-day">Day 11</div><div class="study-topic"><strong>Full review</strong> &mdash; Flash cards &amp; practice tests, weak-area focus</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st12" onchange="updateOverallProgress()"><div class="study-day">Day 12</div><div class="study-topic"><strong>Full practice exam</strong> &mdash; Timed, no notes, aim for 80%+</div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st13" onchange="updateOverallProgress()"><div class="study-day">Day 13</div><div class="study-topic"><strong>Schedule your state exam</strong> at pearsonvue.com &mdash; light review only today<span class="pill pill-amber">Action required</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st14" onchange="updateOverallProgress()"><div class="study-day">Day 14</div><div class="study-topic"><strong>&#127942; EXAM DAY</strong> &mdash; Arrive early, bring valid government-issued photo ID<span class="pill pill-green">Goal: Pass!</span></div></div>
+      <div class="study-row"><input type="checkbox" class="study-check" id="st15" onchange="updateOverallProgress()"><div class="study-day">Day 15</div><div class="study-topic"><strong>Submit passing results</strong> to Agent Concierge: LNAgentConcierge@Globe.Life or 469-317-0281 &mdash; triggers 100% scholarship reimbursement<span class="pill pill-gold">&#128176; 100% back</span></div></div>
     </div>
   </div>
   <div class="section">
     <div class="section-header"><div class="section-icon">&#127891;</div><h2>TNT 5-day completion goals</h2><span class="section-sub">Monday&ndash;Friday</span></div>
     <ul class="checklist">
-      <li><input type="checkbox" id="tn1"><label for="tn1">Monday &mdash; Course 1: Introduction (14 lessons)<span class="pill pill-amber">Start strong</span></label></li>
-      <li><input type="checkbox" id="tn2"><label for="tn2">Tuesday &mdash; Course 2: Compensation (10 lessons)</label></li>
-      <li><input type="checkbox" id="tn3"><label for="tn3">Wednesday &mdash; Course 3: Presentation Part 1 (14 lessons)</label></li>
-      <li><input type="checkbox" id="tn4"><label for="tn4">Thursday &mdash; Course 4: Presentation Part 2 (18 lessons)</label></li>
-      <li><input type="checkbox" id="tn5"><label for="tn5">Friday &mdash; Course 5: Accident &amp; Health Plans (12 lessons)</label></li>
-      <li><input type="checkbox" id="tn6"><label for="tn6">TNT complete &mdash; workbook finished, quizzes complete, manager notified<span class="pill pill-green">Goal</span></label></li>
+      <li><input type="checkbox" id="tn1" onchange="updateOverallProgress()"><label for="tn1">Monday &mdash; Course 1: Introduction (14 lessons)<span class="pill pill-amber">Start strong</span></label></li>
+      <li><input type="checkbox" id="tn2" onchange="updateOverallProgress()"><label for="tn2">Tuesday &mdash; Course 2: Compensation (10 lessons)</label></li>
+      <li><input type="checkbox" id="tn3" onchange="updateOverallProgress()"><label for="tn3">Wednesday &mdash; Course 3: Presentation Part 1 (14 lessons)</label></li>
+      <li><input type="checkbox" id="tn4" onchange="updateOverallProgress()"><label for="tn4">Thursday &mdash; Course 4: Presentation Part 2 (18 lessons)</label></li>
+      <li><input type="checkbox" id="tn5" onchange="updateOverallProgress()"><label for="tn5">Friday &mdash; Course 5: Accident &amp; Health Plans (12 lessons)</label></li>
+      <li><input type="checkbox" id="tn6" onchange="updateOverallProgress()"><label for="tn6">TNT complete &mdash; workbook finished, quizzes complete, manager notified<span class="pill pill-green">Goal</span></label></li>
     </ul>
   </div>
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128197;</div><h2>Recurring schedule</h2></div>
     <ul class="checklist">
-      <li><input type="checkbox" id="r1"><label for="r1"><strong>Friday 9:30am CST</strong> &mdash; Agency team meeting on Discord (video on, every week)</label></li>
-      <li><input type="checkbox" id="r2"><label for="r2"><strong>Mon / Tue / Wed / Thu</strong> &mdash; Advanced trainings on Discord</label></li>
-      <li><input type="checkbox" id="r3"><label for="r3">Post appointments in Schedule chat on Discord after each call clinic</label></li>
-      <li><input type="checkbox" id="r4"><label for="r4">Log all calls in EPIC / Geopointe same day with notes, disposition, and follow-up dates</label></li>
-      <li><input type="checkbox" id="r5"><label for="r5">Update Google Calendar with each appointment: Client Name + Lead Type as event title</label></li>
+      <li><input type="checkbox" id="r1" onchange="updateOverallProgress()"><label for="r1"><strong>Friday 9:30am CST</strong> &mdash; Agency team meeting on Discord (video on, every week)</label></li>
+      <li><input type="checkbox" id="r2" onchange="updateOverallProgress()"><label for="r2"><strong>Mon / Tue / Wed / Thu</strong> &mdash; Advanced trainings on Discord</label></li>
+      <li><input type="checkbox" id="r3" onchange="updateOverallProgress()"><label for="r3">Post appointments in Schedule chat on Discord after each call clinic</label></li>
+      <li><input type="checkbox" id="r4" onchange="updateOverallProgress()"><label for="r4">Log all calls in EPIC / Geopointe same day with notes, disposition, and follow-up dates</label></li>
+      <li><input type="checkbox" id="r5" onchange="updateOverallProgress()"><label for="r5">Update Google Calendar with each appointment: Client Name + Lead Type as event title</label></li>
     </ul>
   </div>
 </div>
@@ -1110,15 +1127,15 @@ select.field-input{cursor:pointer}
     </div>
 
     <div class="cert-section-label">EPIC</div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ep1"><div class="cert-label">Logging in to EPIC</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ep2"><div class="cert-label">Creating a lead</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ep3"><div class="cert-label">Dispositioning leads</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ep1" onchange="updateOverallProgress()"><div class="cert-label">Logging in to EPIC</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ep2" onchange="updateOverallProgress()"><div class="cert-label">Creating a lead</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ep3" onchange="updateOverallProgress()"><div class="cert-label">Dispositioning leads</div></div>
     <div style="margin-top:.5rem"><div class="field-label">Any notes on being certified for EPIC?</div><textarea class="cert-answer" id="epicNotes" rows="2" placeholder="Notes..."></textarea></div>
 
     <div class="cert-section-label">Promotion Path</div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="sa1"><div class="cert-label">Understands the activity standards expected from a full-time producing agent</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="sa2"><div class="cert-label">Understands personal production must come before coaching or training others</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="sa3"><div class="cert-label">Understands leadership development begins after the initial training foundation is complete</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="sa1" onchange="updateOverallProgress()"><div class="cert-label">Understands the activity standards expected from a full-time producing agent</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="sa2" onchange="updateOverallProgress()"><div class="cert-label">Understands personal production must come before coaching or training others</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="sa3" onchange="updateOverallProgress()"><div class="cert-label">Understands leadership development begins after the initial training foundation is complete</div></div>
     <div style="margin-top:.5rem"><div class="field-label">What is required before moving into leadership development?</div><textarea class="cert-answer" id="promotionNotes" rows="2" placeholder="Agent's answer..."></textarea></div>
     <div style="margin-top:.5rem"><div class="field-label">Any notes on promotion path?</div><textarea class="cert-answer" id="saNotes" rows="2" placeholder="Notes..."></textarea></div>
 
@@ -1138,59 +1155,59 @@ select.field-input{cursor:pointer}
     </div>
 
     <div class="cert-section-label">Field Training &mdash; Rapport</div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft1"><div class="cert-label">Fact finding using F.O.R.M</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft2"><div class="cert-label">How much time should be spent on building rapport?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft1" onchange="updateOverallProgress()"><div class="cert-label">Fact finding using F.O.R.M</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft2" onchange="updateOverallProgress()"><div class="cert-label">How much time should be spent on building rapport?</div></div>
 
     <div class="cert-section-label">Field Training &mdash; Introductory Offers</div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft3"><div class="cert-label">3,000 ADB</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft4"><div class="cert-label">Discount Card</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft5"><div class="cert-label">Child Safe Kit</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft6"><div class="cert-label">Will Kit</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft3" onchange="updateOverallProgress()"><div class="cert-label">3,000 ADB</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft4" onchange="updateOverallProgress()"><div class="cert-label">Discount Card</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft5" onchange="updateOverallProgress()"><div class="cert-label">Child Safe Kit</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft6" onchange="updateOverallProgress()"><div class="cert-label">Will Kit</div></div>
 
     <div class="cert-section-label">Field Training &mdash; Presentation</div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft7"><div class="cert-label">Read-off letter (Letter of Thanks)</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft8"><div class="cert-label">IRFTS (Final Expense, Mortgage, Income Protection, Cancer Endurance)</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft9"><div class="cert-label">Final Recap and Close</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft10"><div class="cert-label">Rebuttals</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft11"><div class="cert-label">Down closing</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft12"><div class="cert-label">Referral collection</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft7" onchange="updateOverallProgress()"><div class="cert-label">Read-off letter (Letter of Thanks)</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft8" onchange="updateOverallProgress()"><div class="cert-label">IRFTS (Final Expense, Mortgage, Income Protection, Cancer Endurance)</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft9" onchange="updateOverallProgress()"><div class="cert-label">Final Recap and Close</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft10" onchange="updateOverallProgress()"><div class="cert-label">Rebuttals</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft11" onchange="updateOverallProgress()"><div class="cert-label">Down closing</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft12" onchange="updateOverallProgress()"><div class="cert-label">Referral collection</div></div>
 
     <div class="cert-section-label">Field Training &mdash; Call Clinic</div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft13"><div class="cert-label">Referral phone script</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft14"><div class="cert-label">Set an appointment</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft15"><div class="cert-label">What is the proper schedule?</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft16"><div class="cert-label">What does 20/10/4 mean?</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft17"><div class="cert-label">How do presets affect scheduling?</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft18"><div class="cert-label">Show me your schedule</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft13" onchange="updateOverallProgress()"><div class="cert-label">Referral phone script</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft14" onchange="updateOverallProgress()"><div class="cert-label">Set an appointment</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft15" onchange="updateOverallProgress()"><div class="cert-label">What is the proper schedule?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft16" onchange="updateOverallProgress()"><div class="cert-label">What does 20/10/4 mean?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft17" onchange="updateOverallProgress()"><div class="cert-label">How do presets affect scheduling?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="ft18" onchange="updateOverallProgress()"><div class="cert-label">Show me your schedule</div></div>
     <div style="margin-top:.5rem"><div class="field-label">Any notes on Field Training?</div><textarea class="cert-answer" id="ftNotes" rows="2" placeholder="Notes..."></textarea></div>
 
     <div class="cert-section-label">General Knowledge &mdash; Life &amp; Health Policies</div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk1"><div class="cert-label">Whole Life</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk2"><div class="cert-label">Modified Life (ALX)</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk3"><div class="cert-label">Term Life (10/20, 15/30)</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk4"><div class="cert-label">Accident Protector Max</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk5"><div class="cert-label">Cancer Endurance and Cash Cancer</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk6"><div class="cert-label">Critical Illness</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk7"><div class="cert-label">Accidental Death</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk8"><div class="cert-label">Other</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk1" onchange="updateOverallProgress()"><div class="cert-label">Whole Life</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk2" onchange="updateOverallProgress()"><div class="cert-label">Modified Life (ALX)</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk3" onchange="updateOverallProgress()"><div class="cert-label">Term Life (10/20, 15/30)</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk4" onchange="updateOverallProgress()"><div class="cert-label">Accident Protector Max</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk5" onchange="updateOverallProgress()"><div class="cert-label">Cancer Endurance and Cash Cancer</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk6" onchange="updateOverallProgress()"><div class="cert-label">Critical Illness</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk7" onchange="updateOverallProgress()"><div class="cert-label">Accidental Death</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk8" onchange="updateOverallProgress()"><div class="cert-label">Other</div></div>
 
     <div class="cert-section-label">General Knowledge &mdash; Pay Structure</div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk9"><div class="cert-label">Show me how to read ICM and log in</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk10"><div class="cert-label">Show me how you can get paid</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk11"><div class="cert-label">What are your commission rates?</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk12"><div class="cert-label">What are chargebacks?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk9" onchange="updateOverallProgress()"><div class="cert-label">Show me how to read ICM and log in</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk10" onchange="updateOverallProgress()"><div class="cert-label">Show me how you can get paid</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk11" onchange="updateOverallProgress()"><div class="cert-label">What are your commission rates?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk12" onchange="updateOverallProgress()"><div class="cert-label">What are chargebacks?</div></div>
 
     <div class="cert-section-label">General Knowledge &mdash; Completing Forms</div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk13"><div class="cert-label">Bank Verification</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk14"><div class="cert-label">What Comes Next Form</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk15"><div class="cert-label">When do you upload?</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk16"><div class="cert-label">Summary Sheet</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk13" onchange="updateOverallProgress()"><div class="cert-label">Bank Verification</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk14" onchange="updateOverallProgress()"><div class="cert-label">What Comes Next Form</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk15" onchange="updateOverallProgress()"><div class="cert-label">When do you upload?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk16" onchange="updateOverallProgress()"><div class="cert-label">Summary Sheet</div></div>
 
     <div class="cert-section-label">General Knowledge &mdash; Activity Generation</div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk17"><div class="cert-label">Activity generation when no-showed</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk18"><div class="cert-label">Setting appointments from referrals</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk19"><div class="cert-label">Rebooking appointments</div></div>
-    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk20"><div class="cert-label">How many appointments per week?</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk17" onchange="updateOverallProgress()"><div class="cert-label">Activity generation when no-showed</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk18" onchange="updateOverallProgress()"><div class="cert-label">Setting appointments from referrals</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk19" onchange="updateOverallProgress()"><div class="cert-label">Rebooking appointments</div></div>
+    <div class="cert-row"><input type="checkbox" class="cert-check" id="gk20" onchange="updateOverallProgress()"><div class="cert-label">How many appointments per week?</div></div>
     <div style="margin-top:.5rem"><div class="field-label">Any notes on General Knowledge?</div><textarea class="cert-answer" id="gkNotes" rows="2" placeholder="Notes..."></textarea></div>
 
     <div class="cert-section-label">Certification signatures</div>
@@ -1307,25 +1324,39 @@ function updateState(){
 }
 function updateProgress(){
   const list=document.getElementById('setup-list');
-  if(!list)return;
-  const total=10;
-  const checked=list.querySelectorAll('input[type=checkbox]:checked').length;
-  const pct=Math.round((checked/total)*100);
-  document.getElementById('setup-bar').style.width=pct+'%';
-  document.getElementById('setup-progress').textContent=checked+' / '+total+' complete';
+  if(list){
+    const total=10;
+    const checked=list.querySelectorAll('input[type=checkbox]:checked').length;
+    const pct=Math.round((checked/total)*100);
+    document.getElementById('setup-bar').style.width=pct+'%';
+    document.getElementById('setup-progress').textContent=checked+' / '+total+' complete';
+  }
+  updateOverallProgress();
+}
+function updateOverallProgress(){
+  const boxes=Array.from(document.querySelectorAll('input[type=checkbox]'));
+  const total=boxes.length;
+  const checked=boxes.filter(box=>box.checked).length;
+  const pct=total?Math.round((checked/total)*100):0;
+  const bar=document.getElementById('overallProgressBar');
+  const text=document.getElementById('overallProgressText');
+  const sub=document.getElementById('overallProgressSub');
+  if(bar)bar.style.width=pct+'%';
+  if(text)text.textContent=pct+'% complete';
+  if(sub)sub.textContent=checked+' of '+total+' checklist items complete';
 }
 function clearAll(askConfirm = true){
-if(askConfirm && !confirm('Reset all fields for a new agent?')) return;
-document.querySelectorAll('input:not([type=checkbox]), textarea, select').forEach(el => {
-  if (el.id === 'savedAgentSelect') return;
-  if (el.id === 'tntPass') {
-    el.value = 'Agency11!';
-  } else if (el.id === 'licenseType') {
-    el.value = 'perm';
-  } else {
-    el.value = '';
-  }
-});
+  if(askConfirm && !confirm('Reset all fields for a new agent?')) return;
+  document.querySelectorAll('input:not([type=checkbox]), textarea, select').forEach(el => {
+    if (el.id === 'agentSelect') return;
+    if (el.id === 'tntPass') {
+      el.value = 'Agency11!';
+    } else if (el.id === 'licenseType') {
+      el.value = 'perm';
+    } else {
+      el.value = '';
+    }
+  });
   document.querySelectorAll('input[type=checkbox]').forEach(el=>el.checked=false);
   document.getElementById('tntPass').value='Agency11!';
   document.getElementById('agentState').value='';
@@ -1338,6 +1369,7 @@ document.querySelectorAll('input:not([type=checkbox]), textarea, select').forEac
   document.getElementById('display-state').textContent='';
   document.getElementById('setup-bar').style.width='0%';
   document.getElementById('setup-progress').textContent='0 / 10 complete';
+  updateOverallProgress();
   syncHero();
   customEvents=[];calYear=today.getFullYear();calMonth=today.getMonth();renderCal();
 }
@@ -1415,8 +1447,8 @@ function filterGlossary(){
    tr.style.display=tr.innerText.toLowerCase().includes(filter)?'':'none';
  });
 }
-const supabaseUrl = "https://ghtwudtcgfywfgggyztc.supabase.co";
-const supabaseKey = "sb_publishable_SE1GhHygwcESdMkuF3BSug_K-RklCAQ";
+const supabaseUrl = "YOUR_SUPABASE_URL";
+const supabaseKey = "YOUR_SUPABASE_PUBLISHABLE_KEY";
 
 const supabaseClient = window.supabase.createClient(
   supabaseUrl,
@@ -1431,8 +1463,8 @@ function setSaveStatus(message) {
 }
 
 function isSupabaseConfigured() {
-  return !supabaseUrl.includes('YOUR_SUPABASE_URL') &&
-         !supabaseKey.includes('YOUR_SUPABASE_PUBLISHABLE_KEY');
+  return !supabaseUrl.includes('https://ghtwudtcgfywfgggyztc.supabase.co') &&
+         !supabaseKey.includes('sb_publishable_SE1GhHygwcESdMkuF3BSug_K-RklCAQ');
 }
 
 function getFieldValue(el) {
@@ -1647,7 +1679,7 @@ async function loadSelectedAgent() {
 
   currentAgentId = data.id;
   clearAll(false);
-  currentAgentId = data.id
+  currentAgentId = data.id;
   restorePacketState(data.onboarding_data);
   setSaveStatus('Loaded: ' + (data.agent_name || 'Unnamed Agent'));
   alert('Agent loaded successfully!');
@@ -1661,15 +1693,22 @@ function startNewAgent() {
   const select = document.getElementById('agentSelect');
   if (select) select.value = '';
 
-  clearAll();
+  clearAll(false);
   setSaveStatus('New unsaved agent');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   refreshAgentList();
+  updateOverallProgress();
+  document.addEventListener('change', (event) => {
+    if (event.target && event.target.matches('input[type=checkbox]')) {
+      updateOverallProgress();
+    }
+  });
 });
 syncManagerContact();
 renderCal();
+updateOverallProgress();
 </script>
 </body>
 </html>
