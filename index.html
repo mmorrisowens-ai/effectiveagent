@@ -1750,7 +1750,7 @@ async function loadSelectedAgent() {
   currentAgentId = data.id;
   restorePacketState(data.onboarding_data);
   setSaveStatus('Loaded: ' + (data.agent_name || 'Unnamed Agent'));
-updateCurrentAgentBanner(data.agent name || 'Unamed Agent');
+updateCurrentAgentBanner(data.agent_name || 'Unamed Agent');
   alert('Agent loaded successfully!');
 }
 
