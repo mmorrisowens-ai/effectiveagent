@@ -1314,9 +1314,18 @@ function updateProgress(){
   document.getElementById('setup-bar').style.width=pct+'%';
   document.getElementById('setup-progress').textContent=checked+' / '+total+' complete';
 }
-function clearAll(){
-  if(!confirm('Reset all fields for a new agent?'))return;
-  document.querySelectorAll('input[type=text],input[type=date],input[type=number],textarea').forEach(el=>el.value='');
+function clearAll(askConfirm = true){
+if(askConfirm && !confirm('Reset all fields for a new agent?')) return;
+document.querySelectorAll('input:not([type=checkbox]), textarea, select').forEach(el => {
+  if (el.id === 'savedAgentSelect') return;
+  if (el.id === 'tntPass') {
+    el.value = 'Agency11!';
+  } else if (el.id === 'licenseType') {
+    el.value = 'perm';
+  } else {
+    el.value = '';
+  }
+});
   document.querySelectorAll('input[type=checkbox]').forEach(el=>el.checked=false);
   document.getElementById('tntPass').value='Agency11!';
   document.getElementById('agentState').value='';
@@ -1637,6 +1646,8 @@ async function loadSelectedAgent() {
   }
 
   currentAgentId = data.id;
+  clearAll(false);
+  currentAgentId = data.id
   restorePacketState(data.onboarding_data);
   setSaveStatus('Loaded: ' + (data.agent_name || 'Unnamed Agent'));
   alert('Agent loaded successfully!');
