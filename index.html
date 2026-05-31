@@ -1217,9 +1217,29 @@ select.field-input{cursor:pointer}
   </div>
 </div>
 
+<div class="section no-print" style="border:1.5px solid var(--green);background:var(--green-lt)">
+  <div class="section-header" style="border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:.75rem">
+    <div class="section-icon">💾</div>
+    <h2>Saved Agent Records</h2>
+    <span class="section-sub" id="saveStatus">Not saved yet</span>
+  </div>
+  <div class="field-grid g2" style="align-items:end">
+    <div>
+      <div class="field-label">Load existing agent</div>
+      <select class="field-input" id="agentSelect">
+        <option value="">— No saved agents loaded yet —</option>
+      </select>
+    </div>
+    <div class="action-bar" style="margin-top:0">
+      <button class="btn btn-primary" onclick="loadSelectedAgent()">📂 Load Agent</button>
+      <button class="btn btn-green" onclick="saveAgent()">💾 Save Agent</button>
+      <button class="btn btn-outline" onclick="startNewAgent()">＋ New Agent</button>
+    </div>
+  </div>
+</div>
+
 <div class="action-bar no-print">
   <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
-  <button class="btn btn-primary" onclick="saveAgent()">💾 Save Agent</button>
   <button class="btn btn-outline" onclick="clearAll()">↺ Reset for new agent</button>
 </div>
   
@@ -1387,34 +1407,162 @@ function filterGlossary(){
  });
 }
 const supabaseUrl = "https://ghtwudtcgfywfgggyztc.supabase.co";
-const supabaseKey = "sb_publishable_SE1GhHygwcESdMkuF3BSug_K-RklCAQ";
+const supabaseKey = "sb_publishable_SE1GhHygwcESdMkuF3BSug_k-Rk1CAQ";
 
 const supabaseClient = window.supabase.createClient(
   supabaseUrl,
   supabaseKey
 );
 
-async function saveAgent() {
+let currentAgentId = null;
 
-  const agentRecord = {
+function setSaveStatus(message) {
+  const el = document.getElementById('saveStatus');
+  if (el) el.textContent = message;
+}
+
+function isSupabaseConfigured() {
+  return !supabaseUrl.includes('YOUR_SUPABASE_URL') &&
+         !supabaseKey.includes('YOUR_SUPABASE_PUBLISHABLE_KEY');
+}
+
+function getFieldValue(el) {
+  if (el.type === 'checkbox') return el.checked;
+  if (el.type === 'radio') return el.checked;
+  return el.value;
+}
+
+function setFieldValue(el, value) {
+  if (el.type === 'checkbox') {
+    el.checked = Boolean(value);
+    return;
+  }
+
+  if (el.type === 'radio') {
+    el.checked = Boolean(value);
+    return;
+  }
+
+  el.value = value ?? '';
+}
+
+function collectPacketState() {
+  const fields = {};
+  const fieldSelector = 'input[id], textarea[id], select[id]';
+
+  document.querySelectorAll(fieldSelector).forEach(el => {
+    fields[el.id] = getFieldValue(el);
+  });
+
+  const openDetails = {};
+  document.querySelectorAll('details[id]').forEach(el => {
+    openDetails[el.id] = el.open;
+  });
+
+  const activePanel = document.querySelector('.tab-panel.active')?.id || 'tab-info';
+
+  return {
+    version: 2,
+    saved_at: new Date().toISOString(),
+    fields,
+    openDetails,
+    customEvents,
+    calendar: {
+      calYear,
+      calMonth
+    },
+    activePanel
+  };
+}
+
+function restorePacketState(packetState) {
+  const state = packetState || {};
+  const fields = state.fields || {};
+
+  Object.entries(fields).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    setFieldValue(el, value);
+  });
+
+  const openDetails = state.openDetails || {};
+  Object.entries(openDetails).forEach(([id, isOpen]) => {
+    const el = document.getElementById(id);
+    if (el && el.tagName.toLowerCase() === 'details') {
+      el.open = Boolean(isOpen);
+    }
+  });
+
+  customEvents = Array.isArray(state.customEvents) ? state.customEvents : [];
+
+  if (state.calendar && Number.isInteger(state.calendar.calYear) && Number.isInteger(state.calendar.calMonth)) {
+    calYear = state.calendar.calYear;
+    calMonth = state.calendar.calMonth;
+  }
+
+  updateState();
+  updateProgress();
+  syncHero();
+  syncManagerContact();
+  syncEpic();
+  renderCal();
+
+  if (state.activePanel) {
+    const panelName = state.activePanel.replace('tab-', '');
+    const matchingButton = Array.from(document.querySelectorAll('.tab')).find(btn =>
+      btn.getAttribute('onclick')?.includes("'" + panelName + "'") ||
+      btn.getAttribute('onclick')?.includes('"' + panelName + '"')
+    );
+
+    if (matchingButton) {
+      showTab(panelName, matchingButton);
+    }
+  }
+}
+
+function getAgentRecordFromPage() {
+  const packetState = collectPacketState();
+
+  return {
     manager_name: document.getElementById('managerName')?.value || '',
-    agent_name: document.getElementById('agentName')?.value || '',
+    agent_name: document.getElementById('agentName')?.value || 'Unnamed Agent',
     agent_email: document.getElementById('personalEmail')?.value || '',
     start_date: document.getElementById('startDate')?.value || null,
-
-    onboarding_data: {
-      agentNum: document.getElementById('agentNum')?.value || '',
-      managerPhone: document.getElementById('managerPhone')?.value || '',
-      managerEmail: document.getElementById('managerEmail')?.value || '',
-      workEmail: document.getElementById('workEmail')?.value || '',
-      discordUser: document.getElementById('discordUser')?.value || '',
-      agentPhone: document.getElementById('agentPhone')?.value || ''
-    }, 
+    onboarding_data: packetState
   };
+}
 
-  const { error } = await supabaseClient
-    .from('agents')
-    .insert([agentRecord]);
+async function saveAgent() {
+  if (!isSupabaseConfigured()) {
+    alert('Supabase is still using placeholder values. Paste your real Project URL and publishable key before testing Save.');
+    return;
+  }
+
+  const agentRecord = getAgentRecordFromPage();
+
+  if (!agentRecord.agent_name || agentRecord.agent_name === 'Unnamed Agent') {
+    const proceed = confirm('Agent name is blank. Save anyway?');
+    if (!proceed) return;
+  }
+
+  let response;
+
+  if (currentAgentId) {
+    response = await supabaseClient
+      .from('agents')
+      .update(agentRecord)
+      .eq('id', currentAgentId)
+      .select('id, agent_name, manager_name, start_date, created_at')
+      .single();
+  } else {
+    response = await supabaseClient
+      .from('agents')
+      .insert([agentRecord])
+      .select('id, agent_name, manager_name, start_date, created_at')
+      .single();
+  }
+
+  const { data, error } = response;
 
   if (error) {
     console.error(error);
@@ -1422,9 +1570,93 @@ async function saveAgent() {
     return;
   }
 
+  currentAgentId = data.id;
+  setSaveStatus('Saved: ' + new Date().toLocaleString());
+  await refreshAgentList(currentAgentId);
   alert('Agent saved successfully!');
 }
 
+async function refreshAgentList(selectedId = currentAgentId) {
+  const select = document.getElementById('agentSelect');
+  if (!select || !isSupabaseConfigured()) return;
+
+  const { data, error } = await supabaseClient
+    .from('agents')
+    .select('id, agent_name, manager_name, start_date, created_at')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error(error);
+    select.innerHTML = '<option value="">Could not load agents</option>';
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    select.innerHTML = '<option value="">— No saved agents yet —</option>';
+    return;
+  }
+
+  select.innerHTML = '<option value="">— Select saved agent —</option>';
+
+  data.forEach(agent => {
+    const opt = document.createElement('option');
+    opt.value = agent.id;
+
+    const name = agent.agent_name || 'Unnamed Agent';
+    const manager = agent.manager_name ? ' — ' + agent.manager_name : '';
+    const start = agent.start_date ? ' — starts ' + agent.start_date : '';
+
+    opt.textContent = name + manager + start;
+    select.appendChild(opt);
+  });
+
+  if (selectedId) {
+    select.value = selectedId;
+  }
+}
+
+async function loadSelectedAgent() {
+  const select = document.getElementById('agentSelect');
+  const id = select?.value;
+
+  if (!id) {
+    alert('Choose an agent to load first.');
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from('agents')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    alert('Load failed: ' + error.message);
+    return;
+  }
+
+  currentAgentId = data.id;
+  restorePacketState(data.onboarding_data);
+  setSaveStatus('Loaded: ' + (data.agent_name || 'Unnamed Agent'));
+  alert('Agent loaded successfully!');
+}
+
+function startNewAgent() {
+  const proceed = confirm('Start a new agent record? Unsaved changes on the current packet will be lost.');
+  if (!proceed) return;
+
+  currentAgentId = null;
+  const select = document.getElementById('agentSelect');
+  if (select) select.value = '';
+
+  clearAll();
+  setSaveStatus('New unsaved agent');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  refreshAgentList();
+});
 syncManagerContact();
 renderCal();
 </script>
