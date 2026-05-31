@@ -1247,6 +1247,17 @@ select.field-input{cursor:pointer}
         <option value="">— No saved agents loaded yet —</option>
       </select>
     </div>
+<div id="managerDashboard" class="section">
+  <div class="section-header">
+    <div class="section-icon">👥</div>
+    <h2>Manager Dashboard</h2>
+    <span class="section-sub">Saved agent records</span>
+  </div>
+
+  <div id="managerAgentList">
+    <p class="fine">No saved agents loaded yet.</p>
+  </div>
+</div>
     <div class="action-bar" style="margin-top:0">
       <button class="btn btn-primary" onclick="loadSelectedAgent()">📂 Load Agent</button>
       <button class="btn btn-green" onclick="saveAgent()">💾 Save Agent</button>
@@ -1616,7 +1627,48 @@ async function saveAgent() {
   await refreshAgentList(currentAgentId);
   alert('Agent saved successfully!');
 }
+function renderManagerDashboard(agents) {
+  const list = document.getElementById('managerAgentList');
+  if (!list) return;
 
+  if (!agents || agents.length === 0) {
+    list.innerHTML = '<p class="fine">No saved agents yet.</p>';
+    return;
+  }
+
+  list.innerHTML = '';
+
+  agents.forEach(agent => {
+    const row = document.createElement('div');
+    row.style.display = 'flex';
+    row.style.alignItems = 'center';
+    row.style.justifyContent = 'space-between';
+    row.style.gap = '12px';
+    row.style.padding = '10px 0';
+    row.style.borderBottom = '1px solid var(--border)';
+
+    const name = agent.agent_name || 'Unnamed Agent';
+    const manager = agent.manager_name ? 'Manager: ' + agent.manager_name : 'Manager not entered';
+    const start = agent.start_date ? 'Start: ' + agent.start_date : 'Start date not entered';
+
+    row.innerHTML = `
+      <div>
+        <div style="font-weight:600;color:var(--navy);">${name}</div>
+        <div class="fine" style="margin-top:2px;">${manager} · ${start}</div>
+      </div>
+      <button class="cal-btn" onclick="loadAgentFromDashboard('${agent.id}')">View/Edit</button>
+    `;
+
+    list.appendChild(row);
+  });
+}
+
+async function loadAgentFromDashboard(id) {
+  const select = document.getElementById('agentSelect');
+  if (select) select.value = id;
+
+  await loadSelectedAgent();
+}
 async function refreshAgentList(selectedId = currentAgentId) {
   const select = document.getElementById('agentSelect');
   if (!select || !isSupabaseConfigured()) return;
@@ -1639,21 +1691,22 @@ async function refreshAgentList(selectedId = currentAgentId) {
 
   select.innerHTML = '<option value="">— Select saved agent —</option>';
 
-  data.forEach(agent => {
-    const opt = document.createElement('option');
-    opt.value = agent.id;
+data.forEach(agent => {
+  const opt = document.createElement('option');
+  opt.value = agent.id;
 
-    const name = agent.agent_name || 'Unnamed Agent';
-    const manager = agent.manager_name ? ' — ' + agent.manager_name : '';
-    const start = agent.start_date ? ' — starts ' + agent.start_date : '';
+  const name = agent.agent_name || 'Unnamed Agent';
+  const manager = agent.manager_name ? ' - ' + agent.manager_name : '';
+  const start = agent.start_date ? ' - starts ' + agent.start_date : '';
 
-    opt.textContent = name + manager + start;
-    select.appendChild(opt);
-  });
+  opt.textContent = name + manager + start;
+  select.appendChild(opt);
+});
 
-  if (selectedId) {
-    select.value = selectedId;
-  }
+renderManagerDashboard(data);
+
+if (selectedId) {
+  select.value = selectedId;
 }
 
 async function loadSelectedAgent() {
