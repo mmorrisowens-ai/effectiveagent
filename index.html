@@ -218,6 +218,84 @@ body.manager-authenticated .agent-only{display:none!important}
 .uw-decline{background:var(--coral-lt);border-color:#f1b7b0}.uw-alx{background:var(--amber-lt);border-color:#f4c98f}.uw-rated{background:var(--blue-lt);border-color:#b9d4f4}.uw-standard{background:var(--green-lt);border-color:#b8e5cc}
 .uw-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}.uw-list div{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:12.5px;color:var(--text)}
 .uw-condition{border:1px solid var(--border);border-radius:10px;background:#fff;margin-bottom:8px;overflow:hidden}.uw-condition summary{cursor:pointer;list-style:none;padding:12px 14px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;color:var(--navy)}.uw-condition summary::-webkit-details-marker{display:none}.uw-condition[open] summary{background:var(--green-lt);border-bottom:1px solid var(--border)}.uw-condition-body{padding:12px 14px}.uw-condition-body h4{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:8px 0 4px}.uw-condition-body p,.uw-condition-body li{font-size:12.5px;color:var(--text);line-height:1.55}.uw-condition-body ul{margin-left:17px}.uw-badge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:999px;padding:3px 7px;white-space:nowrap}.uw-badge.green{background:var(--green-lt);color:var(--green-mid)}.uw-badge.blue{background:var(--blue-lt);color:var(--blue)}.uw-badge.amber{background:var(--amber-lt);color:var(--amber)}.uw-badge.red{background:var(--coral-lt);color:var(--coral)}
+
+.uw-req-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:12px;
+  font-size:.9rem;
+  background:#fff;
+}
+.uw-req-table th{
+  background:#1e3a5f;
+  color:#fff;
+  border:1px solid #d1d5db;
+  padding:8px;
+  text-align:center;
+  font-weight:700;
+}
+.uw-req-table td{
+  border:1px solid #d1d5db;
+  padding:8px;
+  text-align:center;
+  vertical-align:middle;
+}
+.uw-req-table tbody tr:nth-child(even){
+  background:#f8fafc;
+}
+.uw-req-table tbody tr:hover{
+  background:#eef6ff;
+}
+.adult-build-table th:nth-child(2),
+.adult-build-table td:nth-child(2){
+  background:#dcfce7;
+  font-weight:700;
+}
+.adult-build-table th:nth-child(n+3):nth-child(-n+8),
+.adult-build-table td:nth-child(n+3):nth-child(-n+8){
+  background:#fef9c3;
+}
+.adult-build-table th:nth-child(9),
+.adult-build-table td:nth-child(9){
+  background:#fed7aa;
+  font-weight:600;
+}
+.adult-build-table th:nth-child(10),
+.adult-build-table td:nth-child(10){
+  background:#fecaca;
+  font-weight:700;
+}
+.adult-build-table th:first-child,
+.adult-build-table td:first-child{
+  background:#fff;
+  font-weight:700;
+}
+.adult-build-table .build-subhead td{
+  background:#e5e7eb!important;
+  color:var(--navy);
+  font-weight:800;
+  text-align:center;
+}
+.uw-rating-legend{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:12px;
+}
+.uw-rating-chip{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:4px;
+  font-size:11px;
+  font-weight:700;
+  color:var(--text);
+}
+.uw-rating-standard{background:#dcfce7}
+.uw-rating-bh{background:#fef9c3}
+.uw-rating-j{background:#fed7aa}
+.uw-rating-l{background:#fecaca}
+
 .build-img{width:100%;border:1px solid var(--border);border-radius:10px;background:#fff;box-shadow:var(--shadow);margin-top:10px}.build-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px}.manager-ref{border:1.5px dashed var(--amber);background:var(--amber-lt)}
 @media(max-width:700px){.uw-grid,.uw-outcomes,.uw-list,.build-toggle{grid-template-columns:1fr}}
 
@@ -1255,6 +1333,7 @@ body.manager-authenticated .agent-only{display:none!important}
 </div>
 
 <!-- TAB: HEIGHT & WEIGHT -->
+<div id="tab-build" class="tab-panel">
 <div class="uw-hero">
   <h2>&#128207; Height &amp; Weight Guide</h2>
   <p>Use this tab during application prep to help set expectations. Height and weight may affect whether a policy is issued standard, rated, modified/ALX, or declined. Underwriting makes the final decision.</p>
@@ -1269,7 +1348,14 @@ body.manager-authenticated .agent-only{display:none!important}
 <div class="section">
   <div class="section-header"><div class="section-icon">&#128994;</div><h2>Adult Build Chart</h2><span class="section-sub">4'8&quot; and above</span></div>
   <div class="callout c-blue"><strong>BUILD CHART NOTE</strong>Clients at or below the Standard range may qualify for Standard rates. Higher weights may result in table ratings. The L column represents Decline / ALX Only guidelines.</div>
-  <table class="uw-req-table">
+  <div class="callout c-blue uw-rating-legend">
+  <strong>Rating Guide:</strong>
+  <span class="uw-rating-chip uw-rating-standard">Standard</span>
+  <span class="uw-rating-chip uw-rating-bh">B-H</span>
+  <span class="uw-rating-chip uw-rating-j">J</span>
+  <span class="uw-rating-chip uw-rating-l">L / ALX Only</span>
+</div>
+  <table class="uw-req-table adult-build-table">
 <thead>
 <tr>
 <th>Height</th>
@@ -1311,7 +1397,7 @@ body.manager-authenticated .agent-only{display:none!important}
 <tr><td>6'5"</td><td>157-324</td><td>325</td><td>338</td><td>350</td><td>359</td><td>367</td><td>384</td><td>393</td><td>401</td></tr>
 <tr><td>6'6"</td><td>161-333</td><td>334</td><td>347</td><td>360</td><td>368</td><td>377</td><td>394</td><td>403</td><td>412</td></tr>
 
-<tr>
+<tr class="build-subhead">
 <td colspan="10"><strong>Male All Ages</strong></td>
 </tr>
 
