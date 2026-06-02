@@ -192,6 +192,11 @@ select.field-input{cursor:pointer}
 .overall-progress-fill{height:100%;width:0%;background:var(--green);border-radius:999px;transition:width .25s ease}
 .overall-progress-sub{font-size:11px;color:var(--muted);margin-top:6px}
 
+.agent-progress-loader{background:var(--white);border:1.5px solid var(--blue);border-radius:10px;padding:14px 16px;margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.agent-progress-loader .action-bar{margin-top:.75rem}
+.agent-load-status{font-size:11.5px;color:var(--muted);margin-top:6px}
+.agent-loaded-badge{display:inline-block;background:var(--green-lt);color:var(--green-mid);border:1px solid #b8e5cc;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:700;margin-left:6px}
+
 .role-switcher{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:1.25rem;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .role-title{font-size:13px;font-weight:700;color:var(--navy)}
 .role-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
@@ -204,7 +209,7 @@ select.field-input{cursor:pointer}
 .lock-error{font-size:11.5px;color:var(--coral);font-weight:700;margin-left:4px}
 .agent-mode-note{background:var(--blue-lt);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:#1a3e6a;margin-bottom:1.25rem}
 body:not(.manager-authenticated) .manager-only{display:none!important}
-body.agent-view input:not(#managerPassword),body.agent-view textarea,body.agent-view select{pointer-events:none;background:#f1f5f9;color:var(--muted)}
+body.agent-view input:not(#managerPassword),body.agent-view textarea,body.agent-view select:not(#agentProgressSelect){pointer-events:none;background:#f1f5f9;color:var(--muted)}
 body.agent-view input[type=checkbox]{accent-color:var(--muted)}
 body.agent-view .agent-disable{display:none!important}
 body.manager-authenticated .agent-only{display:none!important}
@@ -350,13 +355,34 @@ body.manager-authenticated .agent-only{display:none!important}
   &#9881;&#65039; <strong>Manager Setup Mode:</strong> Fill in the Start Here tab first &mdash; the packet auto-populates throughout. Then send this file to the agent to complete their checklist and track progress.
 </div>
 
-<div class="overall-progress-card no-print manager-only">
+<div class="overall-progress-card no-print">
   <div class="overall-progress-head">
     <div class="overall-progress-title">📊 Agent Onboarding Progress</div>
     <div class="overall-progress-meta" id="overallProgressText">0% complete</div>
   </div>
   <div class="overall-progress-track"><div class="overall-progress-fill" id="overallProgressBar"></div></div>
   <div class="overall-progress-sub" id="overallProgressSub">0 of 0 checklist items complete</div>
+  <div class="overall-progress-sub agent-only" style="margin-top:4px">Load your saved record below to see your current progress.</div>
+</div>
+
+<div class="agent-progress-loader agent-only no-print">
+  <div class="section-header" style="border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:.75rem;padding-bottom:.75rem">
+    <div class="section-icon">📂</div>
+    <h2>Load My Progress</h2>
+    <span class="section-sub">Agent view</span>
+  </div>
+  <div class="field-grid g1" style="margin-bottom:0">
+    <div>
+      <div class="field-label">Choose your name</div>
+      <select class="field-input" id="agentProgressSelect">
+        <option value="">— Loading saved agents —</option>
+      </select>
+    </div>
+  </div>
+  <div class="action-bar">
+    <button class="btn btn-primary" onclick="loadAgentProgressOnly()">📊 Load My Progress</button>
+  </div>
+  <div class="agent-load-status" id="agentProgressStatus">Choose your name to load your saved checklist and progress bar.</div>
 </div>
 
 <div class="tab-bar no-print">
@@ -1800,6 +1826,10 @@ function unlockManagerMode(){
 function enableEditableControls(enabled){
   document.querySelectorAll('input, textarea, select').forEach(el => {
     if (el.id === 'managerPassword') return;
+    if (el.id === 'agentProgressSelect') {
+      el.disabled = false;
+      return;
+    }
     el.disabled = !enabled;
   });
 }
@@ -1888,7 +1918,7 @@ function updateOverallProgress(){
 function clearAll(askConfirm = true){
   if(askConfirm && !confirm('Reset all fields for a new agent?')) return;
   document.querySelectorAll('input:not([type=checkbox]), textarea, select').forEach(el => {
-    if (el.id === 'agentSelect') return;
+    if (el.id === 'agentSelect' || el.id === 'agentProgressSelect') return;
     if (el.id === 'tntPass') {
       el.value = 'Agency11!';
     } else if (el.id === 'licenseType') {
@@ -2209,7 +2239,13 @@ async function loadAgentFromDashboard(id) {
 }
 async function refreshAgentList(selectedId = currentAgentId) {
   const select = document.getElementById('agentSelect');
-  if (!select || !isSupabaseConfigured()) return;
+  const agentProgressSelect = document.getElementById('agentProgressSelect');
+
+  if (!isSupabaseConfigured()) {
+    if (select) select.innerHTML = '<option value="">Supabase not configured</option>';
+    if (agentProgressSelect) agentProgressSelect.innerHTML = '<option value="">Progress loading is not configured yet</option>';
+    return;
+  }
 
   const { data, error } = await supabaseClient
     .from('agents')
@@ -2218,37 +2254,97 @@ async function refreshAgentList(selectedId = currentAgentId) {
 
   if (error) {
     console.error(error);
-    select.innerHTML = '<option value="">Could not load agents</option>';
+    if (select) select.innerHTML = '<option value="">Could not load agents</option>';
+    if (agentProgressSelect) agentProgressSelect.innerHTML = '<option value="">Could not load saved agents</option>';
     return;
   }
 
   if (!data || data.length === 0) {
-    select.innerHTML = '<option value="">— No saved agents yet —</option>';
+    if (select) select.innerHTML = '<option value="">— No saved agents yet —</option>';
+    if (agentProgressSelect) agentProgressSelect.innerHTML = '<option value="">— No saved agents yet —</option>';
+    renderManagerDashboard([]);
     return;
   }
 
-  select.innerHTML = '<option value="">— Select saved agent —</option>';
+  if (select) select.innerHTML = '<option value="">— Select saved agent —</option>';
+  if (agentProgressSelect) agentProgressSelect.innerHTML = '<option value="">— Select your name —</option>';
 
-data.forEach(agent => {
-  const opt = document.createElement('option');
-  opt.value = agent.id;
+  data.forEach(agent => {
+    const name = agent.agent_name || 'Unnamed Agent';
+    const manager = agent.manager_name ? ' - ' + agent.manager_name : '';
+    const start = agent.start_date ? ' - starts ' + agent.start_date : '';
+    const label = name + manager + start;
 
-  const name = agent.agent_name || 'Unnamed Agent';
-  const manager = agent.manager_name ? ' - ' + agent.manager_name : '';
-  const start = agent.start_date ? ' - starts ' + agent.start_date : '';
+    if (select) {
+      const opt = document.createElement('option');
+      opt.value = agent.id;
+      opt.textContent = label;
+      select.appendChild(opt);
+    }
 
-  opt.textContent = name + manager + start;
-  select.appendChild(opt);
-});
+    if (agentProgressSelect) {
+      const opt = document.createElement('option');
+      opt.value = agent.id;
+      opt.textContent = label;
+      agentProgressSelect.appendChild(opt);
+    }
+  });
 
-renderManagerDashboard(data);
+  renderManagerDashboard(data);
 
-if (selectedId) {
-  select.value = selectedId;
-}
+  if (selectedId) {
+    if (select) select.value = selectedId;
+    if (agentProgressSelect) agentProgressSelect.value = selectedId;
+  }
 
 }  
-  
+
+async function loadAgentProgressOnly() {
+  const select = document.getElementById('agentProgressSelect');
+  const status = document.getElementById('agentProgressStatus');
+  const id = select?.value;
+
+  if (!id) {
+    if (status) status.textContent = 'Choose your name first.';
+    return;
+  }
+
+  if (!isSupabaseConfigured()) {
+    if (status) status.textContent = 'Progress loading is not configured yet.';
+    return;
+  }
+
+  if (status) status.textContent = 'Loading progress...';
+
+  const { data, error } = await supabaseClient
+    .from('agents')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    if (status) status.textContent = 'Could not load progress: ' + error.message;
+    return;
+  }
+
+  currentAgentId = data.id;
+  clearAll(false);
+  currentAgentId = data.id;
+  restorePacketState(data.onboarding_data);
+  syncHero();
+  updateProgress();
+  updateOverallProgress();
+  if (select) select.value = data.id;
+  const managerSelect = document.getElementById('agentSelect');
+  if (managerSelect) managerSelect.value = data.id;
+  updateCurrentAgentBanner(data.agent_name || 'Unnamed Agent');
+
+  if (status) {
+    status.innerHTML = 'Loaded progress for <strong>' + (data.agent_name || 'Unnamed Agent') + '</strong><span class="agent-loaded-badge">Loaded</span>';
+  }
+}
+
 async function loadSelectedAgent() {
   const select = document.getElementById('agentSelect');
   const id = select?.value;
@@ -2275,7 +2371,11 @@ async function loadSelectedAgent() {
   currentAgentId = data.id;
   restorePacketState(data.onboarding_data);
   setSaveStatus('Loaded: ' + (data.agent_name || 'Unnamed Agent'));
-updateCurrentAgentBanner(data.agent_name || 'Unamed Agent');
+updateCurrentAgentBanner(data.agent_name || 'Unnamed Agent');
+  const agentProgressSelect = document.getElementById('agentProgressSelect');
+  if (agentProgressSelect) agentProgressSelect.value = data.id;
+  const agentProgressStatus = document.getElementById('agentProgressStatus');
+  if (agentProgressStatus) agentProgressStatus.innerHTML = 'Loaded progress for <strong>' + (data.agent_name || 'Unnamed Agent') + '</strong><span class="agent-loaded-badge">Loaded</span>';
   alert('Agent loaded successfully!');
 }
 
@@ -2287,6 +2387,8 @@ function startNewAgent() {
 updateCurrentAgentBanner('New Unsaved Agent');
   const select = document.getElementById('agentSelect');
   if (select) select.value = '';
+  const agentProgressSelect = document.getElementById('agentProgressSelect');
+  if (agentProgressSelect) agentProgressSelect.value = '';
 
   clearAll(false);
   setSaveStatus('New unsaved agent');
