@@ -441,7 +441,7 @@ body.manager-authenticated .agent-only{display:none!important}
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128222;</div><h2>Important contacts</h2><span class="section-sub">Where to go for help</span></div>
     <div class="contact-grid">
-      <div class="contact-card"><div class="lbl">Manager</div><div class="val">Use the manager information below</div></div>
+      <div class="contact-card">   <div class="lbl">Manager</div>   <div class="val">     <a href="#managerContactCard" onclick="showTab('quickref')" style="text-decoration:none;color:inherit;">       Click here for your manager     </a>   </div> </div>
       <div class="contact-card"><div class="lbl">Office</div><div class="val">(417) 731-4006</div></div>
       <div class="contact-card"><div class="lbl">Agent Concierge</div><div class="val">469-317-0281<br>LNAgentConcierge@Globe.Life</div></div>
       <div class="contact-card"><div class="lbl">Completed forms / certifications</div><div class="val">mowens@globe.life</div></div>
@@ -590,8 +590,8 @@ body.manager-authenticated .agent-only{display:none!important}
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128222;</div><h2>Important contacts</h2><span class="section-sub">Who to contact and when</span></div>
     <div class="qr-grid">
-      <div class="qr-card qr-big">
-        <h3>&#128100; Your Manager</h3>
+   <div class="qr-card qr-big" id="managerContactCard">
+  <h3>&#128100; Your Manager</h3>
         <div class="qr-contact-line"><div class="lbl">Name</div><div class="val" id="qrManagerName">Manager name not entered yet</div></div>
         <div class="qr-contact-line"><div class="lbl">Phone</div><div class="val" id="qrManagerPhone">Manager phone not entered yet</div></div>
         <div class="qr-contact-line"><div class="lbl">Email</div><div class="val" id="qrManagerEmail">Manager email not entered yet</div></div>
