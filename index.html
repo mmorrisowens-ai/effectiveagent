@@ -393,6 +393,7 @@ body.manager-authenticated .agent-only{display:none!important}
   <button class="tab" onclick="showTab('schedule',this)">&#128218; Training Plan</button>
   <button class="tab" onclick="showTab('calendar',this)">&#128197; Calendar</button>
   <button class="tab" onclick="showTab('rebuttals',this)">&#128222; Scripts</button>
+  <button class="tab" onclick="showTab('textscripts',this)">💬 Text Scripts</button>
   <button class="tab" onclick="showTab('products',this)">&#128218; Product Knowledge</button>
   <button class="tab" onclick="showTab('pairing',this)">&#129309; Product Pairing</button>
   <button class="tab" onclick="showTab('underwriting',this)">&#129658; Underwriting</button>
@@ -569,6 +570,7 @@ body.manager-authenticated .agent-only{display:none!important}
       <div class="resource-pill">&#129517; Quick Reference</div>
       <div class="resource-pill">&#128203; Licensing</div>
       <div class="resource-pill">&#128222; Scripts</div>
+      <div class="resource-pill">💬 Text Scripts</div>
       <div class="resource-pill">&#128100; Your Manager</div>
     </div>
   </div>
@@ -1145,6 +1147,56 @@ body.manager-authenticated .agent-only{display:none!important}
   </div>
 </div>
 
+<!-- TAB: TEXT SCRIPTS -->
+<div id="tab-textscripts" class="tab-panel">
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">💬</div>
+      <h2>Text Scripts</h2>
+    </div>
+
+    <div class="callout c-blue">
+      <strong>Copy, personalize, and send.</strong>
+      Always verify names, dates, and times before texting clients.
+    </div>
+
+    <details class="script-card" open>
+      <summary>Appointment Confirmation</summary>
+      <div class="script-body">
+        Hi [Client Name], this is [Agent Name] with Globe Life Liberty National.
+        Just confirming our appointment for [Day] at [Time].
+        Reply YES to confirm.
+      </div>
+    </details>
+
+    <details class="script-card">
+      <summary>Same Day Reminder</summary>
+      <div class="script-body">
+        Hi [Client Name], quick reminder about our appointment today at [Time].
+        I'll be giving you a call then. Reply YES so I know we're still good.
+      </div>
+    </details>
+
+    <details class="script-card">
+      <summary>No Answer Follow-Up</summary>
+      <div class="script-body">
+        Hi [Client Name], I just tried reaching you regarding our scheduled appointment.
+        Give me a call back when you have a moment.
+      </div>
+    </details>
+
+    <details class="script-card">
+      <summary>Missed Appointment</summary>
+      <div class="script-body">
+        Hi [Client Name], looks like we missed each other for our appointment.
+        No worries. Would later today or tomorrow work better?
+      </div>
+    </details>
+
+  </div>
+
+</div>
 
 
 
