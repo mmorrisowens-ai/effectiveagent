@@ -209,7 +209,9 @@ select.field-input{cursor:pointer}
 .lock-error{font-size:11.5px;color:var(--coral);font-weight:700;margin-left:4px}
 .agent-mode-note{background:var(--blue-lt);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:#1a3e6a;margin-bottom:1.25rem}
 body:not(.manager-authenticated) .manager-only{display:none!important}
-body.agent-view input:not(#managerPassword),body.agent-view textarea,body.agent-view select:not(#agentProgressSelect){pointer-events:none;background:#f1f5f9;color:var(--muted)}
+body.agent-view input:not(#managerPassword):not(#glossarySearch),body.agent-view textarea,body.agent-view select:not(#agentProgressSelect){pointer-events:none;background:#f1f5f9;color:var(--muted)}
+body.agent-view #glossarySearch{pointer-events:auto;background:var(--white);color:var(--text)}
+
 body.agent-view input[type=checkbox]{accent-color:var(--muted)}
 body.agent-view .agent-disable{display:none!important}
 body.manager-authenticated .agent-only{display:none!important}
