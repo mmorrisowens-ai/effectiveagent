@@ -305,6 +305,106 @@ body.manager-authenticated .agent-only{display:none!important}
 @media(max-width:700px){.uw-grid,.uw-outcomes,.uw-list,.build-toggle{grid-template-columns:1fr}}
 
 @media(max-width:700px){.wrapper{padding:1rem .75rem 3rem}.hero{flex-direction:column;align-items:flex-start}.hero-agent{margin-left:0;text-align:left}.field-grid.g2,.field-grid.g3,.schol-body,.course-grid,.sig-area,.info-grid,.contact-grid,.qr-grid,.resource-list,.product-grid{grid-template-columns:1fr}.concierge-card{grid-template-columns:1fr}.tab{font-size:12px;padding:7px 11px}.cal-cell{min-height:54px}.section-sub{display:none}}
+
+/* Portal sidebar layout */
+.portal-shell{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+}
+.portal-shell .tab-bar{
+  width:220px;
+  flex:0 0 220px;
+  position:sticky;
+  top:14px;
+  align-self:flex-start;
+  max-height:calc(100vh - 28px);
+  overflow:auto;
+  flex-direction:column;
+  flex-wrap:nowrap;
+  gap:7px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  box-shadow:var(--shadow);
+}
+.portal-shell .tab{
+  width:100%;
+  justify-content:flex-start;
+  text-align:left;
+  border-radius:9px;
+}
+.portal-main{
+  flex:1;
+  min-width:0;
+}
+.sidebar-spacer{
+  height:1px;
+  background:var(--border);
+  margin:8px 0;
+}
+.sidebar-manager-login{
+  border-color:var(--amber)!important;
+  color:var(--amber)!important;
+  background:var(--amber-lt)!important;
+}
+.home-card{
+  cursor:pointer;
+  transition:transform .15s, border-color .15s, box-shadow .15s;
+}
+.home-card:hover{
+  transform:translateY(-1px);
+  border-color:var(--blue);
+  box-shadow:0 3px 10px rgba(0,0,0,.09);
+}
+@media(max-width:700px){
+  .portal-shell{display:block}
+  .portal-shell .tab-bar{
+    position:static;
+    width:100%;
+    max-height:none;
+    flex-direction:row;
+    flex-wrap:wrap;
+    margin-bottom:1rem;
+  }
+  .portal-shell .tab{width:auto}
+}
+
+
+/* Cleaner landing page + glossary page */
+.home-landing-note{
+  background:linear-gradient(135deg,var(--navy),#173f6c);
+  color:#fff;
+  border-radius:14px;
+  padding:18px 20px;
+  margin-bottom:1rem;
+  box-shadow:var(--shadow);
+}
+.home-landing-note h2{font-family:'DM Serif Display',serif;font-size:24px;color:#fff;margin-bottom:4px}
+.home-landing-note p{font-size:13px;color:rgba(255,255,255,.78);max-width:680px}
+.home-primary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1rem}
+.home-primary-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s;min-height:130px}
+.home-primary-card:hover{transform:translateY(-2px);border-color:var(--blue);box-shadow:0 6px 18px rgba(13,43,78,.12)}
+.home-primary-card .home-ico{font-size:24px;margin-bottom:8px}
+.home-primary-card h3{font-size:15px;color:var(--navy);margin-bottom:5px}
+.home-primary-card p{font-size:12px;color:var(--muted);line-height:1.45}
+.home-secondary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
+.home-secondary-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;cursor:pointer;font-size:12.5px;font-weight:700;color:var(--navy)}
+.home-secondary-card:hover{border-color:var(--green);color:var(--green-mid)}
+body.agent-view #tab-info .home-secondary{display:none!important}
+.gloss-search{width:100%;padding:10px 12px;font-size:13px;border:1.5px solid var(--border);border-radius:9px;background:var(--bg);margin-bottom:10px;font-family:'DM Sans',sans-serif}
+.gloss-search:focus{outline:none;border-color:var(--green);background:#fff}
+.gloss-wrap{max-height:62vh;overflow:auto;border:1px solid var(--border);border-radius:10px;background:#fff}
+.gloss-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.gloss-table th{position:sticky;top:0;background:var(--navy);color:#fff;text-align:left;padding:9px 10px;z-index:1}
+.gloss-table td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+.gloss-table td:first-child{font-family:'DM Mono',monospace;font-weight:700;color:var(--navy);white-space:nowrap;width:110px}
+.gloss-table tbody tr:nth-child(even){background:#fafafa}
+.gloss-table tbody tr:hover{background:var(--blue-lt)}
+@media(max-width:900px){.home-primary-grid,.home-secondary-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.home-primary-grid,.home-secondary-grid{grid-template-columns:1fr}.home-primary-card{min-height:auto}.gloss-wrap{max-height:none}}
+
 </style>
 </head>
 <body>
@@ -385,25 +485,30 @@ body.manager-authenticated .agent-only{display:none!important}
   <div class="agent-load-status" id="agentProgressStatus">Choose your name to load your saved checklist and progress bar.</div>
 </div>
 
+<div class="portal-shell">
 <div class="tab-bar no-print">
-  <button class="tab active" onclick="showTab('info',this)">🏠 Home</button>
+  <button class="tab active" onclick="showTab('info',this)">&#128640; Start Here</button>
   <button class="tab" onclick="showTab('quickref',this)">&#129517; Quick Reference</button>
+  <button class="tab" onclick="showTab('glossary',this)">&#128214; Glossary</button>
   <button class="tab" onclick="showTab('licensing',this)">&#128203; Licensing</button>
   <button class="tab" onclick="showTab('setup',this)">&#9989; Setup Checklist</button>
   <button class="tab" onclick="showTab('schedule',this)">&#128218; Training Plan</button>
   <button class="tab" onclick="showTab('calendar',this)">&#128197; Calendar</button>
   <button class="tab" onclick="showTab('rebuttals',this)">&#128222; Scripts</button>
-  <button class="tab" onclick="showTab('textscripts',this)">💬 Text Scripts</button>
   <button class="tab" onclick="showTab('products',this)">&#128218; Product Knowledge</button>
   <button class="tab" onclick="showTab('pairing',this)">&#129309; Product Pairing</button>
   <button class="tab" onclick="showTab('underwriting',this)">&#129658; Underwriting</button>
   <button class="tab" onclick="showTab('build',this)">&#128207; Height &amp; Weight</button>
   <button class="tab manager-only" onclick="showTab('cert',this)">&#127942; Field Ready Cert</button>
+  <div class="sidebar-spacer"></div>
+  <button class="tab sidebar-manager-login" onclick="requestManagerMode()">🔐 Manager Login</button>
 </div>
+
+<div class="portal-main">
 
 <!-- TAB: START HERE -->
 <div id="tab-info" class="tab-panel active">
-  <div class="section">
+  <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#128640;</div><h2>Start here: your training roadmap</h2><span class="section-sub">Manager fills in details below</span></div>
     <div class="callout c-green">
       <strong>&#127919; YOUR GOAL</strong>
@@ -418,40 +523,8 @@ body.manager-authenticated .agent-only{display:none!important}
       <li><input type="checkbox" id="road6" onchange="updateOverallProgress()"><label for="road6"><strong>6. Begin independent production and leadership development</strong><span class="cl-sub">Leadership conversations come after the initial training foundation is in place.</span></label></li>
     </ul>
   </div>
-<div class="section">
 
-  <div class="section-header">
-    <div class="section-icon">🏠</div>
-    <h2>What do you need?</h2>
-    <span class="section-sub">Quick access</span>
-  </div>
-
-  <div class="qr-grid">
-
-    <div class="qr-card" onclick="showTab('rebuttals')" style="cursor:pointer">
-      <h3>📞 Scripts</h3>
-      <p>Presentation flow, rebuttals, and phone scripts.</p>
-    </div>
-
-    <div class="qr-card" onclick="showTab('underwriting')" style="cursor:pointer">
-      <h3>🩺 Underwriting</h3>
-      <p>Build chart, health conditions, and underwriting guidance.</p>
-    </div>
-
-    <div class="qr-card" onclick="showTab('products')" style="cursor:pointer">
-      <h3>📚 Policies</h3>
-      <p>Product knowledge and pairing.</p>
-    </div>
-
-    <div class="qr-card" onclick="showTab('quickref')" style="cursor:pointer">
-      <h3>☎️ Who To Contact</h3>
-      <p>Manager, TNT Support, Help Desk, and office contacts.</p>
-    </div>
-
-  </div>
-
-</div>
-  <div class="section">
+  <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#128467;</div><h2>Your first 30 days</h2><span class="section-sub">What happens next</span></div>
     <div class="timeline">
       <div class="timeline-item"><strong>Days 1&ndash;5: Get set up and complete TNT</strong><span>Complete the setup checklist, join Discord, verify TNT access, and work through the five TNT courses Monday through Friday.</span></div>
@@ -461,7 +534,7 @@ body.manager-authenticated .agent-only{display:none!important}
     </div>
   </div>
 
-  <div class="section">
+  <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#9989;</div><h2>What success looks like</h2><span class="section-sub">Milestones first</span></div>
     <div class="info-grid">
       <div class="info-card"><h3>By the end of Week 1</h3><p>TNT completed, setup checklist completed, Discord joined, and foundational scripts reviewed.</p></div>
@@ -471,10 +544,10 @@ body.manager-authenticated .agent-only{display:none!important}
     </div>
   </div>
 
-  <div class="section">
+  <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#128222;</div><h2>Important contacts</h2><span class="section-sub">Where to go for help</span></div>
     <div class="contact-grid">
-      <div class="contact-card">   <div class="lbl">Manager</div>   <div class="val">     <a href="#managerContactCard" onclick="showTab('quickref')" style="text-decoration:none;color:inherit;">       Click here for your manager     </a>   </div> </div>
+      <div class="contact-card"><div class="lbl">Manager</div><div class="val">Use the manager information below</div></div>
       <div class="contact-card"><div class="lbl">Office</div><div class="val">(417) 731-4006</div></div>
       <div class="contact-card"><div class="lbl">Agent Concierge</div><div class="val">469-317-0281<br>LNAgentConcierge@Globe.Life</div></div>
       <div class="contact-card"><div class="lbl">Completed forms / certifications</div><div class="val">mowens@globe.life</div></div>
@@ -483,7 +556,7 @@ body.manager-authenticated .agent-only{display:none!important}
     </div>
   </div>
 
-  <div class="section">
+  <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#128154;</div><h2>Why families buy insurance</h2><span class="section-sub">The purpose behind the script</span></div>
     <div class="callout c-green"><strong>REMEMBER THE WHY</strong>Families do not buy insurance because they love insurance. They buy because they want protection, peace of mind, and a plan for the people they love.</div>
     <div class="info-grid">
@@ -494,7 +567,7 @@ body.manager-authenticated .agent-only{display:none!important}
     </div>
   </div>
 
-  <div class="section">
+  <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#128161;</div><h2>What every new agent experiences</h2><span class="section-sub">This is normal</span></div>
     <ul class="checklist">
       <li><input type="checkbox" id="normal1" onchange="updateOverallProgress()"><label for="normal1">Feeling overwhelmed at first is normal.<span class="cl-sub">There is a lot to learn, but you are not expected to master everything on Day 1.</span></label></li>
@@ -534,7 +607,7 @@ body.manager-authenticated .agent-only{display:none!important}
       The agent should use their <strong>personal email</strong> for all communication until their work email (.libnat@gmail.com) is created. All completed forms and certifications should be emailed to <strong>mowens@globe.life</strong>.
     </div>
   </div>
-  <div class="section">
+  <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#128272;</div><h2>EPIC credentials</h2></div>
     <div class="note"><strong>EPIC URL:</strong> <a href="https://libertynational.my.site.com" target="_blank">libertynational.my.site.com</a> &mdash; passwords expire every 90 days.</div>
     <div class="field-grid g2">
@@ -546,7 +619,7 @@ body.manager-authenticated .agent-only{display:none!important}
       Your EPIC username is the <strong>personal email used when you filled out your contract/application</strong> &mdash; not your work email. Once your work email (libnat) is set up, a case must be filed inside EPIC to switch the username over. Your manager will help with this.
     </div>
   </div>
-  <div class="section">
+  <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#128218;</div><h2>Top Notch Training (TNT)</h2></div>
     <div class="note"><strong>TNT URL:</strong> <a href="https://topnotchtraining.lightspeedvt.com" target="_blank">topnotchtraining.lightspeedvt.com</a></div>
     <div class="field-grid g2">
@@ -580,7 +653,7 @@ body.manager-authenticated .agent-only{display:none!important}
       <div><div class="field-label">Calls / week</div><input class="field-input" id="mroCalls" placeholder="___"></div>
     </div>
   </div>
-  <div class="section">
+  <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#128241;</div><h2>Required apps</h2></div>
     <ul class="checklist">
       <li><input type="checkbox" id="a1" onchange="updateOverallProgress()"><label for="a1">Discord &mdash; team communication, meetings, call clinics<span class="pill pill-green">Required</span></label></li>
@@ -602,7 +675,6 @@ body.manager-authenticated .agent-only{display:none!important}
       <div class="resource-pill">&#129517; Quick Reference</div>
       <div class="resource-pill">&#128203; Licensing</div>
       <div class="resource-pill">&#128222; Scripts</div>
-      <div class="resource-pill">💬 Text Scripts</div>
       <div class="resource-pill">&#128100; Your Manager</div>
     </div>
   </div>
@@ -624,8 +696,8 @@ body.manager-authenticated .agent-only{display:none!important}
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128222;</div><h2>Important contacts</h2><span class="section-sub">Who to contact and when</span></div>
     <div class="qr-grid">
-   <div class="qr-card qr-big" id="managerContactCard">
-  <h3>&#128100; Your Manager</h3>
+      <div class="qr-card qr-big">
+        <h3>&#128100; Your Manager</h3>
         <div class="qr-contact-line"><div class="lbl">Name</div><div class="val" id="qrManagerName">Manager name not entered yet</div></div>
         <div class="qr-contact-line"><div class="lbl">Phone</div><div class="val" id="qrManagerPhone">Manager phone not entered yet</div></div>
         <div class="qr-contact-line"><div class="lbl">Email</div><div class="val" id="qrManagerEmail">Manager email not entered yet</div></div>
@@ -719,11 +791,47 @@ body.manager-authenticated .agent-only{display:none!important}
       </div>
     </div>
   
-<div class="section">
-<div class="section-header"><div class="section-icon">&#128214;</div><h2>Agency Glossary</h2><span class="section-sub">Search acronyms and terminology</span></div>
-<input id="glossarySearch" class="gloss-search" type="text" placeholder="Search acronym, definition, or keyword..." onkeyup="filterGlossary()">
-<div class="gloss-wrap">
-<table class="gloss-table" id="glossaryTable">
+</div>
+
+  <div class="section qr-faq">
+    <div class="section-header"><div class="section-icon">&#10067;</div><h2>Most common new agent questions</h2><span class="section-sub">Fast answers</span></div>
+    <details>
+      <summary>What email do I use before my work email is created?</summary>
+      <div>Use your personal email until your .libnat@gmail.com work email is created and confirmed.</div>
+    </details>
+    <details>
+      <summary>What is my EPIC username?</summary>
+      <div>Your EPIC username is the personal email used when you completed your contract/application. Once your work email is set up, your manager can help file a case to switch it.</div>
+    </details>
+    <details>
+      <summary>How long should TNT take?</summary>
+      <div>The goal is to complete TNT within 5 business days: Monday through Friday, one major course block per day.</div>
+    </details>
+    <details>
+      <summary>Where do I submit passing exam results?</summary>
+      <div>Submit passing results to Agent Concierge at LNAgentConcierge@Globe.Life or call/text 469-317-0281.</div>
+    </details>
+    <details>
+      <summary>Where do I submit completed certifications?</summary>
+      <div>Send completed certification documents to mowens@globe.life and complete the official certification form linked in the Field Ready Cert tab.</div>
+    </details>
+    <details>
+      <summary>Who do I contact if I am stuck?</summary>
+      <div>Check Quick Reference, Licensing, and Scripts first. If you still need help, reach out to your manager using the manager contact card above.</div>
+    </details>
+  </div>
+</div>
+
+
+</div>
+
+<!-- TAB: GLOSSARY -->
+<div id="tab-glossary" class="tab-panel">
+  <div class="section">
+    <div class="section-header"><div class="section-icon">&#128214;</div><h2>Agency Glossary</h2><span class="section-sub">Search acronyms and terminology</span></div>
+    <input id="glossarySearch" class="gloss-search" type="text" placeholder="Search acronym, definition, or keyword..." onkeyup="filterGlossary()">
+    <div class="gloss-wrap">
+      <table class="gloss-table" id="glossaryTable">
 <thead><tr><th>Acronym</th><th>Definition</th><th>Additional Information</th></tr></thead>
 <tbody>
 <tr><td>10RC</td><td>10 Year Renewable / Convertable</td><td>Individual policy, term</td></tr>
@@ -801,41 +909,10 @@ body.manager-authenticated .agent-only{display:none!important}
 <tr><td>WS</td><td>Worksite Market</td><td></td></tr>
 <tr><td>WSL</td><td>Worksite Lapse</td><td>Lead type that has policies lapsed from worksite</td></tr>
 </tbody>
-</table>
-</div>
-</div>
 
-
-  <div class="section qr-faq">
-    <div class="section-header"><div class="section-icon">&#10067;</div><h2>Most common new agent questions</h2><span class="section-sub">Fast answers</span></div>
-    <details>
-      <summary>What email do I use before my work email is created?</summary>
-      <div>Use your personal email until your .libnat@gmail.com work email is created and confirmed.</div>
-    </details>
-    <details>
-      <summary>What is my EPIC username?</summary>
-      <div>Your EPIC username is the personal email used when you completed your contract/application. Once your work email is set up, your manager can help file a case to switch it.</div>
-    </details>
-    <details>
-      <summary>How long should TNT take?</summary>
-      <div>The goal is to complete TNT within 5 business days: Monday through Friday, one major course block per day.</div>
-    </details>
-    <details>
-      <summary>Where do I submit passing exam results?</summary>
-      <div>Submit passing results to Agent Concierge at LNAgentConcierge@Globe.Life or call/text 469-317-0281.</div>
-    </details>
-    <details>
-      <summary>Where do I submit completed certifications?</summary>
-      <div>Send completed certification documents to mowens@globe.life and complete the official certification form linked in the Field Ready Cert tab.</div>
-    </details>
-    <details>
-      <summary>Who do I contact if I am stuck?</summary>
-      <div>Check Quick Reference, Licensing, and Scripts first. If you still need help, reach out to your manager using the manager contact card above.</div>
-    </details>
+      </table>
+    </div>
   </div>
-</div>
-
-
 </div>
 
 <!-- TAB: LICENSING -->
@@ -1179,56 +1256,6 @@ body.manager-authenticated .agent-only{display:none!important}
   </div>
 </div>
 
-<!-- TAB: TEXT SCRIPTS -->
-<div id="tab-textscripts" class="tab-panel">
-
-  <div class="section">
-    <div class="section-header">
-      <div class="section-icon">💬</div>
-      <h2>Text Scripts</h2>
-    </div>
-
-    <div class="callout c-blue">
-      <strong>Copy, personalize, and send.</strong>
-      Always verify names, dates, and times before texting clients.
-    </div>
-
-    <details class="script-card" open>
-      <summary>Appointment Confirmation</summary>
-      <div class="script-body">
-        Hi [Client Name], this is [Agent Name] with Globe Life Liberty National.
-        Just confirming our appointment for [Day] at [Time].
-        Reply YES to confirm.
-      </div>
-    </details>
-
-    <details class="script-card">
-      <summary>Same Day Reminder</summary>
-      <div class="script-body">
-        Hi [Client Name], quick reminder about our appointment today at [Time].
-        I'll be giving you a call then. Reply YES so I know we're still good.
-      </div>
-    </details>
-
-    <details class="script-card">
-      <summary>No Answer Follow-Up</summary>
-      <div class="script-body">
-        Hi [Client Name], I just tried reaching you regarding our scheduled appointment.
-        Give me a call back when you have a moment.
-      </div>
-    </details>
-
-    <details class="script-card">
-      <summary>Missed Appointment</summary>
-      <div class="script-body">
-        Hi [Client Name], looks like we missed each other for our appointment.
-        No worries. Would later today or tomorrow work better?
-      </div>
-    </details>
-
-  </div>
-
-</div>
 
 
 
@@ -1290,15 +1317,15 @@ body.manager-authenticated .agent-only{display:none!important}
     <div class="section-header"><div class="section-icon">&#128737;</div><h2>Core product cards</h2><span class="section-sub">Open each product to study</span></div>
     <div class="product-grid">
       <details class="product-card" open><summary><div><span class="product-title">Final Expense Whole Life</span><span class="product-purpose">Permanent life insurance for final expenses</span></div><span class="product-code">WL</span></summary><div class="product-body"><h4>What it is</h4><p>Permanent life insurance designed to help protect a family from the financial burden of final expenses. As long as premiums are paid, coverage remains in force.</p><h4>Who it helps</h4><ul><li>Parents, grandparents, retirees, and homeowners</li><li>Anyone who does not want loved ones burdened by funeral costs</li></ul><h4>Problems it solves</h4><ul><li>Funeral home, burial/cremation, cemetery, marker/headstone, and hardship travel expenses</li><li>Provides cash to beneficiaries to help with end-of-life costs and family needs</li></ul><h4>New agent note</h4><p>Do not lead with cash value. Lead with: “If something happened tomorrow, who would be responsible for those expenses?”</p></div></details>
-      <details class="product-card" open><summary><div><span class="product-title">Modified Life</span><span class="product-purpose">Life insurance for clients with health challenges</span></div><span class="product-code">ALX</span></summary><div class="product-body"><h4>What it is</h4><p>A modified-benefit life insurance product designed for clients who may not qualify for traditional whole life due to health concerns.</p><h4>Who it helps</h4><ul><li>Clients with significant health conditions</li><li>Older applicants</li><li>Applicants declined elsewhere who still need final expense protection</li></ul><h4>Important benefit structure</h4><p>Years 1–3 for natural death: premiums paid plus 10% per year. Accidental death can pay the full face amount. Beginning year 4, natural or accidental death pays the face amount.</p><div class="product-note">Never gloss over the modified period.</div></div></details>
-      <details class="product-card" open><summary><div><span class="product-title">10RC / 20RC Term</span><span class="product-purpose">Renewable convertible term life protection</span></div><span class="product-code">10RC / 20RC</span></summary><div class="product-body"><h4>What it is</h4><p>Renewable and convertible term life insurance designed for larger temporary protection needs.</p><h4>Who it helps</h4><ul><li>Young families</li><li>Income earners</li><li>Mortgage holders</li><li>Parents with dependent children</li></ul><h4>New agent note</h4><p>Term generally solves an income problem. Whole Life generally solves a final expense problem.</p></div></details>
-      <details class="product-card" open><summary><div><span class="product-title">Mortgage Decreasing Term</span><span class="product-purpose">Term protection designed around mortgage payoff</span></div><span class="product-code">15MDT / 30MDT</span></summary><div class="product-body"><h4>What it is</h4><p>A decreasing term policy designed around mortgage protection. The death benefit decreases annually while the premium remains level.</p><h4>Who it helps</h4><ul><li>Homeowners</li><li>New home buyers</li><li>Families carrying significant mortgage debt</li></ul><h4>New agent note</h4><p>Do not sell mechanics. Ask: “If something happened, what would you want to happen to the house?”</p></div></details>
-      <details class="product-card" open><summary><div><span class="product-title">Accident Protector Max</span><span class="product-purpose">Protection for covered accidents</span></div><span class="product-code">HAJ / HAK / HAL</span></summary><div class="product-body"><h4>What it is</h4><p>A supplemental accident policy that pays benefits when covered accidents occur.</p><h4>Who it helps</h4><ul><li>Families with children</li><li>Active adults</li><li>Blue-collar workers</li><li>Anyone without a large emergency fund</li></ul><h4>Key benefits</h4><ul><li>Ambulance, emergency treatment, fracture/dislocation, hospital, ICU, transportation, and accidental death benefits</li></ul><div class="product-note">This is accident coverage. Do not present it as sickness coverage.</div></div></details>
-      <details class="product-card" open><summary><div><span class="product-title">Cancer Endurance</span><span class="product-purpose">Ongoing benefits for cancer treatment</span></div><span class="product-code">5KS / 5KT / 5KU</span></summary><div class="product-body"><h4>What it is</h4><p>A supplemental cancer policy designed to help with ongoing treatment expenses after a cancer diagnosis.</p><h4>Problems it solves</h4><ul><li>Travel, lodging, treatment expenses, prescription expenses, income loss, and household financial stress</li></ul><h4>New agent note</h4><p>Cancer Endurance is about the journey, not just the diagnosis.</p></div></details>
-      <details class="product-card" open><summary><div><span class="product-title">Cash Cancer</span><span class="product-purpose">One-time cash benefit for first cancer diagnosis</span></div><span class="product-code">LS2 / LS3 / LS4</span></summary><div class="product-body"><h4>What it is</h4><p>A supplemental cancer policy that provides a lump-sum cash benefit upon a covered first cancer diagnosis.</p><h4>Problems it solves</h4><ul><li>Immediate bills, mortgage payments, travel, childcare, missed work, and flexible expenses</li></ul><h4>New agent note</h4><p>Cancer Endurance helps during treatment. Cash Cancer gives immediate cash at diagnosis.</p></div></details>
-      <details class="product-card" open><summary><div><span class="product-title">Critical Illness Protector</span><span class="product-purpose">Lump-sum benefit for covered critical illness</span></div><span class="product-code">5MB / 5MY / 5MD</span></summary><div class="product-body"><h4>What it is</h4><p>A supplemental policy that provides a lump-sum cash benefit when a covered critical illness is diagnosed.</p><h4>Covered conditions include</h4><ul><li>Heart attack, stroke, kidney failure, organ transplant, loss of sight, and loss of hearing</li></ul><h4>New agent note</h4><p>This is a financial recovery conversation, not a medical conversation.</p></div></details>
-      <details class="product-card" open><summary><div><span class="product-title">Intensive Care Protector</span><span class="product-purpose">Benefits for ICU confinement</span></div><span class="product-code">5JP / 5JQ / 5JR</span></summary><div class="product-body"><h4>What it is</h4><p>A supplemental policy designed to provide benefits when a covered ICU confinement occurs due to sickness or injury.</p><h4>Problems it solves</h4><ul><li>Lost income, hotel expenses, family travel, medical costs, and household disruption</li></ul><h4>New agent note</h4><p>Ask: “What would happen financially if someone in your household spent several days in intensive care?”</p></div></details>
-      <details class="product-card" open><summary><div><span class="product-title">Supplementary Benefits / Riders</span><span class="product-purpose">Additional protection added to eligible policies</span></div><span class="product-code">PW / ADB / CIR / STR</span></summary><div class="product-body"><h4>What they are</h4><p>Riders allow a policy to be customized around a family’s needs.</p><h4>Common examples</h4><ul><li>PW: Premium Waiver</li><li>ADB: Accidental Death Benefit</li><li>CIR: Children’s Insurance Rider</li><li>STR: Spouse Term Rider</li><li>Primary Insured Term Rider</li></ul><h4>New agent note</h4><p>Do not treat riders like standalone products. Treat them like tools that fine-tune the solution.</p></div></details>
+      <details class="product-card"><summary><div><span class="product-title">Modified Life</span><span class="product-purpose">Life insurance for clients with health challenges</span></div><span class="product-code">ALX</span></summary><div class="product-body"><h4>What it is</h4><p>A modified-benefit life insurance product designed for clients who may not qualify for traditional whole life due to health concerns.</p><h4>Who it helps</h4><ul><li>Clients with significant health conditions</li><li>Older applicants</li><li>Applicants declined elsewhere who still need final expense protection</li></ul><h4>Important benefit structure</h4><p>Years 1–3 for natural death: premiums paid plus 10% per year. Accidental death can pay the full face amount. Beginning year 4, natural or accidental death pays the face amount.</p><div class="product-note">Never gloss over the modified period.</div></div></details>
+      <details class="product-card"><summary><div><span class="product-title">10RC / 20RC Term</span><span class="product-purpose">Renewable convertible term life protection</span></div><span class="product-code">10RC / 20RC</span></summary><div class="product-body"><h4>What it is</h4><p>Renewable and convertible term life insurance designed for larger temporary protection needs.</p><h4>Who it helps</h4><ul><li>Young families</li><li>Income earners</li><li>Mortgage holders</li><li>Parents with dependent children</li></ul><h4>New agent note</h4><p>Term generally solves an income problem. Whole Life generally solves a final expense problem.</p></div></details>
+      <details class="product-card"><summary><div><span class="product-title">Mortgage Decreasing Term</span><span class="product-purpose">Term protection designed around mortgage payoff</span></div><span class="product-code">15MDT / 30MDT</span></summary><div class="product-body"><h4>What it is</h4><p>A decreasing term policy designed around mortgage protection. The death benefit decreases annually while the premium remains level.</p><h4>Who it helps</h4><ul><li>Homeowners</li><li>New home buyers</li><li>Families carrying significant mortgage debt</li></ul><h4>New agent note</h4><p>Do not sell mechanics. Ask: “If something happened, what would you want to happen to the house?”</p></div></details>
+      <details class="product-card"><summary><div><span class="product-title">Accident Protector Max</span><span class="product-purpose">Protection for covered accidents</span></div><span class="product-code">HAJ / HAK / HAL</span></summary><div class="product-body"><h4>What it is</h4><p>A supplemental accident policy that pays benefits when covered accidents occur.</p><h4>Who it helps</h4><ul><li>Families with children</li><li>Active adults</li><li>Blue-collar workers</li><li>Anyone without a large emergency fund</li></ul><h4>Key benefits</h4><ul><li>Ambulance, emergency treatment, fracture/dislocation, hospital, ICU, transportation, and accidental death benefits</li></ul><div class="product-note">This is accident coverage. Do not present it as sickness coverage.</div></div></details>
+      <details class="product-card"><summary><div><span class="product-title">Cancer Endurance</span><span class="product-purpose">Ongoing benefits for cancer treatment</span></div><span class="product-code">5KS / 5KT / 5KU</span></summary><div class="product-body"><h4>What it is</h4><p>A supplemental cancer policy designed to help with ongoing treatment expenses after a cancer diagnosis.</p><h4>Problems it solves</h4><ul><li>Travel, lodging, treatment expenses, prescription expenses, income loss, and household financial stress</li></ul><h4>New agent note</h4><p>Cancer Endurance is about the journey, not just the diagnosis.</p></div></details>
+      <details class="product-card"><summary><div><span class="product-title">Cash Cancer</span><span class="product-purpose">One-time cash benefit for first cancer diagnosis</span></div><span class="product-code">LS2 / LS3 / LS4</span></summary><div class="product-body"><h4>What it is</h4><p>A supplemental cancer policy that provides a lump-sum cash benefit upon a covered first cancer diagnosis.</p><h4>Problems it solves</h4><ul><li>Immediate bills, mortgage payments, travel, childcare, missed work, and flexible expenses</li></ul><h4>New agent note</h4><p>Cancer Endurance helps during treatment. Cash Cancer gives immediate cash at diagnosis.</p></div></details>
+      <details class="product-card"><summary><div><span class="product-title">Critical Illness Protector</span><span class="product-purpose">Lump-sum benefit for covered critical illness</span></div><span class="product-code">5MB / 5MY / 5MD</span></summary><div class="product-body"><h4>What it is</h4><p>A supplemental policy that provides a lump-sum cash benefit when a covered critical illness is diagnosed.</p><h4>Covered conditions include</h4><ul><li>Heart attack, stroke, kidney failure, organ transplant, loss of sight, and loss of hearing</li></ul><h4>New agent note</h4><p>This is a financial recovery conversation, not a medical conversation.</p></div></details>
+      <details class="product-card"><summary><div><span class="product-title">Intensive Care Protector</span><span class="product-purpose">Benefits for ICU confinement</span></div><span class="product-code">5JP / 5JQ / 5JR</span></summary><div class="product-body"><h4>What it is</h4><p>A supplemental policy designed to provide benefits when a covered ICU confinement occurs due to sickness or injury.</p><h4>Problems it solves</h4><ul><li>Lost income, hotel expenses, family travel, medical costs, and household disruption</li></ul><h4>New agent note</h4><p>Ask: “What would happen financially if someone in your household spent several days in intensive care?”</p></div></details>
+      <details class="product-card"><summary><div><span class="product-title">Supplementary Benefits / Riders</span><span class="product-purpose">Additional protection added to eligible policies</span></div><span class="product-code">PW / ADB / CIR / STR</span></summary><div class="product-body"><h4>What they are</h4><p>Riders allow a policy to be customized around a family’s needs.</p><h4>Common examples</h4><ul><li>PW: Premium Waiver</li><li>ADB: Accidental Death Benefit</li><li>CIR: Children’s Insurance Rider</li><li>STR: Spouse Term Rider</li><li>Primary Insured Term Rider</li></ul><h4>New agent note</h4><p>Do not treat riders like standalone products. Treat them like tools that fine-tune the solution.</p></div></details>
     </div>
   </div>
 </div>
@@ -1836,6 +1863,9 @@ Email Underwriting for Individual Consideration<br>
   </div>
 </div>
 
+</div>
+</div>
+
 <div class="action-bar no-print agent-only">
   <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
 </div>
@@ -1953,14 +1983,17 @@ function showTab(name,btn){
   document.querySelectorAll('.tab').forEach(function(tab){
     tab.classList.remove('active');
   });
+
   var target = document.getElementById('tab-' + name);
   if (target) {
     target.classList.add('active');
   } else {
     console.error('Missing tab panel:', 'tab-' + name);
   }
-  if (btn) {
-    btn.classList.add('active');
+
+  var activeButton = btn || document.querySelector('.tab[onclick*="showTab(\'' + name + '\'"]');
+  if (activeButton) {
+    activeButton.classList.add('active');
   }
 }
 function updateState(){
