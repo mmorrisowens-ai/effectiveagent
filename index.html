@@ -487,7 +487,7 @@ body.agent-view #tab-info .home-secondary{display:none!important}
 
 <div class="portal-shell">
 <div class="tab-bar no-print">
-  <button class="tab active" onclick="showTab('info',this)">&#128640; Start Here</button>
+  <button class="tab active" onclick="showTab('info',this)">🏠 Home</button>
   <button class="tab" onclick="showTab('quickref',this)">&#129517; Quick Reference</button>
   <button class="tab" onclick="showTab('glossary',this)">&#128214; Glossary</button>
   <button class="tab" onclick="showTab('licensing',this)">&#128203; Licensing</button>
@@ -495,6 +495,7 @@ body.agent-view #tab-info .home-secondary{display:none!important}
   <button class="tab" onclick="showTab('schedule',this)">&#128218; Training Plan</button>
   <button class="tab" onclick="showTab('calendar',this)">&#128197; Calendar</button>
   <button class="tab" onclick="showTab('rebuttals',this)">&#128222; Scripts</button>
+  <button class="tab" onclick="showTab('textscripts',this)">💬 Text Scripts</button>
   <button class="tab" onclick="showTab('products',this)">&#128218; Product Knowledge</button>
   <button class="tab" onclick="showTab('pairing',this)">&#129309; Product Pairing</button>
   <button class="tab" onclick="showTab('underwriting',this)">&#129658; Underwriting</button>
@@ -508,6 +509,71 @@ body.agent-view #tab-info .home-secondary{display:none!important}
 
 <!-- TAB: START HERE -->
 <div id="tab-info" class="tab-panel active">
+  <div class="home-landing-note no-print">
+    <h2>Welcome to EffectiveAgent</h2>
+    <p>Load your progress, then use the quick blocks below to jump to the tools agents use most.</p>
+  </div>
+
+  <div class="section no-print">
+    <div class="section-header">
+      <div class="section-icon">🏠</div>
+      <h2>What do you need?</h2>
+      <span class="section-sub">Quick access</span>
+    </div>
+
+    <div class="qr-grid">
+      <div class="qr-card home-card" onclick="showTab('rebuttals')">
+        <h3>📞 Scripts</h3>
+        <p>Phone scripts, presentation flow, rebuttals, and down-closing.</p>
+      </div>
+
+      <div class="qr-card home-card" onclick="showTab('underwriting')">
+        <h3>🩺 Underwriting</h3>
+        <p>Health conditions, ALX guidance, build chart, and when to call a manager.</p>
+      </div>
+
+      <div class="qr-card home-card" onclick="showTab('products')">
+        <h3>📚 Policies</h3>
+        <p>Product knowledge, product pairing, and what each policy solves.</p>
+      </div>
+
+      <div class="qr-card home-card" onclick="showTab('quickref')">
+        <h3>☎️ Who To Contact</h3>
+        <p>Manager, Agent Concierge, TNT support, Help Desk, and office contacts.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section no-print">
+    <div class="section-header">
+      <div class="section-icon">⚡</div>
+      <h2>Common tasks</h2>
+      <span class="section-sub">Training workflow</span>
+    </div>
+
+    <div class="qr-grid">
+      <div class="qr-card home-card" onclick="showTab('setup')">
+        <h3>✅ Setup Checklist</h3>
+        <p>Accounts, apps, email, Discord, EPIC, and TNT setup.</p>
+      </div>
+
+      <div class="qr-card home-card" onclick="showTab('licensing')">
+        <h3>📋 Licensing</h3>
+        <p>State course provider, exam steps, scholarship, and Agent Concierge.</p>
+      </div>
+
+      <div class="qr-card home-card" onclick="showTab('calendar')">
+        <h3>📅 Calendar</h3>
+        <p>Training calendar, custom events, and key deadlines.</p>
+      </div>
+
+      <div class="qr-card home-card" onclick="showTab('glossary')">
+        <h3>📖 Glossary</h3>
+        <p>Search agency acronyms, policy terms, and common abbreviations.</p>
+      </div>
+    </div>
+  </div>
+
   <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#128640;</div><h2>Start here: your training roadmap</h2><span class="section-sub">Manager fills in details below</span></div>
     <div class="callout c-green">
