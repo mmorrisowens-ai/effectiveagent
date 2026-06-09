@@ -386,7 +386,7 @@ body.manager-authenticated .agent-only{display:none!important}
 </div>
 
 <div class="tab-bar no-print">
-  <button class="tab active" onclick="showTab('info',this)">&#128640; Start Here</button>
+  <button class="tab active" onclick="showTab('info',this)">🏠 Home</button>
   <button class="tab" onclick="showTab('quickref',this)">&#129517; Quick Reference</button>
   <button class="tab" onclick="showTab('licensing',this)">&#128203; Licensing</button>
   <button class="tab" onclick="showTab('setup',this)">&#9989; Setup Checklist</button>
@@ -418,7 +418,39 @@ body.manager-authenticated .agent-only{display:none!important}
       <li><input type="checkbox" id="road6" onchange="updateOverallProgress()"><label for="road6"><strong>6. Begin independent production and leadership development</strong><span class="cl-sub">Leadership conversations come after the initial training foundation is in place.</span></label></li>
     </ul>
   </div>
+<div class="section">
 
+  <div class="section-header">
+    <div class="section-icon">🏠</div>
+    <h2>What do you need?</h2>
+    <span class="section-sub">Quick access</span>
+  </div>
+
+  <div class="qr-grid">
+
+    <div class="qr-card" onclick="showTab('rebuttals')" style="cursor:pointer">
+      <h3>📞 Scripts</h3>
+      <p>Presentation flow, rebuttals, and phone scripts.</p>
+    </div>
+
+    <div class="qr-card" onclick="showTab('underwriting')" style="cursor:pointer">
+      <h3>🩺 Underwriting</h3>
+      <p>Build chart, health conditions, and underwriting guidance.</p>
+    </div>
+
+    <div class="qr-card" onclick="showTab('products')" style="cursor:pointer">
+      <h3>📚 Policies</h3>
+      <p>Product knowledge and pairing.</p>
+    </div>
+
+    <div class="qr-card" onclick="showTab('quickref')" style="cursor:pointer">
+      <h3>☎️ Who To Contact</h3>
+      <p>Manager, TNT Support, Help Desk, and office contacts.</p>
+    </div>
+
+  </div>
+
+</div>
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128467;</div><h2>Your first 30 days</h2><span class="section-sub">What happens next</span></div>
     <div class="timeline">
