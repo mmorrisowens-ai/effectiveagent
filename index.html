@@ -897,7 +897,7 @@ body.agent-view #tab-info .home-secondary{display:none!important}
 <div id="tab-glossary" class="tab-panel">
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128214;</div><h2>Agency Glossary</h2><span class="section-sub">Search acronyms and terminology</span></div>
-    <input id="glossarySearch" class="gloss-search" type="text" placeholder="Search acronym, definition, or keyword..." onkeyup="filterGlossary()">
+    <input id="glossarySearch" class="gloss-search" type="text" placeholder="Search acronym, definition, or keyword..." oninput="filterGlossary()" onkeyup="filterGlossary()">
     <div class="gloss-wrap">
       <table class="gloss-table" id="glossaryTable">
 <thead><tr><th>Acronym</th><th>Definition</th><th>Additional Information</th></tr></thead>
@@ -2196,12 +2196,31 @@ function expandScripts(open){
 calYear=today.getFullYear();calMonth=today.getMonth();
 
 function filterGlossary(){
- const input=document.getElementById('glossarySearch');
- const filter=input.value.toLowerCase();
- document.querySelectorAll('#glossaryTable tbody tr').forEach(tr=>{
-   tr.style.display=tr.innerText.toLowerCase().includes(filter)?'':'none';
- });
+  const input = document.getElementById('glossarySearch');
+  const table = document.getElementById('glossaryTable');
+  if (!input || !table) return;
+
+  const filter = input.value.trim().toLowerCase();
+  const rows = table.querySelectorAll('tbody tr');
+
+  rows.forEach(function(row){
+    const rowText = row.textContent.toLowerCase();
+    row.style.display = !filter || rowText.includes(filter) ? '' : 'none';
+  });
 }
+
+function setupGlossarySearch(){
+  const input = document.getElementById('glossarySearch');
+  if (!input) return;
+
+  input.disabled = false;
+  input.readOnly = false;
+  input.style.pointerEvents = 'auto';
+  input.addEventListener('input', filterGlossary);
+  input.addEventListener('keyup', filterGlossary);
+}
+
+document.addEventListener('DOMContentLoaded', setupGlossarySearch);
 const supabaseUrl = "https://ghtwudtcgfywfgggyztc.supabase.co";
 const supabaseKey = "sb_publishable_SE1GhHygwcESdMkuF3BSug_K-RklCAQ";
 
