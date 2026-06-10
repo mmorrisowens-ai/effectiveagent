@@ -197,7 +197,7 @@ select.field-input{cursor:pointer}
 .agent-load-status{font-size:11.5px;color:var(--muted);margin-top:6px}
 .agent-loaded-badge{display:inline-block;background:var(--green-lt);color:var(--green-mid);border:1px solid #b8e5cc;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:700;margin-left:6px}
 
-.role-switcher{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:1.25rem;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.role-switcher{display:none!important}
 .role-title{font-size:13px;font-weight:700;color:var(--navy)}
 .role-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
 .role-actions{display:flex;gap:8px;flex-wrap:wrap}
@@ -209,7 +209,7 @@ select.field-input{cursor:pointer}
 .lock-error{font-size:11.5px;color:var(--coral);font-weight:700;margin-left:4px}
 .agent-mode-note{background:var(--blue-lt);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:#1a3e6a;margin-bottom:1.25rem}
 body:not(.manager-authenticated) .manager-only{display:none!important}
-body.agent-view input:not(#managerPassword):not(#glossarySearch),body.agent-view textarea,body.agent-view select:not(#agentProgressSelect){pointer-events:none;background:#f1f5f9;color:var(--muted)}
+body.agent-view input:not(#managerPassword):not(#glossarySearch),body.agent-view textarea,body.agent-view select{pointer-events:none;background:#f1f5f9;color:var(--muted)}
 body.agent-view #glossarySearch{pointer-events:auto;background:var(--white);color:var(--text)}
 
 body.agent-view input[type=checkbox]{accent-color:var(--muted)}
@@ -394,7 +394,7 @@ body.manager-authenticated .agent-only{display:none!important}
 .home-secondary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
 .home-secondary-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;cursor:pointer;font-size:12.5px;font-weight:700;color:var(--navy)}
 .home-secondary-card:hover{border-color:var(--green);color:var(--green-mid)}
-body.agent-view #tab-info .home-secondary{display:none!important}
+#tab-info .home-secondary{display:none!important}
 .gloss-search{width:100%;padding:10px 12px;font-size:13px;border:1.5px solid var(--border);border-radius:9px;background:var(--bg);margin-bottom:10px;font-family:'DM Sans',sans-serif}
 .gloss-search:focus{outline:none;border-color:var(--green);background:#fff}
 .gloss-wrap{max-height:62vh;overflow:auto;border:1px solid var(--border);border-radius:10px;background:#fff}
@@ -449,99 +449,67 @@ body.agent-view #tab-info .home-secondary{display:none!important}
 </div>
 
 <div class="agent-mode-note agent-only no-print">
-  <strong>Agent Resource Mode:</strong> This view is read-only. Use the tabs as your resource guide; your manager controls setup, saved records, and editable progress tracking.
+  <strong>Agent Resource Mode:</strong> This view is read-only. Use the Home page or left menu to find scripts, contacts, underwriting, policies, glossary, and setup resources.
 </div>
 
 
 <div class="manager-banner no-print manager-only">
-  &#9881;&#65039; <strong>Manager Setup Mode:</strong> Fill in the Start Here tab first &mdash; the packet auto-populates throughout. Then send this file to the agent to complete their checklist and track progress.
-</div>
-
-<div class="overall-progress-card no-print">
-  <div class="overall-progress-head">
-    <div class="overall-progress-title">📊 Agent Onboarding Progress</div>
-    <div class="overall-progress-meta" id="overallProgressText">0% complete</div>
-  </div>
-  <div class="overall-progress-track"><div class="overall-progress-fill" id="overallProgressBar"></div></div>
-  <div class="overall-progress-sub" id="overallProgressSub">0 of 0 checklist items complete</div>
-  <div class="overall-progress-sub agent-only" style="margin-top:4px">Load your saved record below to see your current progress.</div>
-</div>
-
-<div class="agent-progress-loader agent-only no-print">
-  <div class="section-header" style="border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:.75rem;padding-bottom:.75rem">
-    <div class="section-icon">📂</div>
-    <h2>Load My Progress</h2>
-    <span class="section-sub">Agent view</span>
-  </div>
-  <div class="field-grid g1" style="margin-bottom:0">
-    <div>
-      <div class="field-label">Choose your name</div>
-      <select class="field-input" id="agentProgressSelect">
-        <option value="">— Loading saved agents —</option>
-      </select>
-    </div>
-  </div>
-  <div class="action-bar">
-    <button class="btn btn-primary" onclick="loadAgentProgressOnly()">📊 Load My Progress</button>
-  </div>
-  <div class="agent-load-status" id="agentProgressStatus">Choose your name to load your saved checklist and progress bar.</div>
+  &#9881;&#65039; <strong>Manager Setup Mode:</strong> Manager mode unlocks setup fields and certification tools. Licensing and scholarship workflows live in the separate manager page.
 </div>
 
 <div class="portal-shell">
 <div class="tab-bar no-print">
   <button class="tab active" onclick="showTab('info',this)">🏠 Home</button>
-  <button class="tab" onclick="showTab('quickref',this)">&#129517; Quick Reference</button>
-  <button class="tab" onclick="showTab('glossary',this)">&#128214; Glossary</button>
-  <button class="tab" onclick="showTab('licensing',this)">&#128203; Licensing</button>
-  <button class="tab" onclick="showTab('setup',this)">&#9989; Setup Checklist</button>
-  <button class="tab" onclick="showTab('schedule',this)">&#128218; Training Plan</button>
-  <button class="tab" onclick="showTab('calendar',this)">&#128197; Calendar</button>
-  <button class="tab" onclick="showTab('rebuttals',this)">&#128222; Scripts</button>
+  <button class="tab" onclick="showTab('quickref',this)">☎️ Who to Contact</button>
+  <button class="tab" onclick="showTab('rebuttals',this)">📞 Scripts</button>
   <button class="tab" onclick="showTab('textscripts',this)">💬 Text Scripts</button>
-  <button class="tab" onclick="showTab('products',this)">&#128218; Product Knowledge</button>
-  <button class="tab" onclick="showTab('pairing',this)">&#129309; Product Pairing</button>
-  <button class="tab" onclick="showTab('underwriting',this)">&#129658; Underwriting</button>
-  <button class="tab" onclick="showTab('build',this)">&#128207; Height &amp; Weight</button>
-  <button class="tab manager-only" onclick="showTab('cert',this)">&#127942; Field Ready Cert</button>
+  <button class="tab" onclick="showTab('underwriting',this)">🩺 Underwriting</button>
+  <button class="tab" onclick="showTab('build',this)">📏 Height &amp; Weight</button>
+  <button class="tab" onclick="showTab('glossary',this)">📖 Glossary</button>
+  <button class="tab" onclick="showTab('products',this)">📚 Product Knowledge</button>
+  <button class="tab" onclick="showTab('pairing',this)">🤝 Product Pairing</button>
+  <button class="tab" onclick="showTab('calendar',this)">📅 Calendar</button>
+  <button class="tab" onclick="showTab('setup',this)">✅ Setup Checklist</button>
+  <button class="tab manager-only" onclick="showTab('cert',this)">🏆 Field Ready Cert</button>
   <div class="sidebar-spacer"></div>
   <button class="tab sidebar-manager-login" onclick="requestManagerMode()">🔐 Manager Login</button>
 </div>
 
 <div class="portal-main">
 
-<!-- TAB: START HERE -->
+<!-- TAB: HOME -->
 <div id="tab-info" class="tab-panel active">
   <div class="home-landing-note no-print">
-    <h2>Welcome to EffectiveAgent</h2>
-    <p>Load your progress, then use the quick blocks below to jump to the tools agents use most.</p>
+    <h2>EffectiveAgent Resource Hub</h2>
+    <p>Select what you need below, or use the left menu to jump directly to a resource.</p>
   </div>
 
   <div class="section no-print">
     <div class="section-header">
       <div class="section-icon">🏠</div>
       <h2>What do you need?</h2>
-      <span class="section-sub">Quick access</span>
+      <span class="section-sub">Most-used agent tools</span>
     </div>
 
     <div class="qr-grid">
       <div class="qr-card home-card" onclick="showTab('rebuttals')">
         <h3>📞 Scripts</h3>
-        <p>Phone scripts, presentation flow, rebuttals, and down-closing.</p>
-      </div>
-
-      <div class="qr-card home-card" onclick="showTab('underwriting')">
-        <h3>🩺 Underwriting</h3>
-        <p>Health conditions, ALX guidance, build chart, and when to call a manager.</p>
-      </div>
-
-      <div class="qr-card home-card" onclick="showTab('products')">
-        <h3>📚 Policies</h3>
-        <p>Product knowledge, product pairing, and what each policy solves.</p>
+        <p>Phone scripts, presentation flow, objections, rebuttals, and down-closing.</p>
       </div>
 
       <div class="qr-card home-card" onclick="showTab('quickref')">
         <h3>☎️ Who To Contact</h3>
-        <p>Manager, Agent Concierge, TNT support, Help Desk, and office contacts.</p>
+        <p>Agent Concierge, TNT support, Help Desk, Quality Managers, and office contacts.</p>
+      </div>
+
+      <div class="qr-card home-card" onclick="showTab('products')">
+        <h3>📚 Policies</h3>
+        <p>Product knowledge, policy purpose, and what each product is designed to solve.</p>
+      </div>
+
+      <div class="qr-card home-card" onclick="showTab('underwriting')">
+        <h3>🩺 Underwriting</h3>
+        <p>Health conditions, ALX guidance, build chart direction, and when to call a manager.</p>
       </div>
     </div>
   </div>
@@ -549,35 +517,22 @@ body.agent-view #tab-info .home-secondary{display:none!important}
   <div class="section no-print">
     <div class="section-header">
       <div class="section-icon">⚡</div>
-      <h2>Common tasks</h2>
-      <span class="section-sub">Training workflow</span>
+      <h2>Quick jumps</h2>
+      <span class="section-sub">Reference tools</span>
     </div>
 
-    <div class="qr-grid">
-      <div class="qr-card home-card" onclick="showTab('setup')">
-        <h3>✅ Setup Checklist</h3>
-        <p>Accounts, apps, email, Discord, EPIC, and TNT setup.</p>
-      </div>
-
-      <div class="qr-card home-card" onclick="showTab('licensing')">
-        <h3>📋 Licensing</h3>
-        <p>State course provider, exam steps, scholarship, and Agent Concierge.</p>
-      </div>
-
-      <div class="qr-card home-card" onclick="showTab('calendar')">
-        <h3>📅 Calendar</h3>
-        <p>Training calendar, custom events, and key deadlines.</p>
-      </div>
-
-      <div class="qr-card home-card" onclick="showTab('glossary')">
-        <h3>📖 Glossary</h3>
-        <p>Search agency acronyms, policy terms, and common abbreviations.</p>
-      </div>
+    <div class="home-secondary-grid">
+      <div class="home-secondary-card" onclick="showTab('textscripts')">💬 Text Scripts</div>
+      <div class="home-secondary-card" onclick="showTab('build')">📏 Height &amp; Weight</div>
+      <div class="home-secondary-card" onclick="showTab('glossary')">📖 Glossary</div>
+      <div class="home-secondary-card" onclick="showTab('pairing')">🤝 Product Pairing</div>
+      <div class="home-secondary-card" onclick="showTab('calendar')">📅 Calendar</div>
+      <div class="home-secondary-card" onclick="showTab('setup')">✅ Setup Checklist</div>
     </div>
   </div>
 
   <div class="section home-secondary">
-    <div class="section-header"><div class="section-icon">&#128640;</div><h2>Start here: your training roadmap</h2><span class="section-sub">Manager fills in details below</span></div>
+    <div class="section-header"><div class="section-icon">&#128640;</div><h2>Start here: your training roadmap</h2><span class="section-sub">Agent resource guide</span></div>
     <div class="callout c-green">
       <strong>&#127919; YOUR GOAL</strong>
       This portal replaces the long onboarding email and multiple attachments. Start at the top, complete each checklist, and use the Scripts tab as your foundational playbook.
@@ -615,7 +570,6 @@ body.agent-view #tab-info .home-secondary{display:none!important}
   <div class="section home-secondary">
     <div class="section-header"><div class="section-icon">&#128222;</div><h2>Important contacts</h2><span class="section-sub">Where to go for help</span></div>
     <div class="contact-grid">
-      <div class="contact-card"><div class="lbl">Manager</div><div class="val">Use the manager information below</div></div>
       <div class="contact-card"><div class="lbl">Office</div><div class="val">(417) 731-4006</div></div>
       <div class="contact-card"><div class="lbl">Agent Concierge</div><div class="val">469-317-0281<br>LNAgentConcierge@Globe.Life</div></div>
       <div class="contact-card"><div class="lbl">Completed forms / certifications</div><div class="val">mowens@globe.life</div></div>
@@ -651,16 +605,8 @@ body.agent-view #tab-info .home-secondary{display:none!important}
       <div><div class="field-label">Agent first &amp; last name</div><input class="field-input" id="agentName" placeholder="First Last" oninput="syncHero()"></div>
       <div><div class="field-label">Agent number</div><input class="field-input" id="agentNum" placeholder="e.g. 12345678" oninput="syncHero()"></div>
     </div>
-    <div class="field-grid g2">
-      <div><div class="field-label">Start date</div><input class="field-input" type="date" id="startDate" oninput="syncHero();renderCal()"></div>
-      <div><div class="field-label">Manager name</div><input class="field-input" id="managerName" placeholder="Manager's full name" oninput="syncManagerContact()"></div>
-    </div>
-    <div class="field-grid g2">
-      <div><div class="field-label">Manager phone</div><input class="field-input" id="managerPhone" placeholder="(xxx) xxx-xxxx" oninput="syncManagerContact()"></div>
-      <div><div class="field-label">Manager email</div><input class="field-input" id="managerEmail" placeholder="manager@globe.life" oninput="syncManagerContact()"></div>
-    </div>
     <div class="field-grid g1">
-      <div><div class="field-label">Preferred contact method</div><input class="field-input" id="managerContactMethod" placeholder="Text, Call, Email, Discord" oninput="syncManagerContact()"></div>
+      <div><div class="field-label">Start date</div><input class="field-input" type="date" id="startDate" oninput="syncHero();renderCal()"></div>
     </div>
     <div class="field-grid g2">
       <div><div class="field-label">Agent personal email (used until work email is set up)</div><input class="field-input" id="personalEmail" placeholder="e.g. jsmith@gmail.com"></div>
@@ -741,9 +687,8 @@ body.agent-view #tab-info .home-secondary{display:none!important}
     <p>Before you ask, check here first. This tab is designed to help you find the right answer, contact, or next step quickly.</p>
     <div class="resource-list">
       <div class="resource-pill">&#129517; Quick Reference</div>
-      <div class="resource-pill">&#128203; Licensing</div>
+      <div class="resource-pill">&#128214; Glossary</div>
       <div class="resource-pill">&#128222; Scripts</div>
-      <div class="resource-pill">&#128100; Your Manager</div>
     </div>
   </div>
 
@@ -755,23 +700,16 @@ body.agent-view #tab-info .home-secondary{display:none!important}
     </div>
     <div class="qr-grid">
       <div class="qr-card"><h3>&#129517; 1. Quick Reference</h3><p>Use this for contacts, logins, common tasks, and “where do I send this?” questions.</p></div>
-      <div class="qr-card"><h3>&#128203; 2. Licensing</h3><p>Use this for state licensing, exam scheduling, scholarship reimbursement, and Agent Concierge information.</p></div>
+      <div class="qr-card"><h3>&#128214; 2. Glossary + Contacts</h3><p>Use this for glossary terms, contacts, operational questions, and common new-agent questions.</p></div>
       <div class="qr-card"><h3>&#128222; 3. Scripts</h3><p>Use this for foundational phone scripts, presentation flow, objections, and down-closing language.</p></div>
-      <div class="qr-card"><h3>&#128100; 4. Your Manager</h3><p>If you still need help after checking the resource tabs, reach out to your manager using the contact info below.</p></div>
+      <div class="qr-card"><h3>&#9742;&#65039; 4. Who To Contact</h3><p>If you still need help after checking the resource tabs, use the contacts below or ask your manager directly.</p></div>
     </div>
   </div>
 
   <div class="section">
     <div class="section-header"><div class="section-icon">&#128222;</div><h2>Important contacts</h2><span class="section-sub">Who to contact and when</span></div>
+    <div class="callout c-blue"><strong>MANAGER CONTACT</strong>Your manager will give you their direct contact information during your 1-on-1 setup.</div>
     <div class="qr-grid">
-      <div class="qr-card qr-big">
-        <h3>&#128100; Your Manager</h3>
-        <div class="qr-contact-line"><div class="lbl">Name</div><div class="val" id="qrManagerName">Manager name not entered yet</div></div>
-        <div class="qr-contact-line"><div class="lbl">Phone</div><div class="val" id="qrManagerPhone">Manager phone not entered yet</div></div>
-        <div class="qr-contact-line"><div class="lbl">Email</div><div class="val" id="qrManagerEmail">Manager email not entered yet</div></div>
-        <div class="qr-contact-line"><div class="lbl">Preferred</div><div class="val" id="qrManagerContact">Preferred method not entered yet</div></div>
-      </div>
-
       <div class="qr-card">
         <h3>&#127970; Agent Services</h3>
         <p><strong>Phone:</strong> 1-800-405-7508<br><strong>Email:</strong> LNAgentServices@Globe.Life</p>
@@ -885,7 +823,7 @@ body.agent-view #tab-info .home-secondary{display:none!important}
     </details>
     <details>
       <summary>Who do I contact if I am stuck?</summary>
-      <div>Check Quick Reference, Licensing, and Scripts first. If you still need help, reach out to your manager using the manager contact card above.</div>
+      <div>Check Quick Reference, Scripts, Underwriting, and Glossary first. If you still need help, ask your manager directly.</div>
     </details>
   </div>
 </div>
@@ -983,97 +921,6 @@ body.agent-view #tab-info .home-secondary{display:none!important}
   </div>
 </div>
 
-<!-- TAB: LICENSING -->
-<div id="tab-licensing" class="tab-panel">
-  <div class="section">
-    <div class="section-header"><div class="section-icon">&#128205;</div><h2>Agent state &amp; course provider</h2><span class="section-sub">Select below &mdash; packet adjusts automatically</span></div>
-    <div class="field-grid g2" style="margin-bottom:1rem">
-      <div>
-        <div class="field-label">Agent's state</div>
-        <select class="field-input" id="agentState" onchange="updateState()">
-          <option value="">- Select state -</option>
-          <option value="MO">Missouri (MO)</option>
-          <option value="IL">Illinois (IL)</option>
-        </select>
-      </div>
-      <div>
-        <div class="field-label">License type</div>
-        <select class="field-input" id="licenseType" onchange="updateState()">
-          <option value="perm">Permanent license state</option>
-          <option value="temp">Temp-to-permanent state</option>
-        </select>
-      </div>
-    </div>
-    <div id="state-details" style="display:none">
-      <div id="state-MO" style="display:none">
-        <div class="callout c-blue"><strong>&#127963; MISSOURI &mdash; TSI National</strong>TSI National virtual study: 2-day live webinar + 70 days online access. Visit <a href="https://tsinational.com" target="_blank">tsinational.com</a> to enroll. Exam via Pearson VUE (in-person only). $29 per line / $49 combined. Apply at <a href="https://nipr.com" target="_blank">nipr.com</a> &mdash; $100 + $5.60 NIPR fee. 24&ndash;48 hour wait after exam. No fingerprinting required.</div>
-        <div class="field-grid g2">
-          <div><div class="field-label">TSI National class date</div><input class="field-input" type="date" id="classDateMO" oninput="renderCal()"></div>
-          <div><div class="field-label">Pearson VUE exam target date</div><input class="field-input" type="date" id="examDateMO" oninput="renderCal()"></div>
-        </div>
-        <div class="field-grid g1"><div><div class="field-label">TSI National enrollment link (manager fills in)</div><input class="field-input" id="tsiLink" placeholder="https://tsinational.com/..."></div></div>
-      </div>
-      <div id="state-IL" style="display:none">
-        <div class="callout c-blue"><strong>&#127961; ILLINOIS &mdash; Xcel Solutions</strong>Xcel Solutions: <a href="https://xcelsolutions.com" target="_blank">xcelsolutions.com</a>. Required 7.5-hour live webinar per line (Life + Health = 2 webinars, 40 hrs total). 100% attendance mandatory &mdash; webcam on entire time. Exam via Pearson VUE (in-person). $92 per exam ($184 total). $215 application fee + fingerprinting required. 5-day mandatory wait after passing before applying via NIPR.</div>
-        <div class="callout c-amber"><strong>&#9888;&#65039; IL WEBINAR RULES</strong>Log in 5 minutes early &mdash; latecomers turned away. Webcam on 100% of the time. Must answer all polling questions. Logged off 10+ cumulative minutes = must reschedule.</div>
-        <div class="field-grid g2">
-          <div><div class="field-label">Xcel Solutions class date (Life)</div><input class="field-input" type="date" id="classDateIL" oninput="renderCal()"></div>
-          <div><div class="field-label">Pearson VUE exam target date</div><input class="field-input" type="date" id="examDateIL" oninput="renderCal()"></div>
-        </div>
-        <div class="field-grid g1"><div><div class="field-label">Xcel Solutions enrollment link (manager fills in)</div><input class="field-input" id="xcelLink" placeholder="https://xcelsolutions.com/..."></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-header"><div class="section-icon">&#128176;</div><h2>Scholarship program</h2><span class="section-sub">Auto-selected based on license type</span></div>
-    <div class="callout c-green">
-      <strong>&#127919; YOUR GOAL: 0&ndash;15 DAYS = 100% BACK</strong>
-      Complete coursework and pass your exam within 15 days of enrollment and Globe Life reimburses 100% of your licensing costs on your next paycheck. Every agent qualifies &mdash; permanent or temp-to-perm state.
-    </div>
-    <div id="schol-perm" class="schol-content active">
-      <div class="schol-header" style="background:var(--navy)"><h3>Program A &mdash; Permanent License States</h3><p>For agents in states that require a permanent license from the start (Missouri, Illinois)</p></div>
-      <div class="schol-body">
-        <div class="schol-col"><h4>Steps</h4><ol style="margin-left:16px;color:var(--muted);font-size:13px;line-height:1.9"><li>Enroll in coursework</li><li>Pass the exam</li></ol><p style="font-size:12px;color:var(--muted);margin-top:12px">The Concierge Department will begin reaching out after you have enrolled in the coursework.</p></div>
-        <div class="schol-col"><h4>Reimbursement schedule</h4><div class="reimb-row reimb-100"><span class="reimb-tl">0&ndash;15 Days</span><span class="reimb-am">&rarr; 100% Reimbursement</span></div><div class="reimb-row reimb-50"><span class="reimb-tl">16&ndash;30 Days</span><span class="reimb-am">&rarr; 50% Reimbursement</span></div><p class="fine">Paid on next available paycheck after submission of passing results. Reimbursement = cost of obtaining the permanent license. Test fee reimbursed for the attempt passed. Form: 39950A / LND1399501A 0326</p></div>
-      </div>
-    </div>
-    <div id="schol-temp" class="schol-content">
-      <div class="schol-header" style="background:var(--purple)"><h3>Program B &mdash; Temp-to-Permanent States</h3><p>For agents hired on a temporary license transitioning to permanent status</p></div>
-      <div class="schol-body">
-        <div class="schol-col"><h4>Steps</h4><ol style="margin-left:16px;color:var(--muted);font-size:13px;line-height:1.9"><li>Get your Temporary License</li><li>Enroll in coursework within 30 days of first submit</li><li>Pass your licensing exam</li></ol><p style="font-size:12px;color:var(--muted);margin-top:12px">The Concierge Team will begin reaching out within a week of your first submit.</p></div>
-        <div class="schol-col"><h4>Reimbursement schedule</h4><div class="reimb-row reimb-100"><span class="reimb-tl">0&ndash;15 Days</span><span class="reimb-am">&rarr; 100% Reimbursement</span></div><div class="reimb-row reimb-50"><span class="reimb-tl">16&ndash;30 Days</span><span class="reimb-am">&rarr; 50% Reimbursement</span></div><p class="fine">Must enroll within 30 days of first submit to qualify. Paid on next available paycheck. Scholarship = cost of obtaining permanent license. Test fee reimbursed for attempt passed. Form: 06741A / LND674104A 0326</p></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-header"><div class="section-icon">&#128222;</div><h2>Agent Concierge Team</h2></div>
-    <div class="concierge-card">
-      <div>
-        <h3>The Agent Concierge Team Welcomes You</h3>
-        <p style="color:rgba(255,255,255,0.5);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">Launch Your Career With Confidence</p>
-        <div class="concierge-services">
-          <span class="concierge-service">Answer questions about coursework and exam prep</span>
-          <span class="concierge-service">Put you in touch with the right contact or resource</span>
-          <span class="concierge-service">Provide exam scheduling requirements</span>
-          <span class="concierge-service">Stay in touch with updates and encouragement throughout prep</span>
-        </div>
-      </div>
-      <div class="concierge-contact-box">
-        <div class="lbl">Email</div>
-        <span class="val" style="font-size:12px">LNAgentConcierge<br>@Globe.Life</span>
-        <div class="lbl" style="margin-top:12px">Call / Text</div>
-        <span class="val">469-317-0281</span>
-      </div>
-    </div>
-    <div class="callout c-amber">
-      <strong>&#128231; SUBMIT PASSING RESULTS HERE</strong>
-      Once you pass your exam, immediately submit your results to your manager and <strong>LNAgentConcierge@Globe.Life</strong> or call/text <strong>469-317-0281</strong> to trigger your scholarship reimbursement.
-    </div>
-  </div>
-</div>
-
 <!-- TAB: SETUP CHECKLIST -->
 <div id="tab-setup" class="tab-panel">
   <div class="section">
@@ -1086,7 +933,7 @@ body.agent-view #tab-info .home-secondary{display:none!important}
       <li><input type="checkbox" id="s4" onchange="updateProgress() ; updateOverallProgress()"><label for="s4">Create work Gmail: [first initial][last name].libnat@gmail.com<span class="cl-sub">Example: Jamie Collins &rarr; jcollins.libnat@gmail.com (add middle initial if taken)</span></label></li>
       <li><input type="checkbox" id="s5" onchange="updateProgress() ; updateOverallProgress()"><label for="s5">Email your name, phone number, and work email to <strong>mowens@globe.life</strong> to be added to the Agent Roster<span class="cl-sub">Use your personal email until your work email is set up.</span></label></li>
       <li><input type="checkbox" id="s6" onchange="updateProgress() ; updateOverallProgress()"><label for="s6">Create Discord account &mdash; notify manager for server invite, set display name to your full first and last name</label></li>
-      <li><input type="checkbox" id="s7" onchange="updateProgress() ; updateOverallProgress()"><label for="s7">Enroll in your pre-licensing coursework (see Licensing tab for your state's provider and enrollment link)<span class="pill pill-amber">Day 1 goal</span></label></li>
+      <li><input type="checkbox" id="s7" onchange="updateProgress() ; updateOverallProgress()"><label for="s7">Enroll in your pre-licensing coursework using the link or instructions provided by your manager<span class="pill pill-amber">Day 1 goal</span></label></li>
       <li><input type="checkbox" id="s8" onchange="updateProgress() ; updateOverallProgress()"><label for="s8">Apply for Life insurance license at <a href="https://nipr.com" target="_blank">nipr.com</a> (fill required * fields only)</label></li>
       <li><input type="checkbox" id="s9" onchange="updateProgress() ; updateOverallProgress()"><label for="s9">Download Adobe Acrobat, Cam Scanner, and LogMeIn Rescue Calling Card</label></li>
       <li><input type="checkbox" id="s10" onchange="updateProgress() ; updateOverallProgress()"><label for="s10">Log into Top Notch Training using credentials from Agent Info tab and begin Course 1<span class="pill pill-green">Let's go!</span></label></li>
@@ -1124,59 +971,10 @@ body.agent-view #tab-info .home-secondary{display:none!important}
   </div>
 </div>
 
-<!-- TAB: STUDY SCHEDULE -->
-<div id="tab-schedule" class="tab-panel">
-  <div class="section">
-    <div class="section-header"><div class="section-icon">&#128214;</div><h2>Pre-licensing daily study schedule</h2><span class="section-sub">Goal: pass exam in 15 days = 100% scholarship</span></div>
-    <div class="callout c-green">
-      <strong>&#128176; SCHOLARSHIP TIMELINE</strong>
-      Complete coursework and pass your exam within 15 days of enrollment = 100% reimbursement on your next paycheck. 16&ndash;30 days = 50%. Your manager checks in daily &mdash; use this schedule to stay on track.
-    </div>
-    <div id="study-rows">
-      <div class="study-row"><input type="checkbox" class="study-check" id="st1" onchange="updateOverallProgress()"><div class="study-day">Day 1</div><div class="study-topic"><strong>Insurance basics</strong> &mdash; risks, perils &amp; risk-sharing; Life insurance fundamentals<span class="pill pill-blue">Foundation</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st2" onchange="updateOverallProgress()"><div class="study-day">Day 2</div><div class="study-topic"><strong>Types of life insurance policies</strong> &mdash; Term vs. permanent coverage</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st3" onchange="updateOverallProgress()"><div class="study-day">Day 3</div><div class="study-topic"><strong>Policy provisions, riders &amp; options</strong> &mdash; Beneficiary rules</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st4" onchange="updateOverallProgress()"><div class="study-day">Day 4</div><div class="study-topic"><strong>Annuities</strong> &mdash; Types, benefits, and payment structures<span class="pill pill-amber">Key topic</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st5" onchange="updateOverallProgress()"><div class="study-day">Day 5</div><div class="study-topic"><strong>Group life insurance</strong> &mdash; Other forms of group coverage</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st6" onchange="updateOverallProgress()"><div class="study-day">Day 6</div><div class="study-topic"><strong>Health insurance fundamentals</strong> &mdash; Key concepts &amp; systems</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st7" onchange="updateOverallProgress()"><div class="study-day">Day 7</div><div class="study-topic"><strong>Disability income &amp; AD&amp;D</strong> &mdash; Accident coverage<span class="pill pill-green">1 week done!</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st8" onchange="updateOverallProgress()"><div class="study-day">Day 8</div><div class="study-topic"><strong>Managed care</strong> &mdash; HMOs, PPOs, EPOs; Provider types &amp; reimbursement</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st9" onchange="updateOverallProgress()"><div class="study-day">Day 9</div><div class="study-topic"><strong>Medicare, Medicaid &amp; Social Security</strong> &mdash; Government health programs<span class="pill pill-amber">Key topic</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st10" onchange="updateOverallProgress()"><div class="study-day">Day 10</div><div class="study-topic"><strong>State regulations &amp; ethics</strong> &mdash; State-specific insurance law</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st11" onchange="updateOverallProgress()"><div class="study-day">Day 11</div><div class="study-topic"><strong>Full review</strong> &mdash; Flash cards &amp; practice tests, weak-area focus</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st12" onchange="updateOverallProgress()"><div class="study-day">Day 12</div><div class="study-topic"><strong>Full practice exam</strong> &mdash; Timed, no notes, aim for 80%+</div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st13" onchange="updateOverallProgress()"><div class="study-day">Day 13</div><div class="study-topic"><strong>Schedule your state exam</strong> at pearsonvue.com &mdash; light review only today<span class="pill pill-amber">Action required</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st14" onchange="updateOverallProgress()"><div class="study-day">Day 14</div><div class="study-topic"><strong>&#127942; EXAM DAY</strong> &mdash; Arrive early, bring valid government-issued photo ID<span class="pill pill-green">Goal: Pass!</span></div></div>
-      <div class="study-row"><input type="checkbox" class="study-check" id="st15" onchange="updateOverallProgress()"><div class="study-day">Day 15</div><div class="study-topic"><strong>Submit passing results</strong> to Agent Concierge: LNAgentConcierge@Globe.Life or 469-317-0281 &mdash; triggers 100% scholarship reimbursement<span class="pill pill-gold">&#128176; 100% back</span></div></div>
-    </div>
-  </div>
-  <div class="section">
-    <div class="section-header"><div class="section-icon">&#127891;</div><h2>TNT 5-day completion goals</h2><span class="section-sub">Monday&ndash;Friday</span></div>
-    <ul class="checklist">
-      <li><input type="checkbox" id="tn1" onchange="updateOverallProgress()"><label for="tn1">Monday &mdash; Course 1: Introduction (14 lessons)<span class="pill pill-amber">Start strong</span></label></li>
-      <li><input type="checkbox" id="tn2" onchange="updateOverallProgress()"><label for="tn2">Tuesday &mdash; Course 2: Compensation (10 lessons)</label></li>
-      <li><input type="checkbox" id="tn3" onchange="updateOverallProgress()"><label for="tn3">Wednesday &mdash; Course 3: Presentation Part 1 (14 lessons)</label></li>
-      <li><input type="checkbox" id="tn4" onchange="updateOverallProgress()"><label for="tn4">Thursday &mdash; Course 4: Presentation Part 2 (18 lessons)</label></li>
-      <li><input type="checkbox" id="tn5" onchange="updateOverallProgress()"><label for="tn5">Friday &mdash; Course 5: Accident &amp; Health Plans (12 lessons)</label></li>
-      <li><input type="checkbox" id="tn6" onchange="updateOverallProgress()"><label for="tn6">TNT complete &mdash; workbook finished, quizzes complete, manager notified<span class="pill pill-green">Goal</span></label></li>
-    </ul>
-  </div>
-  <div class="section">
-    <div class="section-header"><div class="section-icon">&#128197;</div><h2>Recurring schedule</h2></div>
-    <ul class="checklist">
-      <li><input type="checkbox" id="r1" onchange="updateOverallProgress()"><label for="r1"><strong>Friday 9:30am CST</strong> &mdash; Agency team meeting on Discord (video on, every week)</label></li>
-      <li><input type="checkbox" id="r2" onchange="updateOverallProgress()"><label for="r2"><strong>Mon / Tue / Wed / Thu</strong> &mdash; Advanced trainings on Discord</label></li>
-      <li><input type="checkbox" id="r3" onchange="updateOverallProgress()"><label for="r3">Post appointments in Schedule chat on Discord after each call clinic</label></li>
-      <li><input type="checkbox" id="r4" onchange="updateOverallProgress()"><label for="r4">Log all calls in EPIC / Geopointe same day with notes, disposition, and follow-up dates</label></li>
-      <li><input type="checkbox" id="r5" onchange="updateOverallProgress()"><label for="r5">Update Google Calendar with each appointment: Client Name + Lead Type as event title</label></li>
-    </ul>
-  </div>
-</div>
-
 <!-- TAB: CALENDAR -->
 <div id="tab-calendar" class="tab-panel">
   <div class="section">
-    <div class="section-header"><div class="section-icon">&#128197;</div><h2>Training calendar</h2><span class="section-sub">Set start date in Start Here &rarr; auto-populates</span></div>
+    <div class="section-header"><div class="section-icon">&#128197;</div><h2>Training calendar</h2><span class="section-sub">Training dates and custom events</span></div>
     <div class="event-add-row no-print manager-only">
       <div class="field-group"><div class="field-label">Add custom event &mdash; date</div><input class="field-input" type="date" id="customDate" style="width:160px"></div>
       <div class="field-group" style="flex:2"><div class="field-label">Event label</div><input class="field-input" id="customLabel" placeholder="e.g. 1-on-1 with manager"></div>
@@ -1328,6 +1126,79 @@ body.agent-view #tab-info .home-secondary{display:none!important}
 
 
 
+
+
+<!-- TAB: TEXT SCRIPTS -->
+<div id="tab-textscripts" class="tab-panel">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">💬</div>
+      <h2>Text Scripts</h2>
+      <span class="section-sub">Copy, paste, personalize</span>
+    </div>
+
+    <div class="callout c-blue">
+      <strong>TEXTING RULE</strong>
+      Keep texts short, clear, and professional. Personalize the client name, appointment time, and your name before sending.
+    </div>
+
+    <details class="script-card" open>
+      <summary><span>Appointment Confirmation</span><span class="script-chip">Text</span></summary>
+      <div class="script-body">
+        Hi [Client Name], this is [Agent Name] with Globe Life Liberty National. Just confirming our appointment for [Day] at [Time]. Reply YES to confirm.
+      </div>
+    </details>
+
+    <details class="script-card" open>
+      <summary><span>Same-Day Reminder</span><span class="script-chip">Text</span></summary>
+      <div class="script-body">
+        Hi [Client Name], quick reminder that we are scheduled today at [Time]. I’ll give you a call then. Reply YES so I know we are still good.
+      </div>
+    </details>
+
+    <details class="script-card" open>
+      <summary><span>Sunday Confirmation for Monday Appointment</span><span class="script-chip">Text</span></summary>
+      <div class="script-body">
+        Hey [Client Name]! Your appointment is locked in for tomorrow, Monday at [Time]. Reply YES or “like” to confirm.<br><br>[Agent Name] - Globe Life
+      </div>
+    </details>
+
+    <details class="script-card" open>
+      <summary><span>No Answer Follow-Up</span><span class="script-chip">Text</span></summary>
+      <div class="script-body">
+        Hi [Client Name], this is [Agent Name] with Globe Life Liberty National. I just tried reaching you for our scheduled appointment. Give me a call back when you have a moment.
+      </div>
+    </details>
+
+    <details class="script-card" open>
+      <summary><span>Missed Appointment / Rebook</span><span class="script-chip">Text</span></summary>
+      <div class="script-body">
+        Hi [Client Name], looks like we missed each other for our appointment. No worries — would later today or tomorrow work better to get this taken care of?
+      </div>
+    </details>
+
+    <details class="script-card" open>
+      <summary><span>Running Behind</span><span class="script-chip">Text</span></summary>
+      <div class="script-body">
+        Hi [Client Name], I’m running about [10-15] minutes behind from my previous appointment. I appreciate your patience and will call you shortly.
+      </div>
+    </details>
+
+    <details class="script-card" open>
+      <summary><span>Referral Heads-Up</span><span class="script-chip">Text</span></summary>
+      <div class="script-body">
+        Hi [Referral Name], this is [Agent Name] with Globe Life Liberty National. [Sponsor Name] asked me to reach out to you regarding a no-cost benefit they sponsored for you. I’ll give you a quick call shortly.
+      </div>
+    </details>
+
+    <details class="script-card" open>
+      <summary><span>After Presentation Thank You</span><span class="script-chip">Text</span></summary>
+      <div class="script-body">
+        Hi [Client Name], thank you for taking the time to meet with me today. I appreciate you allowing me to review your options and help get everything submitted.
+      </div>
+    </details>
+  </div>
+</div>
 
 <!-- TAB: PRODUCT KNOWLEDGE -->
 <div id="tab-products" class="tab-panel">
@@ -2028,17 +1899,7 @@ function syncHero(){
   if(certName&&!certName.dataset.manual)certName.value=n;
   if(sigA&&!sigA.dataset.manual)sigA.value=n;
 }
-function syncManagerContact(){
-  const setText=(id,val,fallback)=>{const el=document.getElementById(id); if(el) el.textContent=val||fallback;};
-  const mn=document.getElementById('managerName')?.value;
-  const mp=document.getElementById('managerPhone')?.value;
-  const me=document.getElementById('managerEmail')?.value;
-  const mc=document.getElementById('managerContactMethod')?.value;
-  setText('qrManagerName',mn,'Manager name not entered yet');
-  setText('qrManagerPhone',mp,'Manager phone not entered yet');
-  setText('qrManagerEmail',me,'Manager email not entered yet');
-  setText('qrManagerContact',mc,'Preferred method not entered yet');
-}
+function syncManagerContact(){}
 function syncEpic(){
   const eu=document.getElementById('epicUser').value;
   const ceu=document.getElementById('certEpicUser');
@@ -2063,6 +1924,7 @@ function showTab(name,btn){
   if (activeButton) {
     activeButton.classList.add('active');
   }
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 function updateState(){
   const state=document.getElementById('agentState').value;
@@ -2339,7 +2201,6 @@ function getAgentRecordFromPage() {
   const packetState = collectPacketState();
 
   return {
-    manager_name: document.getElementById('managerName')?.value || '',
     agent_name: document.getElementById('agentName')?.value || 'Unnamed Agent',
     agent_email: document.getElementById('personalEmail')?.value || '',
     start_date: document.getElementById('startDate')?.value || null,
